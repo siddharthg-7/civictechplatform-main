@@ -1,0 +1,129 @@
+/* ===============================
+   SETTINGS & FORM COMPONENTS
+================================ */
+
+.settings-page {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.settings-card {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border);
+  margin-bottom: 2rem;
+  transition: var(--transition);
+}
+
+.settings-card:hover {
+  box-shadow: var(--shadow-lg);
+}
+
+.settings-card h2,
+.settings-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-main);
+  font-family: var(--font-heading);
+}
+
+.settings-group {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.settings-group label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.settings-group input,
+.settings-card input[type="text"],
+.settings-card input[type="email"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--bg-main);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.settings-group input:focus,
+.settings-card input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px var(--primary-light);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+.primary-btn,
+.settings-primary {
+  padding: 0.75rem 2rem;
+  background: var(--primary);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+}
+
+.primary-btn:hover,
+.settings-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.secondary-btn {
+  padding: 0.75rem 2rem;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.secondary-btn:hover {
+  background: var(--bg-main);
+  border-color: var(--text-muted);
+}
+
+.danger-btn {
+  padding: 0.75rem 2rem;
+  background: var(--danger);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+}
+
+.danger-btn:hover {
+  background: var(--danger-hover);
+  transform: translateY(-1px);
+}
+
+.security-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 640px) {
+  .settings-card {
+    padding: 1.5rem;
+  }
+
+  .primary-btn,
+  .secondary-btn,
+  .danger-btn {
+    width: 100%;
+  }
+}
