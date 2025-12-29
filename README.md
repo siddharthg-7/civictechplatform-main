@@ -9,22 +9,22 @@
 
 ---
 
-## 🌟 Key Features
+##  Key Features
 
-### 👤 Citizen Portal
+###  Citizen Portal
 - **Real-time Complaint Tracking**: Raise complaints (Roads, Water, Garbage, etc.) and monitor their status from "Pending" to "Resolved" with live updates.
 - **Project Proposals**: Propose new local development ideas (zebra crossings, parks, street lights) to your community.
 - **Community Polls**: Cast your vote on proposed projects in your neighborhood.
 - **Personalized Dashboard**: Track your civic activities, statistics, and municipality announcements.
 
-### 🛡️ Admin Dashboard (Municipality View)
+###  Admin Dashboard (Municipality View)
 - **Centralized Complaint Management**: View all platform-wide complaints, filter by location or type, and update statuses in real-time.
 - **User Insights**: Monitor active user registration and platform growth.
 - **Transparent Decisions**: Log official actions based on community voting results.
 
 ---
 
-## 🏗️ Technology Stack
+##  Technology Stack
 
 - **Frontend**: React 19, Vite, Vanilla CSS (Premium Custom Design).
 - **Backend-as-a-Service**: Firebase (Authentication, Firestore Database).
@@ -33,7 +33,7 @@
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js (v18+)
@@ -58,7 +58,7 @@
 
 ---
 
-## ⚙️ Configuration (Firebase Setup)
+##  Configuration (Firebase Setup)
 
 To use your own Firebase project, update `src/firebase.js` with your configuration:
 
@@ -78,7 +78,7 @@ To use your own Firebase project, update `src/firebase.js` with your configurati
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```text
 src/
@@ -93,7 +93,7 @@ src/
 
 ---
 
-## 🎨 Premium Aesthetics
+##  Premium Aesthetics
 The platform features a **state-of-the-art design system** including:
 - Glassmorphism effects in community polls.
 - Dynamic color-coded status badges.
