@@ -5,20 +5,38 @@ import userIcon from "../../assets/images/icons/user.png";
 import passwordIcon from "../../assets/images/icons/password.png";
 import loginIcon from "../../assets/images/icons/login.png";
 import { useState } from "react";
+import { auth } from "../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { ADMIN_EMAILS } from "../../constants/adminEmails";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert("Enter admin credentials");
       return;
     }
 
-    alert("Admin login successful");
-    navigate("/admin/dashboard"); // IMPORTANT
+    if (!ADMIN_EMAILS.includes(email)) {
+      alert("This email is not authorized as an Admin.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      alert("Admin login successful ✅");
+      navigate("/admin/dashboard");
+    } catch (error) {
+      console.error("Admin Login error:", error);
+      alert(`Admin Login failed: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,9 +69,9 @@ const AdminLogin = () => {
             />
           </div>
 
-          <button className="auth-btn" onClick={handleLogin}>
+          <button className="auth-btn" onClick={handleLogin} disabled={loading}>
             <img src={loginIcon} alt="login" />
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
           <div className="auth-links">

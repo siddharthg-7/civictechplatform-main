@@ -8,6 +8,7 @@ import { useState } from "react";
 
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { ADMIN_EMAILS } from "../../constants/adminEmails";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -20,6 +21,12 @@ const Login = () => {
   const handleLogin = async () => {
     if (!username || !password) {
       alert("Please enter Email/Phone and Password");
+      return;
+    }
+
+    // Special check for Admin Login
+    if (isAdmin && !ADMIN_EMAILS.includes(username)) {
+      alert("This account does not have Admin privileges.");
       return;
     }
 
