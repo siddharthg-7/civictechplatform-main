@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import { auth, db } from "../firebase";
-import { collection, onSnapshot, doc, updateDoc, arrayUnion, query, orderBy } from "firebase/firestore";
+import { collection, onSnapshot, doc, updateDoc, arrayUnion, query, orderBy, deleteDoc, getDoc } from "firebase/firestore";
 import "../styles/pages/community.css";
 
 /* ---------- DEVICE ID ---------- */
@@ -18,6 +18,25 @@ const getDeviceId = () => {
 const CommunityPolls = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check if current user is admin
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (auth.currentUser) {
+        try {
+          const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+          if (userDoc.exists()) {
+            setIsAdmin(userDoc.data().role === "admin");
+          }
+        } catch (error) {
+          console.error("Error checking admin status:", error);
+        }
+      }
+    };
+
+    checkAdminStatus();
+  }, []);
 
   useEffect(() => {
     const q = query(collection(db, "communityProjects"), orderBy("createdAt", "desc"));
@@ -55,6 +74,34 @@ const CommunityPolls = () => {
     } catch (error) {
       console.error("Error voting:", error);
       alert("Failed to register vote");
+    }
+  };
+
+  /* ---------- DELETE HANDLER (ADMIN OR OWNER) ---------- */
+  const deletePoll = async (pollId, pollAuthorId) => {
+    if (!auth.currentUser) {
+      alert("Please login to delete");
+      return;
+    }
+
+    // Check if user is admin or poll owner
+    const canDelete = isAdmin || auth.currentUser.uid === pollAuthorId;
+
+    if (!canDelete) {
+      alert("You don't have permission to delete this poll");
+      return;
+    }
+
+    if (!window.confirm("Are you sure you want to delete this poll?")) {
+      return;
+    }
+
+    try {
+      await deleteDoc(doc(db, "communityProjects", pollId));
+      alert("Poll deleted successfully ✅");
+    } catch (error) {
+      console.error("Error deleting poll:", error);
+      alert("Failed to delete poll");
     }
   };
 
@@ -119,6 +166,27 @@ const CommunityPolls = () => {
                       )}
                       {!auth.currentUser && (
                         <p className="empty-text" style={{ fontSize: '0.8rem', padding: '0.5rem' }}>Login to participate</p>
+                      )}
+
+                      {/* DELETE BUTTON (ADMIN OR OWNER) */}
+                      {auth.currentUser && (isAdmin || auth.currentUser.uid === p.authorId) && (
+                        <button
+                          className="danger-btn"
+                          onClick={() => deletePoll(p.id, p.authorId)}
+                          style={{
+                            marginTop: '10px',
+                            width: '100%',
+                            padding: '8px',
+                            backgroundColor: '#dc3545',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '4px',
+                            cursor: 'pointer',
+                            fontSize: '0.9rem'
+                          }}
+                        >
+                          🗑️ Delete Poll
+                        </button>
                       )}
                     </div>
                   );
