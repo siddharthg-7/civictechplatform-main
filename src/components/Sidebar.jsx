@@ -81,8 +81,8 @@ const Sidebar = ({ role = "user" }) => {
             </li>
 
             <li
-              className={isActive("/admin/community") ? "active" : ""}
-              onClick={() => navigate("/admin/community")}
+              className={isActive("/admin/polls") ? "active" : ""}
+              onClick={() => navigate("/admin/polls")}
             >
               <img src={communityIcon} alt="Community Polls" />
               <span>Community Polls</span>
