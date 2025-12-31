@@ -9,7 +9,7 @@ const AdminNavbar = () => {
 
   const handleLogout = () => {
     alert("Admin logged out");
-    navigate("/login");
+    navigate("/admin/login");
   };
 
   return (
@@ -27,7 +27,7 @@ const AdminNavbar = () => {
           alt="admin"
           className="navbar-usericon"
           style={{ cursor: "pointer" }}
-          onClick={() => navigate("/about/account")}
+          onClick={() => navigate("/admin/account")}
         />
 
         <button onClick={handleLogout}>Logout</button>

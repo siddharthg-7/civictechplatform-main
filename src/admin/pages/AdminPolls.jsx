@@ -14,15 +14,15 @@ const AdminPolls = () => {
 
   // Verify admin status
   useEffect(() => {
-    const checkAdminStatus = async () => {
-      if (!auth.currentUser) {
+    const unsubscribe = auth.onAuthStateChanged(async (user) => {
+      if (!user) {
         alert("Please login as admin");
         navigate("/admin/login");
         return;
       }
 
       try {
-        const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
+        const userDoc = await getDoc(doc(db, "users", user.uid));
         if (userDoc.exists() && userDoc.data().role === "admin") {
           setIsAdmin(true);
         } else {
@@ -31,11 +31,12 @@ const AdminPolls = () => {
         }
       } catch (error) {
         console.error("Error checking admin status:", error);
+        alert("Error verifying admin status");
         navigate("/admin/login");
       }
-    };
+    });
 
-    checkAdminStatus();
+    return () => unsubscribe();
   }, [navigate]);
 
   // Fetch all polls from Firebase
