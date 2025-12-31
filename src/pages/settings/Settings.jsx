@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import { auth, db } from "../../firebase";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 
 import "../../styles/components/forms.css";
 
@@ -9,18 +11,73 @@ const Settings = () => {
   const navigate = useNavigate();
 
   const [profile, setProfile] = useState({
-    name: "Citizen User",
-    email: "citizen@email.com",
-    mobile: "9876543210",
+    name: "",
+    email: "",
+    mobile: "",
   });
+
+  const [loading, setLoading] = useState(true);
+
+  // Fetch user data from Firebase
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+          alert("Please login first");
+          navigate("/");
+          return;
+        }
+
+        const userDoc = await getDoc(doc(db, "users", currentUser.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          setProfile({
+            name: userData.name || currentUser.displayName || "",
+            email: userData.email || currentUser.email || "",
+            mobile: userData.mobile || userData.phone || "",
+          });
+        } else {
+          // Fallback to auth data
+          setProfile({
+            name: currentUser.displayName || "",
+            email: currentUser.email || "",
+            mobile: "",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        alert("Failed to load user data");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
 
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  const handleSave = () => {
-    localStorage.setItem("userProfile", JSON.stringify(profile));
-    alert("Profile updated successfully ✅");
+  const handleSave = async () => {
+    try {
+      const currentUser = auth.currentUser;
+      if (!currentUser) {
+        alert("Please login first");
+        return;
+      }
+
+      await updateDoc(doc(db, "users", currentUser.uid), {
+        name: profile.name,
+        mobile: profile.mobile,
+      });
+
+      alert("Profile updated successfully ✅");
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      alert("Failed to update profile");
+    }
   };
 
   const handleChangePassword = () => {
@@ -50,56 +107,64 @@ const Settings = () => {
             Manage your account and security preferences
           </p>
 
-          {/* PROFILE */}
-          <section className="settings-card">
-            <h2>Profile Information</h2>
-
-            <label>Full Name</label>
-            <input
-              type="text"
-              name="name"
-              value={profile.name}
-              onChange={handleChange}
-            />
-
-            <label>Email Address</label>
-            <input
-              type="email"
-              name="email"
-              value={profile.email}
-              onChange={handleChange}
-            />
-
-            <label>Mobile Number</label>
-            <input
-              type="text"
-              name="mobile"
-              value={profile.mobile}
-              onChange={handleChange}
-            />
-
-            <button className="primary-btn" onClick={handleSave}>
-              Save Changes
-            </button>
-          </section>
-
-          {/* SECURITY */}
-          <section className="settings-card">
-            <h2>Security</h2>
-
-            <div className="security-actions">
-              <button
-                className="secondary-btn"
-                onClick={handleChangePassword}
-              >
-                Change Password
-              </button>
-
-              <button className="danger-btn" onClick={handleLogoutAll}>
-                Logout from all devices
-              </button>
+          {loading ? (
+            <div style={{ textAlign: "center", padding: "2rem" }}>
+              Loading user data...
             </div>
-          </section>
+          ) : (
+            <>
+              {/* PROFILE */}
+              <section className="settings-card">
+                <h2>Profile Information</h2>
+
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  value={profile.name}
+                  onChange={handleChange}
+                />
+
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  name="email"
+                  value={profile.email}
+                  onChange={handleChange}
+                />
+
+                <label>Mobile Number</label>
+                <input
+                  type="text"
+                  name="mobile"
+                  value={profile.mobile}
+                  onChange={handleChange}
+                />
+
+                <button className="primary-btn" onClick={handleSave}>
+                  Save Changes
+                </button>
+              </section>
+
+              {/* SECURITY */}
+              <section className="settings-card">
+                <h2>Security</h2>
+
+                <div className="security-actions">
+                  <button
+                    className="secondary-btn"
+                    onClick={handleChangePassword}
+                  >
+                    Change Password
+                  </button>
+
+                  <button className="danger-btn" onClick={handleLogoutAll}>
+                    Logout from all devices
+                  </button>
+                </div>
+              </section>
+            </>
+          )}
         </main>
       </div>
     </div>
