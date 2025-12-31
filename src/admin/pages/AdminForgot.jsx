@@ -4,16 +4,30 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
 import userIcon from "../../assets/images/icons/user.png";
 
-const AdminForgot= () => {
-  const [email, setEmail] = useState("");
+import { auth } from "../../firebase";
+import { sendPasswordResetEmail } from "firebase/auth";
 
-  const handleReset = () => {
+const AdminForgot = () => {
+  const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleReset = async () => {
     if (!email) {
       alert("Please enter admin email");
       return;
     }
 
-    alert("Reset link sent to admin email");
+    setLoading(true);
+    try {
+      await sendPasswordResetEmail(auth, email);
+      alert("Password reset link sent to your email! ✅");
+      setEmail("");
+    } catch (error) {
+      console.error("Reset Password Error:", error);
+      alert(`Failed to send reset link: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

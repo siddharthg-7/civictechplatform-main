@@ -5,8 +5,9 @@ import userIcon from "../../assets/images/icons/user.png";
 import passwordIcon from "../../assets/images/icons/password.png";
 import loginIcon from "../../assets/images/icons/login.png";
 import { useState } from "react";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { ADMIN_EMAILS } from "../../constants/adminEmails";
 
 const AdminLogin = () => {
@@ -28,7 +29,30 @@ const AdminLogin = () => {
 
     setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // "Heal" the account: Ensure Firestore has this user as Admin
+      const userRef = doc(db, "users", user.uid);
+      const userSnap = await getDoc(userRef);
+
+      if (userSnap.exists()) {
+        if (userSnap.data().role !== "admin") {
+          await updateDoc(userRef, { role: "admin" });
+          console.log("Upgraded existing user to Admin");
+        }
+      } else {
+        // Create missing profile
+        await setDoc(userRef, {
+          uid: user.uid,
+          name: "Admin User",
+          email: email,
+          role: "admin",
+          createdAt: new Date().toISOString(),
+        });
+        console.log("Created missing Admin profile");
+      }
+
       alert("Admin login successful ✅");
       navigate("/admin/dashboard");
     } catch (error) {
