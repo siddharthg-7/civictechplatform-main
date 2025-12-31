@@ -5,6 +5,7 @@ import dashboardIcon from "../../assets/images/icons/dashboard.png";
 import complaintIcon from "../../assets/images/icons/complaints.png";
 import communityIcon from "../../assets/images/icons/communityIcon.png";
 import userIcon from "../../assets/images/icons/user.png";
+import settingsIcon from "../../assets/images/icons/settings.png";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -46,6 +47,14 @@ const AdminSidebar = () => {
         >
           <img src={userIcon} alt="Logged Users" />
           <span>Logged Users</span>
+        </li>
+
+        <li
+          className={isActive("/admin/settings") ? "active" : ""}
+          onClick={() => navigate("/admin/settings")}
+        >
+          <img src={settingsIcon} alt="Settings" />
+          <span>Settings</span>
         </li>
 
       </ul>

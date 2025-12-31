@@ -22,6 +22,7 @@ import AdminDashboard from "./admin/pages/AdminDashboard";
 import AdminPolls from "./admin/pages/AdminPolls";
 import AdminUsers from "./admin/pages/AdminUsers";
 import AdminAccount from "./admin/pages/AdminAccount";
+import AdminSettings from "./admin/pages/AdminSettings";
 import Footer from "./components/Footer";
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
         <Route path="/admin/polls" element={<AdminPolls />} />
         <Route path="/admin/users" element={<AdminUsers />} />
         <Route path="/admin/account" element={<AdminAccount />} />
+        <Route path="/admin/settings" element={<AdminSettings />} />
 
       </Routes>
 
