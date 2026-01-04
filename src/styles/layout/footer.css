@@ -1,8 +1,9 @@
 .footer {
-  background: white;
+  background: var(--bg-card);
   border-top: 1px solid var(--border);
-  padding: 2rem 0;
+  padding: 2.5rem 0;
   margin-top: auto;
+  transition: var(--transition);
 }
 
 .footer-content {
@@ -20,7 +21,8 @@
 
 .footer-sub {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--text-muted);
   margin-top: 0.5rem;
   display: block;
+  opacity: 0.8;
 }

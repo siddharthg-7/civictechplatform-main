@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
+import AdminNavbar from "../components/AdminNavbar";
+import AdminSidebar from "../components/AdminSidebar";
 
 import "../styles/admin.css";
 
 import locationIcon from "../../assets/images/icons/location.png";
 import userIcon from "../../assets/images/icons/user.png";
-import resolvedIcon from "../../assets/images/icons/resolved.png";
 
 import { db } from "../../firebase";
 import { collection, onSnapshot, doc, updateDoc, orderBy, query } from "firebase/firestore";
@@ -50,18 +49,19 @@ const AdminComplaints = () => {
 
   return (
     <div className="dashboard-wrapper">
-      <Navbar role="admin" />
+      <AdminNavbar />
 
       <div className="dashboard-body">
-        <Sidebar role="admin" />
+        <AdminSidebar />
 
         <main className="dashboard-content">
           <div className="dashboard-inner">
+            <h2 className="admin-title">Manage Complaints</h2>
 
             {/* SEARCH */}
             <input
               className="admin-search"
-              placeholder="Search by area / complaint title"
+              placeholder="Search by area or complaint title..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -69,9 +69,9 @@ const AdminComplaints = () => {
             {/* COMPLAINT LIST */}
             <div className="admin-complaints-grid">
               {loading ? (
-                <p>Loading complaints...</p>
+                <p className="empty-text">Loading complaints...</p>
               ) : filteredComplaints.length === 0 ? (
-                <p>No complaints found.</p>
+                <p className="empty-text">No complaints found.</p>
               ) : (
                 filteredComplaints.map((c) => (
                   <div key={c.id} className="admin-complaint-card">
@@ -93,19 +93,13 @@ const AdminComplaints = () => {
                       <div className="admin-row">
                         <img src={userIcon} alt="user" className="admin-user-icon" />
                         <span>
-                          <strong>User:</strong> {c.userName} ({c.userEmail})
+                          <strong>User:</strong> {c.userName}
                         </span>
                       </div>
 
                       {/* STATUS */}
                       <div className="admin-row">
-                        <span
-                          className={`resolved-badge ${c.status === "Pending" ? "pending" : ""}`}
-                          style={{
-                            color: c.status === "Pending" ? "var(--danger)" : "var(--secondary)",
-                            background: c.status === "Pending" ? "#fee2e2" : "var(--primary-light)"
-                          }}
-                        >
+                        <span className={`resolved-badge ${c.status === "Pending" ? "pending" : "resolved"}`}>
                           {c.status}
                         </span>
                       </div>
@@ -121,7 +115,6 @@ const AdminComplaints = () => {
                 ))
               )}
             </div>
-
           </div>
         </main>
       </div>

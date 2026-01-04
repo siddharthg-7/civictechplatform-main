@@ -64,7 +64,7 @@ const AdminPolls = () => {
 
     try {
       await deleteDoc(doc(db, "communityProjects", pollId));
-      alert("Poll deleted successfully ✅");
+      alert("Poll deleted successfully");
     } catch (error) {
       console.error("Error deleting poll:", error);
       alert("Failed to delete poll");
@@ -73,7 +73,7 @@ const AdminPolls = () => {
 
   if (!isAdmin) {
     return (
-      <div style={{ textAlign: "center", padding: "2rem" }}>
+      <div className="empty-text">
         Verifying admin access...
       </div>
     );
@@ -89,9 +89,9 @@ const AdminPolls = () => {
         <main className="dashboard-content">
           <div className="community-container">
             <header className="page-header">
-              <h2 className="page-title">Community Polls Management</h2>
+              <h2 className="page-title">Community Polls</h2>
               <p className="page-subtitle">
-                View and manage all community polls. As an admin, you can delete any poll.
+                Manage ongoing community polls and monitor feedback results.
               </p>
             </header>
 
@@ -103,42 +103,27 @@ const AdminPolls = () => {
               <div className="polls-grid">
                 {polls.map((poll) => (
                   <div key={poll.id} className="poll-card">
-                    <span className="poll-location">📍 {poll.category}</span>
+                    <span className="poll-location">{poll.category}</span>
                     <h3>{poll.title}</h3>
                     <p>{poll.description}</p>
 
-                    <div className="poll-stats" style={{ marginTop: '15px', padding: '10px', backgroundColor: '#f8f9fa', borderRadius: '4px' }}>
-                      <p style={{ margin: '5px 0', fontSize: '0.9rem' }}>
-                        👍 Likes: <strong>{poll.likes || 0}</strong>
+                    <div className="poll-stats" style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
+                      <p style={{ margin: '0.5rem 0', fontSize: '0.875rem' }}>
+                        Likes: <strong>{poll.likes || 0}</strong>
                       </p>
-                      <p style={{ margin: '5px 0', fontSize: '0.9rem' }}>
-                        👎 Dislikes: <strong>{poll.dislikes || 0}</strong>
+                      <p style={{ margin: '0.5rem 0', fontSize: '0.875rem' }}>
+                        Dislikes: <strong>{poll.dislikes || 0}</strong>
                       </p>
-                      <p style={{ margin: '5px 0', fontSize: '0.9rem' }}>
-                        🗳️ Total Votes: <strong>{(poll.voters?.length || 0)}</strong>
-                      </p>
-                      <p style={{ margin: '5px 0', fontSize: '0.85rem', color: '#666' }}>
-                        Created: {poll.createdAt ? new Date(poll.createdAt).toLocaleDateString() : 'N/A'}
+                      <p style={{ margin: '0.5rem 0', fontSize: '0.875rem' }}>
+                        Total Votes: <strong>{(poll.voters?.length || 0)}</strong>
                       </p>
                     </div>
 
                     <button
                       className="danger-btn"
                       onClick={() => deletePoll(poll.id)}
-                      style={{
-                        marginTop: '15px',
-                        width: '100%',
-                        padding: '10px',
-                        backgroundColor: '#dc3545',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '0.95rem',
-                        fontWeight: '500'
-                      }}
                     >
-                      🗑️ Delete Poll
+                      Delete Poll
                     </button>
                   </div>
                 ))}

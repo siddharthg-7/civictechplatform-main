@@ -3,6 +3,7 @@ import "../../styles/layout/navbar.css";
 
 import logo from "../../assets/images/logo/civic-logo.png";
 import userIcon from "../../assets/images/icons/user.png";
+import ThemeToggle from "../../components/ThemeToggle";
 
 const AdminNavbar = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const AdminNavbar = () => {
 
       {/* RIGHT */}
       <div className="navbar-right">
+        <ThemeToggle />
         <img
           src={userIcon}
           alt="admin"

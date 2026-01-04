@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import "../styles/admin.css";
 
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
+import AdminNavbar from "../components/AdminNavbar";
+import AdminSidebar from "../components/AdminSidebar";
 
 import userIcon from "../../assets/images/icons/user.png";
 
@@ -29,23 +29,23 @@ const AdminUsers = () => {
 
   return (
     <div className="admin-wrapper">
-      <Navbar role="admin" />
+      <AdminNavbar />
 
       <div className="admin-body">
-        <Sidebar role="admin" />
+        <AdminSidebar />
 
-        <div className="admin-content">
-          <h2>Logged Users</h2>
+        <main className="admin-content">
+          <h2 className="admin-title">Registered Users</h2>
 
           {loading ? (
-            <p>Loading users...</p>
+            <p className="empty-text">Loading users...</p>
           ) : users.length === 0 ? (
-            <p>No users have registered yet.</p>
+            <p className="empty-text">No registered users found.</p>
           ) : (
             <div className="admin-complaints-grid">
               {users.map((user) => (
                 <div className="admin-card" key={user.id}>
-                  <div className="admin-row">
+                  <div className="admin-row" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
                     <img
                       src={userIcon}
                       alt="user"
@@ -55,37 +55,29 @@ const AdminUsers = () => {
                   </div>
 
                   <div className="admin-row">
-                    <span>Email:</span>
-                    <span>{user.email}</span>
+                    <strong>Email:</strong> {user.email}
                   </div>
 
                   <div className="admin-row">
-                    <span>Phone:</span>
-                    <span>{user.phone || "N/A"}</span>
+                    <strong>Phone:</strong> {user.phone || "N/A"}
                   </div>
 
                   <div className="admin-row">
-                    <span>Status:</span>
-                    <span
-                      className={
-                        user.status === "online"
-                          ? "online"
-                          : ""
-                      }
-                    >
+                    <strong>Status:</strong>
+                    <span className={`resolved-badge ${user.status === 'online' ? 'resolved' : 'pending'}`}>
                       {user.status || "offline"}
                     </span>
                   </div>
 
                   <div className="admin-row">
-                    <span>Role:</span>
-                    <span>{user.role || "user"}</span>
+                    <strong>Role:</strong>
+                    <span style={{ textTransform: 'capitalize' }}>{user.role || "user"}</span>
                   </div>
                 </div>
               ))}
             </div>
           )}
-        </div>
+        </main>
       </div>
     </div>
   );

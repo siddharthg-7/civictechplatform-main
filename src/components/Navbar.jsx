@@ -6,6 +6,7 @@ import { locations } from "../data/locations";
 import logo from "../assets/images/logo/civic-logo.png";
 import searchIcon from "../assets/images/icons/search.png";
 import userIcon from "../assets/images/icons/user.png";
+import ThemeToggle from "./ThemeToggle";
 
 const Navbar = ({ role = "user" }) => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const Navbar = ({ role = "user" }) => {
 
       {/* RIGHT */}
       <div className="navbar-right">
+        <ThemeToggle />
         <img
           src={userIcon}
           alt="profile"

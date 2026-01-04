@@ -12,6 +12,7 @@
 .settings-page h1 {
   font-size: 1.5rem;
   margin-bottom: 0.5rem;
+  color: var(--text-main);
 }
 
 .settings-subtitle {
@@ -20,12 +21,17 @@
 }
 
 .settings-card {
-  background: white;
+  background: var(--bg-card);
   border-radius: var(--radius-lg);
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
   margin-bottom: 1.5rem;
+  transition: var(--transition);
+}
+
+.settings-card:hover {
+  box-shadow: var(--shadow-md);
 }
 
 .settings-card h2 {
@@ -33,6 +39,7 @@
   margin-bottom: 1.5rem;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border);
+  color: var(--text-main);
 }
 
 .settings-card label {
@@ -55,15 +62,16 @@
   padding: 0.625rem 0.875rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
-  background: var(--bg-card);
+  background: var(--bg-main);
   font-size: 0.9375rem;
   color: var(--text-main);
-  transition: all 0.2s;
+  transition: var(--transition);
 }
 
 .settings-card input:focus {
   outline: none;
   border-color: var(--primary);
+  background: var(--bg-card);
   box-shadow: 0 0 0 2px var(--primary-light);
 }
 
@@ -71,6 +79,7 @@
   background-color: var(--bg-main);
   cursor: not-allowed;
   color: var(--text-muted);
+  opacity: 0.6;
 }
 
 /* ===============================
@@ -85,42 +94,50 @@
   font-size: 0.875rem;
   margin-top: 1.5rem;
   cursor: pointer;
+  transition: var(--transition);
+  border: 1px solid transparent;
 }
 
 .primary-btn:hover {
   background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .secondary-btn {
   padding: 0.625rem 1.25rem;
-  background: white;
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   font-weight: 500;
   color: var(--text-main);
   font-size: 0.875rem;
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .secondary-btn:hover {
   background: var(--bg-main);
-  border-color: #d1d5db;
+  border-color: var(--text-muted);
+  transform: translateY(-1px);
 }
 
 .danger-btn {
   padding: 0.625rem 1.25rem;
-  background: white;
+  background: var(--bg-card);
   color: var(--danger);
   border: 1px solid var(--danger);
   border-radius: var(--radius-md);
   font-weight: 500;
   font-size: 0.875rem;
   cursor: pointer;
+  transition: var(--transition);
 }
 
 .danger-btn:hover {
   background: var(--danger);
   color: white;
+  transform: translateY(-1px);
 }
 
 .security-actions {
