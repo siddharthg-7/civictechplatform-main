@@ -20,7 +20,7 @@ const AdminForgot = () => {
     setLoading(true);
     try {
       await sendPasswordResetEmail(auth, email);
-      alert("Password reset link sent to your email! ✅");
+      alert("Password reset link sent to your email.");
       setEmail("");
     } catch (error) {
       console.error("Reset Password Error:", error);
@@ -37,29 +37,34 @@ const AdminForgot = () => {
 
           {/* Logo */}
           <div className="auth-logo">
-            <img src={logo} alt="Civic Logo" />
-            <h2>Admin Reset Password</h2>
+            <img src={logo} alt="Civic Platform" />
+            <h2>Reset Admin Password</h2>
           </div>
 
+          <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
+            Enter your admin email address to receive a password reset link.
+          </p>
+
           {/* Email */}
-          <div className="input-group">
-            <img src={userIcon} alt="email" />
+          <div className="form-group">
+            <label className="form-label">Admin Email</label>
             <input
               type="email"
-              placeholder="Admin Email"
+              className="form-input"
+              placeholder="admin@civic.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           {/* Button */}
-          <button className="auth-btn" onClick={handleReset}>
-            Send Reset Link
+          <button className="auth-btn" onClick={handleReset} disabled={loading}>
+            {loading ? "Sending..." : "Send Reset Link"}
           </button>
 
           {/* Links */}
           <div className="auth-links">
-            <Link to="/admin/login">Back to Admin Login</Link>
+            <Link to="/admin/login">&larr; Back to Admin Login</Link>
           </div>
 
         </div>

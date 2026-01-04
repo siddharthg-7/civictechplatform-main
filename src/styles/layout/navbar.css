@@ -1,17 +1,14 @@
 .navbar {
-  height: 72px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  height: 64px;
+  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  z-index: 1000;
-  transition: var(--transition);
+  z-index: 50;
 }
 
 .navbar-left {
@@ -21,40 +18,36 @@
 }
 
 .navbar-logo {
-  width: 40px;
-  height: 40px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  width: 32px;
+  height: 32px;
 }
 
 .navbar-left h3 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-main);
 }
 
 .navbar-search {
   display: flex;
   align-items: center;
   background: var(--bg-main);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-full);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
   width: 100%;
-  max-width: 400px;
-  border: 1px solid var(--border);
+  max-width: 320px;
+  border: 1px solid transparent;
   transition: var(--transition);
 }
 
 .navbar-search:focus-within {
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--primary-light);
   background: white;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px var(--primary-light);
 }
 
 .navbar-search img {
-  width: 18px;
+  width: 16px;
   opacity: 0.5;
   margin-right: 0.5rem;
 }
@@ -71,7 +64,7 @@
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .navbar-usericon {
@@ -79,29 +72,23 @@
   height: 32px;
   border-radius: var(--radius-full);
   cursor: pointer;
-  transition: var(--transition);
-  border: 2px solid transparent;
-}
-
-.navbar-usericon:hover {
-  transform: scale(1.1);
-  border-color: var(--primary);
+  background-color: var(--bg-main);
+  padding: 2px;
 }
 
 .navbar-right button {
-  background: var(--primary);
-  color: white;
-  padding: 0.5rem 1.25rem;
+  background: white;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 0.5rem 1rem;
   border-radius: var(--radius-md);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 0.875rem;
-  box-shadow: var(--shadow-sm);
 }
 
 .navbar-right button:hover {
-  background: var(--primary-hover);
-  transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  background: var(--bg-main);
+  border-color: #d1d5db;
 }
 
 @media (max-width: 768px) {

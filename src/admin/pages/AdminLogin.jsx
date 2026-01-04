@@ -18,12 +18,12 @@ const AdminLogin = () => {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      alert("Enter admin credentials");
+      alert("Please enter your email and password");
       return;
     }
 
     if (!ADMIN_EMAILS.includes(email)) {
-      alert("This email is not authorized as an Admin.");
+      alert("Access denied. These credentials are not authorized for admin access.");
       return;
     }
 
@@ -39,7 +39,6 @@ const AdminLogin = () => {
       if (userSnap.exists()) {
         if (userSnap.data().role !== "admin") {
           await updateDoc(userRef, { role: "admin" });
-          console.log("Upgraded existing user to Admin");
         }
       } else {
         // Create missing profile
@@ -50,14 +49,12 @@ const AdminLogin = () => {
           role: "admin",
           createdAt: new Date().toISOString(),
         });
-        console.log("Created missing Admin profile");
       }
 
-      alert("Admin login successful ✅");
       navigate("/admin/dashboard");
     } catch (error) {
       console.error("Admin Login error:", error);
-      alert(`Admin Login failed: ${error.message}`);
+      alert(`Login failed: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -69,40 +66,44 @@ const AdminLogin = () => {
         <div className="auth-form">
 
           <div className="auth-logo">
-            <img src={logo} alt="Civic Logo" />
-            <h2>Admin Login</h2>
+            <img src={logo} alt="Civic Platform" />
+            <h2>Admin Portal</h2>
           </div>
 
-          <div className="input-group">
-            <img src={userIcon} alt="email" />
+          <div className="form-group">
+            <label className="form-label">Email Address</label>
             <input
               type="email"
-              placeholder="Admin Email"
+              className="form-input"
+              placeholder="admin@civic.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
-          <div className="input-group">
-            <img src={passwordIcon} alt="password" />
+          <div className="form-group">
+            <label className="form-label">Password</label>
             <input
               type="password"
-              placeholder="Password"
+              className="form-input"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
 
           <button className="auth-btn" onClick={handleLogin} disabled={loading}>
-            <img src={loginIcon} alt="login" />
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Verifying..." : "Sign in to Dashboard"}
           </button>
 
           <div className="auth-links">
-            <Link to="/admin/forgot">Forgot Password?</Link>
+            <Link to="/admin/forgot" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Forgot password?</Link>
+
+            <div className="auth-divider"></div>
 
             <p>
-              New admin? <Link to="/admin/signup">Create Admin Account</Link>
+              <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>Not an admin? </span>
+              <Link to="/">User Login</Link>
             </p>
           </div>
 

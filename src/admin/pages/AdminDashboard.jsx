@@ -1,31 +1,16 @@
 import { useEffect, useState } from "react";
 import "../../styles/pages/dashboard.css";
-
-import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
-
-
-/* Advertisements (same logic as user dashboard) */
-import ad1 from "../../assets/images/advertisement/civictech.png";
-import ad2 from "../../assets/images/advertisement/extra.png";
-import ad3 from "../../assets/images/advertisement/programs.png";
-import ad4 from "../../assets/images/advertisement/sustain.png";
-
+import AdminNavbar from "../components/AdminNavbar";
+import AdminSidebar from "../components/AdminSidebar";
 import { db } from "../../firebase";
 import { collection, onSnapshot } from "firebase/firestore";
 
-const ads = [ad1, ad2, ad3, ad4];
+import ad1 from "../../assets/images/advertisement/civictech.png";
+// Keeping one static image for the banner instead of a rotating ad to look more stable/pro
+const bannerImage = ad1;
 
 const AdminDashboard = () => {
-  const [currentAd, setCurrentAd] = useState(0);
   const [stats, setStats] = useState({ total: 0, resolved: 0, pending: 0 });
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentAd((prev) => (prev + 1) % ads.length);
-    }, 3000);
-    return () => clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "complaints"), (snapshot) => {
@@ -41,26 +26,23 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard-wrapper">
-      {/* ADMIN NAVBAR */}
-      <Navbar role="admin" />
+      <AdminNavbar />
 
       <div className="dashboard-body">
-        {/* SIDEBAR (reused) */}
-        <Sidebar role="admin" />
-
+        <AdminSidebar />
 
         <main className="dashboard-content">
           <div className="dashboard-inner">
 
-            {/* ADVERTISEMENT */}
+            {/* Banner */}
             <div className="dashboard-ad">
-              <img src={ads[currentAd]} alt="Admin Advertisement" />
+              <img src={bannerImage} alt="Civic Platform Overview" />
             </div>
 
             {/* DASHBOARD INFO */}
             <section className="dashboard-section">
-              <h2>Welcome Admin</h2>
-              <p>Monitor and manage complaints and community activity.</p>
+              <h2>Dashboard Overview</h2>
+              <p>Welcome back. Here is the latest activity summary.</p>
 
               <div className="dashboard-cards">
                 <div className="dashboard-card">
@@ -70,12 +52,12 @@ const AdminDashboard = () => {
 
                 <div className="dashboard-card">
                   <h3>{stats.resolved}</h3>
-                  <p>Resolved Complaints</p>
+                  <p>Resolved</p>
                 </div>
 
                 <div className="dashboard-card">
                   <h3>{stats.pending}</h3>
-                  <p>Pending Complaints</p>
+                  <p>Pending Action</p>
                 </div>
               </div>
             </section>
