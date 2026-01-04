@@ -20,7 +20,7 @@ const Signup = () => {
 
     const handleSignup = async () => {
         if (!name || !email || !phone || !password) {
-            alert("Please fill all the details");
+            alert("Please fill in all details");
             return;
         }
 
@@ -47,7 +47,6 @@ const Signup = () => {
             });
             console.log("User data stored in Firestore");
 
-            alert("Account created successfully ✅");
             navigate("/dashboard");
         } catch (error) {
             console.error("Signup error details:", error);
@@ -63,41 +62,46 @@ const Signup = () => {
                 <div className="auth-form">
                     {/*logo*/}
                     <div className="auth-logo">
-                        <img src={logo} alt="Civic Logo" />
-                        <h2>Create Account</h2>
+                        <img src={logo} alt="Civic Platform" />
+                        <h2>Get started</h2>
                     </div>
+
                     {/*Name*/}
-                    <div className="input-group">
-                        <img src={userIcon} alt="user" />
-                        <input type="text" placeholder="Full Name" value={name}
+                    <div className="form-group">
+                        <label className="form-label">Full Name</label>
+                        <input type="text" className="form-input" placeholder="John Doe" value={name}
                             onChange={(e) => setName(e.target.value)} />
                     </div>
+
                     {/*Email*/}
-                    <div className="input-group">
-                        <img src={emailIcon} alt="email" />
-                        <input type="email" placeholder="Email Address" value={email}
+                    <div className="form-group">
+                        <label className="form-label">Email Address</label>
+                        <input type="email" className="form-input" placeholder="john@example.com" value={email}
                             onChange={(e) => setEmail(e.target.value)} />
                     </div>
+
                     {/*Phone*/}
-                    <div className="input-group">
-                        <img src={phoneIcon} alt="phone" />
-                        <input type="text" placeholder="Phone Number" value={phone}
+                    <div className="form-group">
+                        <label className="form-label">Phone Number</label>
+                        <input type="text" className="form-input" placeholder="+1 (555) 000-0000" value={phone}
                             onChange={(e) => setPhone(e.target.value)} />
                     </div>
+
                     {/*Password*/}
-                    <div className="input-group">
-                        <img src={passwordIcon} alt="password" />
-                        <input type="password" placeholder="Password" value={password}
+                    <div className="form-group">
+                        <label className="form-label">Password</label>
+                        <input type="password" className="form-input" placeholder="Create a password" value={password}
                             onChange={(e) => setPassword(e.target.value)} />
                     </div>
+
                     {/* Signup Button */}
                     <button className="auth-btn" onClick={handleSignup} disabled={loading}>
-                        <img src={signupIcon} alt="signup" />
-                        {loading ? "Creating Account..." : "Signup"}
+                        {loading ? "Creating account..." : "Create account"}
                     </button>
+
                     {/*Links*/}
                     <div className="auth-links">
-                        <p>Already have an account? <Link to="/">Login</Link></p>
+                        <p>Already have an account? <Link to="/">Sign in</Link></p>
                     </div>
                 </div>
             </div>

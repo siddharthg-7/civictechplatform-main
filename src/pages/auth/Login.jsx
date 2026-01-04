@@ -20,7 +20,7 @@ const Login = () => {
 
   const handleLogin = async () => {
     if (!username || !password) {
-      alert("Please enter Email/Phone and Password");
+      alert("Please enter your email and password");
       return;
     }
 
@@ -38,15 +38,13 @@ const Login = () => {
       console.log("Login successful:", userCredential.user.uid);
 
       if (isAdmin) {
-        alert("Admin login successful ✅");
         navigate("/admin/dashboard");
       } else {
-        alert("Login successful ✅");
         navigate("/dashboard");
       }
     } catch (error) {
       console.error("Login error details:", error);
-      alert(`Login failed: ${error.message}`);
+      alert(`Invalid credentials or server error.`);
     } finally {
       setLoading(false);
     }
@@ -55,31 +53,33 @@ const Login = () => {
   return (
     <div className="auth-page">
       <div className="auth-container">
+
+        {/* Logo */}
+        <div className="auth-logo">
+          <img src={logo} alt="Civic Platform" />
+          <h2>{isAdmin ? "Admin Portal" : "Sign in to your account"}</h2>
+        </div>
+
         <div className="auth-form">
-
-          {/* Logo */}
-          <div className="auth-logo">
-            <img src={logo} alt="Civic Logo" />
-            <h2>{isAdmin ? "Admin Portal" : "Civic Platform"}</h2>
-          </div>
-
           {/* Username */}
-          <div className="input-group">
-            <img src={userIcon} alt="user" />
+          <div className="form-group">
+            <label className="form-label">Email address</label>
             <input
-              type="text"
-              placeholder={isAdmin ? "Admin Email" : "Email or PhoneNumber"}
+              type="email"
+              className="form-input"
+              placeholder="name@company.com"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
           {/* Password */}
-          <div className="input-group">
-            <img src={passwordIcon} alt="password" />
+          <div className="form-group">
+            <label className="form-label">Password</label>
             <input
               type="password"
-              placeholder="Password"
+              className="form-input"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -87,8 +87,7 @@ const Login = () => {
 
           {/* Login Button */}
           <button className="auth-btn" onClick={handleLogin} disabled={loading}>
-            <img src={loginIcon} alt="login" className="btn-icon" />
-            {loading ? "Logging in..." : "Login"}
+            {loading ? "Signing in..." : "Sign in"}
           </button>
 
           {/* Links */}
@@ -96,34 +95,37 @@ const Login = () => {
             {!isAdmin ? (
               <>
                 <p>
-                  Don't have an account? <Link to="/signup">Signup</Link>
+                  New here? <Link to="/signup">Create an account</Link>
                 </p>
-                <Link to="/forgot-password">Forgot Password?</Link>
+                <div style={{ marginTop: '0.5rem' }}>
+                  <Link to="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Forgot password?</Link>
+                </div>
 
-                <p style={{ marginTop: "10px" }}>
+                <div className="auth-divider"></div>
+
+                <p>
                   <span
-                    style={{ cursor: "pointer", color: "#2563eb" }}
+                    style={{ cursor: "pointer", color: "var(--text-muted)", fontSize: "0.85rem" }}
                     onClick={() => setIsAdmin(true)}
                   >
-                    Login as Admin
+                    Log in as Administrator
                   </span>
                 </p>
               </>
             ) : (
               <>
-                <p>
-                  New Admin? <Link to="/admin/signup">Admin Signup</Link>
-                </p>
-                <Link to="/admin/forgot-password">
-                  Forgot Admin Password?
+                <Link to="/admin/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
+                  Forgot password?
                 </Link>
 
-                <p style={{ marginTop: "10px" }}>
+                <div className="auth-divider"></div>
+
+                <p>
                   <span
-                    style={{ cursor: "pointer", color: "#2563eb" }}
+                    style={{ cursor: "pointer", color: "var(--primary)" }}
                     onClick={() => setIsAdmin(false)}
                   >
-                    Back to User Login
+                    &larr; Back to User Login
                   </span>
                 </p>
               </>
