@@ -111,9 +111,10 @@ const AdminLogin = () => {
             {/* Feature 1.1: Government Login Shortcut */}
             <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
               <p style={{ fontSize: '0.75rem', color: '#888', marginBottom: '0.5rem' }}>OFFICIAL USE ONLY</p>
+
               <button
                 className="auth-btn"
-                style={{ backgroundColor: '#FF9933', border: 'none', fontSize: '0.85rem', padding: '0.5rem' }}
+                style={{ backgroundColor: '#FF9933', border: 'none', fontSize: '0.85rem', padding: '0.5rem', marginBottom: '0.5rem' }}
                 onClick={() => {
                   setEmail('government@gmail.com');
                   setPassword('gdgc@123');
@@ -121,6 +122,16 @@ const AdminLogin = () => {
               >
                 Government Authority Login
               </button>
+
+              <div style={{ textAlign: 'center', marginTop: '4px' }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>First time? </span>
+                <Link
+                  to="/admin/signup?role=gov"
+                  style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: '600' }}
+                >
+                  Register Government Admin
+                </Link>
+              </div>
             </div>
           </div>
 

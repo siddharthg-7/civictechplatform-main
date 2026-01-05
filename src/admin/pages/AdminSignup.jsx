@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "../../styles/components/forms.css"; // shared form styles
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
 
 import { auth, db } from "../../firebase";
@@ -11,8 +11,11 @@ import { ADMIN_EMAILS } from "../../constants/adminEmails";
 const AdminSignup = () => {
   const navigate = useNavigate();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [searchParams] = useSearchParams();
+  const isGovSignup = searchParams.get("role") === "gov";
+
+  const [name, setName] = useState(isGovSignup ? "Government Official" : "");
+  const [email, setEmail] = useState(isGovSignup ? "government@gmail.com" : "");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -30,11 +33,14 @@ const AdminSignup = () => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
       await updateProfile(user, { displayName: name });
+
+      const role = isGovSignup ? "gov_admin" : "admin";
+
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         name,
         email,
-        role: "admin",
+        role: role,
         createdAt: new Date().toISOString(),
       });
       navigate("/admin/dashboard");
