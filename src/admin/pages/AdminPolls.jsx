@@ -5,6 +5,7 @@ import AdminSidebar from "../components/AdminSidebar";
 import { auth, db } from "../../firebase";
 import { collection, onSnapshot, query, orderBy, deleteDoc, doc, getDoc } from "firebase/firestore";
 import "../../styles/pages/community.css";
+import DiscussionChat from "../../components/DiscussionChat";
 
 const AdminPolls = () => {
   const navigate = useNavigate();
@@ -118,6 +119,12 @@ const AdminPolls = () => {
                         Total Votes: <strong>{(poll.voters?.length || 0)}</strong>
                       </p>
                     </div>
+
+                    <DiscussionChat
+                      contextId={poll.id}
+                      collectionName="communityProjects"
+                      role={isAdmin ? 'admin' : 'user'} // Inherit role from page state
+                    />
 
                     <button
                       className="danger-btn"

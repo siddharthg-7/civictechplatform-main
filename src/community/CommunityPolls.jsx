@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import { auth, db } from "../firebase";
 import { collection, onSnapshot, doc, updateDoc, arrayUnion, query, orderBy, deleteDoc, getDoc } from "firebase/firestore";
 import "../styles/pages/community.css";
+import DiscussionChat from "../components/DiscussionChat";
 
 /* ---------- DEVICE ID ---------- */
 const getDeviceId = () => {
@@ -160,6 +161,12 @@ const CommunityPolls = () => {
                           👎 {p.dislikes || 0}
                         </button>
                       </div>
+
+                      <DiscussionChat
+                        contextId={p.id}
+                        collectionName="communityProjects"
+                        role={isAdmin ? 'admin' : 'user'} // Simplified role check for standard user view
+                      />
 
                       {isVoted && (
                         <p className="voted-text">✔ You've cast your vote</p>

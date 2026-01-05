@@ -129,7 +129,7 @@ const AdminLogin = () => {
                   to="/admin/signup?role=gov"
                   style={{ fontSize: '0.75rem', color: 'var(--primary)', fontWeight: '600' }}
                 >
-                  Register Government Admin
+                  Create Government Account
                 </Link>
               </div>
             </div>
