@@ -1,21 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
+import ComplaintTracker from "../../components/ComplaintTracker";
+import ComplaintChat from "../../components/ComplaintChat";
 
 import { locations } from "../../data/locations";
 
 import "../../styles/pages/complaints.css";
+import { auth, db } from "../../firebase";
+import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const MyComplaints = () => {
   const navigate = useNavigate();
 
   const locationData = useLocation().state || {};
   const [state, setState] = useState(locationData.state || "");
-  const [district, setDistrict] = useState(location.district||"");
-  const [municipality, setMunicipality] = useState(location.municipality||"");
+  const [district, setDistrict] = useState(locationData.district || "");
+  const [municipality, setMunicipality] = useState(locationData.municipality || "");
+
+  const [myComplaints, setMyComplaints] = useState([]);
+
+  useEffect(() => {
+    if (!auth.currentUser) return;
+    const q = query(collection(db, "complaints"), where("userId", "==", auth.currentUser.uid));
+    const unsub = onSnapshot(q, (snap) => {
+      setMyComplaints(snap.docs.map(d => ({ id: d.id, ...d.data() })));
+    });
+    return () => unsub();
+  }, []);
 
   // states
   const states = Object.keys(locations);
@@ -113,23 +128,28 @@ const MyComplaints = () => {
               </button>
             </div>
 
-            {/* STATS */}
-            <div className="complaint-stats">
-              <div className="stat-card">
-                <h3>120</h3>
-                <p>Total Complaints</p>
-              </div>
-
-              <div className="stat-card resolved">
-                <h3>75</h3>
-                <p>Resolved</p>
-              </div>
-
-              <div className="stat-card pending">
-                <h3>45</h3>
-                <p>Pending</p>
+            {/* MY RECENT COMPLAINTS */}
+            <div className="my-complaints-section" style={{ marginTop: '3rem' }}>
+              <h2 className="complaints-title">Track Complaint Status</h2>
+              <div className="complaints-list">
+                {myComplaints.length === 0 ? (
+                  <p>No complaints submitted yet.</p>
+                ) : (
+                  myComplaints.map(c => (
+                    <div key={c.id} className="card" style={{ marginBottom: '1.5rem', padding: '1.5rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                        <h3 style={{ color: 'var(--primary)' }}>{c.problemType}</h3>
+                        <span style={{ fontSize: '0.9rem', color: '#666' }}>{new Date(c.createdAt).toLocaleDateString()}</span>
+                      </div>
+                      <p style={{ marginBottom: '1rem' }}>{c.description}</p>
+                      <ComplaintTracker complaint={c} role="user" />
+                      <ComplaintChat complaintId={c.id} role="user" />
+                    </div>
+                  ))
+                )}
               </div>
             </div>
+
           </div>
         </main>
       </div>

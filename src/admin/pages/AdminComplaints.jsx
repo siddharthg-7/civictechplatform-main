@@ -7,15 +7,26 @@ import "../styles/admin.css";
 import locationIcon from "../../assets/images/icons/location.png";
 import userIcon from "../../assets/images/icons/user.png";
 
-import { db } from "../../firebase";
-import { collection, onSnapshot, doc, updateDoc, orderBy, query } from "firebase/firestore";
+import { auth, db } from "../../firebase";
+import { collection, onSnapshot, doc, updateDoc, orderBy, query, getDoc } from "firebase/firestore";
+import ComplaintTracker from "../../components/ComplaintTracker";
+import ComplaintChat from "../../components/ComplaintChat";
 
 const AdminComplaints = () => {
   const [complaints, setComplaints] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
+  const [adminRole, setAdminRole] = useState('admin');
 
   useEffect(() => {
+    const fetchRole = async () => {
+      if (auth.currentUser) {
+        const snap = await getDoc(doc(db, "users", auth.currentUser.uid));
+        if (snap.exists()) setAdminRole(snap.data().role || 'admin');
+      }
+    };
+    fetchRole();
+
     const q = query(collection(db, "complaints"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const data = snapshot.docs.map((doc) => ({
@@ -29,10 +40,34 @@ const AdminComplaints = () => {
     return () => unsubscribe();
   }, []);
 
-  const toggleStatus = async (id, currentStatus) => {
-    const newStatus = currentStatus === "Resolved" ? "Pending" : "Resolved";
+  const updateStatus = async (id, newStatus) => {
     try {
-      await updateDoc(doc(db, "complaints", id), { status: newStatus });
+      const complaintRef = doc(db, "complaints", id);
+      const complaintSnap = await getDoc(complaintRef);
+
+      let history = [];
+      if (complaintSnap.exists()) {
+        history = complaintSnap.data().statusHistory || [];
+      }
+
+      // Add new history item
+      const newHistoryItem = {
+        status: newStatus,
+        updatedAt: new Date().toISOString(), // Use ISO for consistency or serverTimestamp() if preferred
+        updatedBy: adminRole === 'gov_admin' ? 'Government Authority' : 'Admin'
+      };
+
+      // Safety check: Don't allow duplicates if UI lagged
+      if (history.length > 0 && history[history.length - 1].status === newStatus) return;
+
+      const updatedHistory = [...history, newHistoryItem];
+
+      await updateDoc(complaintRef, {
+        status: newStatus,
+        statusHistory: updatedHistory,
+        updatedAt: new Date().toISOString()
+      });
+
     } catch (error) {
       console.error("Error updating status:", error);
       alert("Failed to update status");
@@ -97,19 +132,16 @@ const AdminComplaints = () => {
                         </span>
                       </div>
 
-                      {/* STATUS */}
-                      <div className="admin-row">
-                        <span className={`resolved-badge ${c.status === "Pending" ? "pending" : "resolved"}`}>
-                          {c.status}
-                        </span>
-                      </div>
+                      {/* STATUS TRACKER */}
+                      <div className="admin-tracker-row">
+                        <ComplaintTracker
+                          complaint={c}
+                          onStatusChange={(newStatus) => updateStatus(c.id, newStatus)}
+                          role={adminRole}
+                        />
 
-                      <button
-                        className="resolve-btn"
-                        onClick={() => toggleStatus(c.id, c.status)}
-                      >
-                        Mark as {c.status === "Resolved" ? "Pending" : "Resolved"}
-                      </button>
+                        <ComplaintChat complaintId={c.id} role={adminRole} />
+                      </div>
                     </div>
                   </div>
                 ))

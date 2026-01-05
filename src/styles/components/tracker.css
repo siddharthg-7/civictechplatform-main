@@ -1,0 +1,143 @@
+/* Tracker Stepper CSS */
+.tracker-container {
+    padding: 2rem 0;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tracker-stepper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    min-width: 600px;
+    /* Ensure it doesn't squash on mobile */
+    margin: 0 1rem;
+}
+
+/* Line Logic */
+.tracker-line-bg {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #e5e7eb;
+    z-index: 0;
+    transform: translateY(-50%);
+}
+
+.tracker-line-progress {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    height: 4px;
+    background: var(--success);
+    /* Green for progress */
+    z-index: 0;
+    transform: translateY(-50%);
+    transition: width 0.3s ease;
+}
+
+/* Remove old pseudo */
+.tracker-stepper::before {
+    display: none;
+}
+
+.tracker-step {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e5e7eb;
+    /* Gray */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-weight: 600;
+    font-size: 0.9rem;
+    border: 4px solid white;
+    transition: all 0.3s ease;
+}
+
+.step-label {
+    font-size: 0.85rem;
+    color: #6b7280;
+    font-weight: 500;
+    text-align: center;
+}
+
+.step-time {
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+/* States */
+.tracker-step.completed .step-circle {
+    background: var(--success);
+    color: white;
+}
+
+.tracker-step.completed .step-label {
+    color: var(--success);
+}
+
+.tracker-step.current .step-circle {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px var(--primary-light);
+    border-color: white;
+}
+
+.tracker-step.current .step-label {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* Progress Bar Fill */
+/* Dynamic fill needs JS width or separate divs between steps. 
+   Implementation simplicity: We won't animate the line fill perfectly via CSS only 
+   unless we use separate line segments. */
+
+.tracker-action {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.tracker-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tracker-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+}
+
+.tracker-btn:hover:not(:disabled) {
+    background: var(--primary-hover);
+}
+
+.gov-only-badge {
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 4px;
+}

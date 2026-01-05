@@ -36,17 +36,19 @@ const AdminLogin = () => {
       const userRef = doc(db, "users", user.uid);
       const userSnap = await getDoc(userRef);
 
+      const targetRole = email === "government@gmail.com" ? "gov_admin" : "admin";
+
       if (userSnap.exists()) {
-        if (userSnap.data().role !== "admin") {
-          await updateDoc(userRef, { role: "admin" });
+        if (userSnap.data().role !== targetRole) {
+          await updateDoc(userRef, { role: targetRole });
         }
       } else {
         // Create missing profile
         await setDoc(userRef, {
           uid: user.uid,
-          name: "Admin User",
+          name: targetRole === "gov_admin" ? "Government Authority" : "Admin User",
           email: email,
-          role: "admin",
+          role: targetRole,
           createdAt: new Date().toISOString(),
         });
       }
@@ -101,10 +103,25 @@ const AdminLogin = () => {
 
             <div className="auth-divider"></div>
 
-            <p>
+            <p style={{ marginBottom: '1.5rem' }}>
               <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>Not an admin? </span>
               <Link to="/">User Login</Link>
             </p>
+
+            {/* Feature 1.1: Government Login Shortcut */}
+            <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid var(--border)' }}>
+              <p style={{ fontSize: '0.75rem', color: '#888', marginBottom: '0.5rem' }}>OFFICIAL USE ONLY</p>
+              <button
+                className="auth-btn"
+                style={{ backgroundColor: '#FF9933', border: 'none', fontSize: '0.85rem', padding: '0.5rem' }}
+                onClick={() => {
+                  setEmail('government@gmail.com');
+                  setPassword('gdgc@123');
+                }}
+              >
+                Government Authority Login
+              </button>
+            </div>
           </div>
 
         </div>

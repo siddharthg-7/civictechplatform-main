@@ -1,0 +1,117 @@
+.chat-toggle-btn {
+    background: transparent;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    width: 100%;
+    transition: all 0.2s;
+}
+
+.chat-toggle-btn:hover {
+    background: var(--primary-light);
+}
+
+.chat-container {
+    margin-top: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--bg-section);
+    overflow: hidden;
+}
+
+.chat-header {
+    background: var(--primary);
+    /* Blue header */
+    color: white;
+    padding: 0.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.chat-messages {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 1rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.chat-msg {
+    padding: 0.5rem;
+    border-radius: 4px;
+    max-width: 80%;
+    font-size: 0.9rem;
+}
+
+.chat-msg.user {
+    background: #f3f4f6;
+    align-self: flex-start;
+}
+
+.chat-msg.admin {
+    background: #e0f2fe;
+    /* Light blue */
+    align-self: flex-end;
+    border: 1px solid #bae6fd;
+}
+
+.msg-sender {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #666;
+}
+
+.no-msgs {
+    text-align: center;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.chat-input-area {
+    display: flex;
+    border-top: 1px solid var(--border);
+}
+
+.chat-input-area input {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    outline: none;
+}
+
+.chat-input-area button {
+    background: var(--secondary);
+    color: white;
+    border: none;
+    padding: 0 1rem;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.chat-input-area button:hover {
+    background: var(--secondary-hover);
+}
+
+.chat-locked {
+    padding: 0.5rem;
+    text-align: center;
+    background: #eee;
+    color: #666;
+    font-size: 0.8rem;
+}

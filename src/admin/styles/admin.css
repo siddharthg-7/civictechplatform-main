@@ -111,6 +111,14 @@
   filter: var(--icon-filter);
 }
 
+.admin-tracker-row {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  border-top: 1px dashed var(--border);
+  padding-top: 1rem;
+}
+
 /* ---------- STATUS & BUTTONS ---------- */
 .resolved-badge {
   display: inline-flex;
