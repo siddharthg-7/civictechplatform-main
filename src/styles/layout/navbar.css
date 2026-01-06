@@ -14,14 +14,15 @@
 .gov-top-bar {
   background-color: #333;
   color: white;
-  font-size: 0.8rem;
-  padding: 4px 0;
+  font-size: 0.85rem;
+  padding: 6px 0;
 }
 
 .gov-top-content {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+  /* More horizontal padding */
   display: flex;
   justify-content: flex-end;
 }
@@ -29,16 +30,18 @@
 .gov-access-tools {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
+  /* Increased gap */
 }
 
 .gov-access-tools button {
   background: none;
   border: none;
   color: white;
-  font-size: 0.8rem;
-  padding: 2px 6px;
-  border-radius: 2px;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  /* Larger targets */
+  border-radius: 4px;
 }
 
 .gov-access-tools button:hover {
@@ -52,14 +55,16 @@
 /* 2. Main Header */
 .gov-main-header {
   background: white;
-  padding: 1rem 0;
+  padding: 1.5rem 0;
+  /* Taller header */
   box-shadow: var(--shadow-sm);
 }
 
 .gov-header-content {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
+  /* More horizontal padding */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -68,31 +73,33 @@
 .gov-branding {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .emblem-placeholder {
-  width: 50px;
-  height: 50px;
+  width: 64px;
+  /* Larger logo placeholder */
+  height: 64px;
   background: #eee;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8px;
+  font-size: 10px;
   color: #666;
   border: 2px solid #ddd;
 }
 
 .site-titles h1 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  /* Larger title */
   color: var(--primary);
   margin-bottom: 0px;
   line-height: 1.2;
 }
 
 .site-titles span {
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: var(--text-muted);
   font-weight: 500;
 }
@@ -100,34 +107,37 @@
 .gov-actions {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .gov-search {
   display: flex;
   align-items: center;
   border: 2px solid var(--border);
-  border-radius: 4px;
+  border-radius: 6px;
   overflow: hidden;
 }
 
 .gov-search input {
   border: none;
-  padding: 8px 12px;
+  padding: 10px 14px;
+  /* Larger inputs */
   outline: none;
   font-size: 1rem;
 }
 
 .gov-search button {
   background: var(--primary);
-  padding: 8px 12px;
+  padding: 10px 14px;
+  /* Larger button */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .gov-search img {
-  width: 16px;
+  width: 20px;
+  /* Larger icon */
   filter: brightness(0) invert(1);
 }
 
@@ -140,27 +150,30 @@
 .gov-nav-content {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 48px;
+  height: 56px;
+  /* Taller nav */
 }
 
 .nav-links {
   display: flex;
   gap: 1px;
-  /* divider look if needed */
 }
 
 .nav-links span {
-  padding: 0 1.5rem;
+  padding: 0 2rem;
+  /* More spacious links */
   cursor: pointer;
-  height: 48px;
+  height: 56px;
   display: flex;
   align-items: center;
   font-weight: 500;
   border-right: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
+  /* Larger text */
 }
 
 .nav-links span:first-child {
@@ -174,10 +187,10 @@
 .user-profile {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   cursor: pointer;
-  padding: 4px 12px;
-  border-radius: 4px;
+  padding: 6px 14px;
+  border-radius: 6px;
 }
 
 .user-profile:hover {
@@ -185,18 +198,18 @@
 }
 
 .user-profile img {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: white;
   padding: 2px;
 }
 
 .logout-btn {
-  margin-left: 1rem;
-  font-size: 0.8rem;
+  margin-left: 1.25rem;
+  font-size: 0.9rem;
   background: rgba(0, 0, 0, 0.2);
-  padding: 4px 8px;
+  padding: 6px 12px;
   border-radius: 4px;
 }
 
@@ -208,7 +221,7 @@
   .gov-header-content {
     flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 1.5rem;
   }
 
   .gov-nav-content {
