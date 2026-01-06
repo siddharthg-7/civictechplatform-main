@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../assets/images/logo/civic-logo.png";
+import { TextField } from '@mui/material';
 import { auth } from "../../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 
@@ -44,10 +45,12 @@ const ForgotPassword = () => {
 
           {/* Email */}
           <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <input
+            <TextField
+              label="Email Address"
               type="email"
-              className="form-input"
+              variant="outlined"
+              fullWidth
+              size="small"
               placeholder="name@company.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}

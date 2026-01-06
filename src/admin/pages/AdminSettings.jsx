@@ -4,6 +4,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import AdminSidebar from "../components/AdminSidebar";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { TextField } from '@mui/material';
 
 import "../../styles/components/forms.css";
 
@@ -125,30 +126,38 @@ const AdminSettings = () => {
                             <section className="settings-card">
                                 <h2>Profile Information</h2>
 
-                                <label>Full Name</label>
-                                <input
-                                    type="text"
+                                <TextField
+                                    label="Full Name"
                                     name="name"
+                                    variant="outlined"
+                                    fullWidth
+                                    size="small"
                                     value={profile.name}
                                     onChange={handleChange}
                                 />
 
-                                <label>Email Address</label>
-                                <input
-                                    type="email"
+                                <TextField
+                                    label="Email Address"
                                     name="email"
+                                    type="email"
+                                    variant="outlined"
+                                    fullWidth
+                                    size="small"
                                     value={profile.email}
                                     disabled
-                                    style={{ backgroundColor: "#f5f5f5", cursor: "not-allowed" }}
+                                    InputProps={{ readOnly: true }}
+                                    sx={{ mt: 1 }}
                                 />
                                 <small style={{ color: "#666", fontSize: "0.85rem", display: "block", marginTop: "-10px", marginBottom: "15px" }}>
                                     Email cannot be changed
                                 </small>
 
-                                <label>Mobile Number</label>
-                                <input
-                                    type="text"
+                                <TextField
+                                    label="Mobile Number"
                                     name="mobile"
+                                    variant="outlined"
+                                    fullWidth
+                                    size="small"
                                     value={profile.mobile}
                                     onChange={handleChange}
                                 />

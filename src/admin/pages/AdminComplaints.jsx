@@ -6,6 +6,7 @@ import "../styles/admin.css";
 
 import locationIcon from "../../assets/images/icons/location.png";
 import userIcon from "../../assets/images/icons/user.png";
+import { TextField } from '@mui/material';
 
 import { auth, db } from "../../firebase";
 import { collection, onSnapshot, doc, updateDoc, orderBy, query, getDoc } from "firebase/firestore";
@@ -94,11 +95,14 @@ const AdminComplaints = () => {
             <h2 className="admin-title">Manage Complaints</h2>
 
             {/* SEARCH */}
-            <input
-              className="admin-search"
-              placeholder="Search by area or complaint title..."
+            <TextField
+              label="Search by area or complaint title..."
+              variant="outlined"
+              size="small"
+              fullWidth
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              sx={{ mb: 2 }}
             />
 
             {/* COMPLAINT LIST */}

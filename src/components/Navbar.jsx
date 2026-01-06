@@ -6,7 +6,8 @@ import { locations } from "../data/locations";
 import logo from "../assets/images/logo/civic-logo.png";
 import searchIcon from "../assets/images/icons/search.png";
 import userIcon from "../assets/images/icons/user.png";
-import { useTheme } from "../contexts/ThemeContext";
+import { TextField } from '@mui/material';
+import { useTheme } from "../contexts/ThemeContext"; 
 
 const Navbar = ({ role = "user" }) => {
   const navigate = useNavigate();
@@ -74,18 +75,20 @@ const Navbar = ({ role = "user" }) => {
             {/* Search */}
             {role === 'user' && (
               <div className="gov-search">
-                <input
-                  type="text"
-                  placeholder="Search location..."
+                <TextField
+                  label="Search location..."
+                  variant="outlined"
+                  size="small"
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyDown={handleSearch}
+                  sx={{ mr: 1 }}
                 />
                 <button onClick={handleSearch}>
                   <img src={searchIcon} alt="Search" />
                 </button>
               </div>
-            )}
+            )} 
           </div>
         </div>
       </div>
