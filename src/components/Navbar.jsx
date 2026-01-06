@@ -4,8 +4,7 @@ import "../styles/layout/navbar.css";
 import { locations } from "../data/locations";
 
 import logo from "../assets/images/logo/civic-logo.png";
-import searchIcon from "../assets/images/icons/search.png";
-import userIcon from "../assets/images/icons/user.png";
+import { FaSearch, FaUserCircle } from "react-icons/fa";
 import { useTheme } from "../contexts/ThemeContext";
 
 const Navbar = ({ role = "user" }) => {
@@ -82,7 +81,7 @@ const Navbar = ({ role = "user" }) => {
                   onKeyDown={handleSearch}
                 />
                 <button onClick={handleSearch}>
-                  <img src={searchIcon} alt="Search" />
+                  <FaSearch size={18} />
                 </button>
               </div>
             )}
@@ -98,12 +97,12 @@ const Navbar = ({ role = "user" }) => {
             <span onClick={() => navigate('/complaints')}>Complaints</span>
             {role === 'user' && <span onClick={() => navigate('/raise-complaint')}>Raise New</span>}
             {role === 'admin' && <span onClick={() => navigate('/admin/users')}>Users</span>}
-            <span>Reports</span>
-            <span>Help</span>
+            <span onClick={() => navigate('/reports')}>Reports</span>
+            <span onClick={() => navigate('/help')}>Help</span>
           </div>
 
           <div className="user-profile" onClick={() => navigate(role === 'admin' ? '/admin/account' : '/about/account')}>
-            <img src={userIcon} alt="User" />
+            <FaUserCircle size={24} />
             <span>{role === 'admin' ? 'Admin' : 'My Account'}</span>
             <span className="logout-btn" onClick={handleLogout}>Logout</span>
           </div>

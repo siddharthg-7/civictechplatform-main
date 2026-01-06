@@ -40,13 +40,22 @@
   filter: var(--icon-filter);
 }
 
+.sidebar-menu li .sidebar-icon {
+  width: 20px;
+  height: 20px;
+  opacity: 0.6;
+  transition: var(--transition);
+  color: var(--text-muted);
+}
+
 .sidebar-menu li:hover {
   background: var(--bg-main);
   color: var(--text-main);
   transform: translateX(4px);
 }
 
-.sidebar-menu li:hover img {
+.sidebar-menu li:hover img,
+.sidebar-menu li:hover .sidebar-icon {
   opacity: 1;
 }
 
@@ -56,9 +65,11 @@
   font-weight: 600;
 }
 
-.sidebar-menu li.active img {
+.sidebar-menu li.active img,
+.sidebar-menu li.active .sidebar-icon {
   opacity: 1;
   filter: none;
+  color: var(--primary);
 }
 
 @media (max-width: 1024px) {

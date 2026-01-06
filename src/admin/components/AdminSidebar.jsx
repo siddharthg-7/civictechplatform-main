@@ -1,11 +1,13 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../styles/layout/sidebar.css";
 
-import dashboardIcon from "../../assets/images/icons/dashboard.png";
-import complaintIcon from "../../assets/images/icons/complaints.png";
-import communityIcon from "../../assets/images/icons/communityIcon.png";
-import userIcon from "../../assets/images/icons/user.png";
-import settingsIcon from "../../assets/images/icons/settings.png";
+import {
+  MdDashboard,
+  MdReportProblem,
+  MdPeople,
+  MdPerson,
+  MdSettings
+} from "react-icons/md";
 
 const AdminSidebar = () => {
   const navigate = useNavigate();
@@ -21,7 +23,7 @@ const AdminSidebar = () => {
           className={isActive("/admin/dashboard") ? "active" : ""}
           onClick={() => navigate("/admin/dashboard")}
         >
-          <img src={dashboardIcon} alt="Dashboard" />
+          <MdDashboard className="sidebar-icon" size={24} />
           <span>Dashboard</span>
         </li>
 
@@ -29,7 +31,7 @@ const AdminSidebar = () => {
           className={isActive("/admin/complaints") ? "active" : ""}
           onClick={() => navigate("/admin/complaints")}
         >
-          <img src={complaintIcon} alt="All Complaints" />
+          <MdReportProblem className="sidebar-icon" size={24} />
           <span>All Complaints</span>
         </li>
 
@@ -37,7 +39,7 @@ const AdminSidebar = () => {
           className={isActive("/admin/polls") ? "active" : ""}
           onClick={() => navigate("/admin/polls")}
         >
-          <img src={communityIcon} alt="Community Polls" />
+          <MdPeople className="sidebar-icon" size={24} />
           <span>Community Polls</span>
         </li>
 
@@ -45,7 +47,7 @@ const AdminSidebar = () => {
           className={isActive("/admin/users") ? "active" : ""}
           onClick={() => navigate("/admin/users")}
         >
-          <img src={userIcon} alt="Logged Users" />
+          <MdPerson className="sidebar-icon" size={24} />
           <span>Logged Users</span>
         </li>
 
@@ -53,7 +55,7 @@ const AdminSidebar = () => {
           className={isActive("/admin/settings") ? "active" : ""}
           onClick={() => navigate("/admin/settings")}
         >
-          <img src={settingsIcon} alt="Settings" />
+          <MdSettings className="sidebar-icon" size={24} />
           <span>Settings</span>
         </li>
 
@@ -63,3 +65,4 @@ const AdminSidebar = () => {
 };
 
 export default AdminSidebar;
+

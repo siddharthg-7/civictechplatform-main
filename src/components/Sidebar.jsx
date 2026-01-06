@@ -1,15 +1,15 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/layout/sidebar.css";
 
-import dashboardIcon from "../assets/images/icons/dashboard.png";
-import complaintIcon from "../assets/images/icons/complaints.png";
-import resolvedIcon from "../assets/images/icons/resolved.png";
-import phoneIcon from "../assets/images/icons/phone.png";
-import settingsIcon from "../assets/images/icons/settings.png";
-import communityIcon from "../assets/images/icons/communityIcon.png";
-
-// ✅ ADMIN ICONS (reuse or add later)
-import usersIcon from "../assets/images/icons/user.png";
+import {
+  MdDashboard,
+  MdReportProblem,
+  MdCheckCircle,
+  MdPhone,
+  MdSettings,
+  MdPeople,
+  MdPerson
+} from "react-icons/md";
 
 const Sidebar = ({ role = "user" }) => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Sidebar = ({ role = "user" }) => {
             navigate(role === "admin" ? "/admin/dashboard" : "/dashboard")
           }
         >
-          <img src={dashboardIcon} alt="Dashboard" />
+          <MdDashboard className="sidebar-icon" size={24} />
           <span>Dashboard</span>
         </li>
 
@@ -39,7 +39,7 @@ const Sidebar = ({ role = "user" }) => {
               className={isActive("/complaints") ? "active" : ""}
               onClick={() => navigate("/complaints")}
             >
-              <img src={complaintIcon} alt="Complaints" />
+              <MdReportProblem className="sidebar-icon" size={24} />
               <span>My Complaints</span>
             </li>
 
@@ -47,7 +47,7 @@ const Sidebar = ({ role = "user" }) => {
               className={isActive("/resolved") ? "active" : ""}
               onClick={() => navigate("/resolved")}
             >
-              <img src={resolvedIcon} alt="Resolved" />
+              <MdCheckCircle className="sidebar-icon" size={24} />
               <span>Resolved</span>
             </li>
 
@@ -55,7 +55,7 @@ const Sidebar = ({ role = "user" }) => {
               className={isActive("/telecom") ? "active" : ""}
               onClick={() => navigate("/telecom")}
             >
-              <img src={phoneIcon} alt="Telecom" />
+              <MdPhone className="sidebar-icon" size={24} />
               <span>Telecom</span>
             </li>
 
@@ -63,7 +63,7 @@ const Sidebar = ({ role = "user" }) => {
               className={isActive("/community") ? "active" : ""}
               onClick={() => navigate("/community")}
             >
-              <img src={communityIcon} alt="Community" />
+              <MdPeople className="sidebar-icon" size={24} />
               <span>Community</span>
             </li>
           </>
@@ -76,7 +76,7 @@ const Sidebar = ({ role = "user" }) => {
               className={isActive("/admin/complaints") ? "active" : ""}
               onClick={() => navigate("/admin/complaints")}
             >
-              <img src={complaintIcon} alt="All Complaints" />
+              <MdReportProblem className="sidebar-icon" size={24} />
               <span>All Complaints</span>
             </li>
 
@@ -84,7 +84,7 @@ const Sidebar = ({ role = "user" }) => {
               className={isActive("/admin/polls") ? "active" : ""}
               onClick={() => navigate("/admin/polls")}
             >
-              <img src={communityIcon} alt="Community Polls" />
+              <MdPeople className="sidebar-icon" size={24} />
               <span>Community Polls</span>
             </li>
 
@@ -92,7 +92,7 @@ const Sidebar = ({ role = "user" }) => {
               className={isActive("/admin/users") ? "active" : ""}
               onClick={() => navigate("/admin/users")}
             >
-              <img src={usersIcon} alt="Users" />
+              <MdPerson className="sidebar-icon" size={24} />
               <span>Logged Users</span>
             </li>
           </>
@@ -105,7 +105,7 @@ const Sidebar = ({ role = "user" }) => {
             navigate(role === "admin" ? "/admin/settings" : "/settings")
           }
         >
-          <img src={settingsIcon} alt="Settings" />
+          <MdSettings className="sidebar-icon" size={24} />
           <span>Settings</span>
         </li>
 

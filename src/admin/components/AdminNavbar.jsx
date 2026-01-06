@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/layout/navbar.css";
 
 import logo from "../../assets/images/logo/civic-logo.png";
-import userIcon from "../../assets/images/icons/user.png";
+import { FaUserCircle } from "react-icons/fa";
 import { useTheme } from "../../contexts/ThemeContext";
 
 const AdminNavbar = () => {
@@ -63,7 +63,7 @@ const AdminNavbar = () => {
           </div>
 
           <div className="user-profile">
-            <img src={userIcon} alt="Admin" onClick={() => navigate("/admin/account")} />
+            <FaUserCircle size={24} onClick={() => navigate("/admin/account")} />
             <span onClick={() => navigate("/admin/account")}>Admin Account</span>
             <span className="logout-btn" onClick={handleLogout}>Logout</span>
           </div>
@@ -74,3 +74,4 @@ const AdminNavbar = () => {
 };
 
 export default AdminNavbar;
+

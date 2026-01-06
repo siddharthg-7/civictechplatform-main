@@ -10,6 +10,8 @@ import Telecommunications from "./pages/telecom/Telecommunications";
 import Settings from "./pages/settings/Settings";
 import AboutAccount from "./pages/about/AboutAccount";
 import Resolved from "./pages/complaints/Resolved";
+import Reports from "./pages/reports/Reports";
+import Help from "./pages/help/Help";
 import CommunityDashboard from "./community/CommunityDashboard";
 import ProposeProject from "./community/ProposeProject";
 import DecisionLogs from "./community/DecisionLogs";
@@ -39,6 +41,8 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/about/account" element={<AboutAccount />} />
         <Route path="/resolved" element={<Resolved />} />
+        <Route path="/reports" element={<Reports />} />
+        <Route path="/help" element={<Help />} />
         <Route path="/community" element={<CommunityDashboard />} />
         <Route path="/community/propose" element={<ProposeProject />} />
         <Route path="/community/decisions" element={<DecisionLogs />} />
