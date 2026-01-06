@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
@@ -15,6 +16,7 @@ import { collection, query, where, onSnapshot } from "firebase/firestore";
 
 const MyComplaints = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const locationData = useLocation().state || {};
   const [state, setState] = useState(locationData.state || "");
@@ -72,7 +74,7 @@ const MyComplaints = () => {
 
         <main className="dashboard-content">
           <div className="complaints-container">
-            <h2 className="complaints-title">Raise New Complaint</h2>
+            <h2 className="complaints-title">{t('raiseNewComplaint')}</h2>
 
             <div className="complaint-box">
               {/* STATE */}
@@ -84,7 +86,7 @@ const MyComplaints = () => {
                   setMunicipality("");
                 }}
               >
-                <option value="">Select State</option>
+                <option value="">{t('selectState')}</option>
                 {states.map((s) => (
                   <option key={s} value={s}>
                     {s}
@@ -101,7 +103,7 @@ const MyComplaints = () => {
                 }}
                 disabled={!state}
               >
-                <option value="">Select District</option>
+                <option value="">{t('selectDistrict')}</option>
                 {districts.map((d) => (
                   <option key={d} value={d}>
                     {d}
@@ -115,7 +117,7 @@ const MyComplaints = () => {
                 onChange={(e) => setMunicipality(e.target.value)}
                 disabled={!district}
               >
-                <option value="">Select Municipality</option>
+                <option value="">{t('selectMunicipality')}</option>
                 {municipalities.map((m) => (
                   <option key={m} value={m}>
                     {m}
@@ -124,16 +126,16 @@ const MyComplaints = () => {
               </select>
 
               <button onClick={handleContinue} disabled={!municipality}>
-                Continue
+                {t('continue')}
               </button>
             </div>
 
             {/* MY RECENT COMPLAINTS */}
             <div className="my-complaints-section" style={{ marginTop: '3rem' }}>
-              <h2 className="complaints-title">Track Complaint Status</h2>
+              <h2 className="complaints-title">{t('trackComplaintStatus')}</h2>
               <div className="complaints-list">
                 {myComplaints.length === 0 ? (
-                  <p>No complaints submitted yet.</p>
+                  <p>{t('noComplaintsYet')}</p>
                 ) : (
                   myComplaints.map(c => (
                     <div key={c.id} className="card" style={{ marginBottom: '1.5rem', padding: '1.5rem' }}>

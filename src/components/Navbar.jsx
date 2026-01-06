@@ -1,17 +1,36 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/layout/navbar.css";
 import { locations } from "../data/locations";
 
 import logo from "../assets/images/logo/civic-logo.png";
-import { FaSearch, FaUserCircle } from "react-icons/fa";
+import { FaSearch, FaUserCircle, FaGlobe, FaChevronDown } from "react-icons/fa";
 import { useTheme } from "../contexts/ThemeContext";
 
 const Navbar = ({ role = "user" }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t, i18n } = useTranslation();
   const [searchText, setSearchText] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isLangOpen, setIsLangOpen] = useState(false);
   const { theme, toggleTheme, increaseFont, decreaseFont, resetFont, fontSize } = useTheme();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setIsLangOpen(false);
+  };
+
+  const currentLanguage = i18n.language || "en";
 
   const handleSearch = (e) => {
     if (e.key !== "Enter" && e.type !== 'click') return;
@@ -36,22 +55,32 @@ const Navbar = ({ role = "user" }) => {
   };
 
   return (
-    <header className="gov-header">
+    <header className={`gov-header ${isScrolled ? 'scrolled' : ''}`}>
       {/* 1. Accessibility Bar */}
       <div className="gov-top-bar">
         <div className="gov-top-content">
           <div className="gov-access-tools">
-            <span>Language: EN</span>
+            <div className="lang-switcher">
+              <span onClick={() => setIsLangOpen(!isLangOpen)} className="lang-toggle">
+                <FaGlobe /> {currentLanguage.toUpperCase()} <FaChevronDown size={10} />
+              </span>
+              {isLangOpen && (
+                <div className="lang-dropdown">
+                  <div onClick={() => changeLanguage('en')}>English</div>
+                  <div onClick={() => changeLanguage('hi')}>हिन्दी</div>
+                </div>
+              )}
+            </div>
             <span className="divider">|</span>
             <button onClick={decreaseFont} aria-label="Decrease Font">A-</button>
             <button onClick={resetFont} aria-label="Reset Font">A</button>
             <button onClick={increaseFont} aria-label="Increase Font">A+</button>
             <span className="divider">|</span>
             <button onClick={toggleTheme} aria-label="Toggle Theme">
-              {theme === 'high-contrast' ? 'Standard Contrast' : 'High Contrast'}
+              {theme === 'high-contrast' ? t('standardContrast') : t('highContrast')}
             </button>
             <span className="divider">|</span>
-            <span>Screen Reader Access</span>
+            <span>{t('screenReader')}</span>
           </div>
         </div>
       </div>
@@ -64,8 +93,8 @@ const Navbar = ({ role = "user" }) => {
               <img src={logo} alt="Emblem" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div className="site-titles">
-              <h1>{role === 'admin' ? 'Admin Portal' : 'Civic Platform'}</h1>
-              <span>Government of India</span>
+              <h1>{role === 'admin' ? t('adminPortal') : t('civicPlatform')}</h1>
+              <span>{t('govOfIndia')}</span>
             </div>
           </div>
 
@@ -75,7 +104,7 @@ const Navbar = ({ role = "user" }) => {
               <div className="gov-search">
                 <input
                   type="text"
-                  placeholder="Search location..."
+                  placeholder={t('searchLocation')}
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyDown={handleSearch}
@@ -93,18 +122,18 @@ const Navbar = ({ role = "user" }) => {
       <div className="gov-nav-bar">
         <div className="gov-nav-content">
           <div className="nav-links">
-            <span onClick={() => navigate(role === 'admin' ? '/admin/dashboard' : '/dashboard')}>Dashboard</span>
-            <span onClick={() => navigate('/complaints')}>Complaints</span>
-            {role === 'user' && <span onClick={() => navigate('/raise-complaint')}>Raise New</span>}
-            {role === 'admin' && <span onClick={() => navigate('/admin/users')}>Users</span>}
-            <span onClick={() => navigate('/reports')}>Reports</span>
-            <span onClick={() => navigate('/help')}>Help</span>
+            <span onClick={() => navigate(role === 'admin' ? '/admin/dashboard' : '/dashboard')}>{t('dashboard')}</span>
+            <span onClick={() => navigate('/complaints')}>{t('complaints')}</span>
+            {role === 'user' && <span onClick={() => navigate('/raise-complaint')}>{t('raiseNew')}</span>}
+            {role === 'admin' && <span onClick={() => navigate('/admin/users')}>{t('users')}</span>}
+            <span onClick={() => navigate('/reports')}>{t('reports')}</span>
+            <span onClick={() => navigate('/help')}>{t('help')}</span>
           </div>
 
           <div className="user-profile" onClick={() => navigate(role === 'admin' ? '/admin/account' : '/about/account')}>
             <FaUserCircle size={24} />
-            <span>{role === 'admin' ? 'Admin' : 'My Account'}</span>
-            <span className="logout-btn" onClick={handleLogout}>Logout</span>
+            <span>{role === 'admin' ? t('adminPortal') : t('myAccount')}</span>
+            <span className="logout-btn" onClick={handleLogout}>{t('logout')}</span>
           </div>
         </div>
       </div>

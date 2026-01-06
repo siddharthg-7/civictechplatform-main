@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/layout/sidebar.css";
+import { useTranslation } from "react-i18next";
 
 import {
   MdDashboard,
@@ -14,6 +15,7 @@ import {
 const Sidebar = ({ role = "user" }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const isActive = (path) => location.pathname.startsWith(path);
 
@@ -29,7 +31,7 @@ const Sidebar = ({ role = "user" }) => {
           }
         >
           <MdDashboard className="sidebar-icon" size={24} />
-          <span>Dashboard</span>
+          <span>{t('dashboard')}</span>
         </li>
 
         {/* ===== USER ONLY ===== */}
@@ -40,7 +42,7 @@ const Sidebar = ({ role = "user" }) => {
               onClick={() => navigate("/complaints")}
             >
               <MdReportProblem className="sidebar-icon" size={24} />
-              <span>My Complaints</span>
+              <span>{t('myComplaints')}</span>
             </li>
 
             <li
@@ -48,7 +50,7 @@ const Sidebar = ({ role = "user" }) => {
               onClick={() => navigate("/resolved")}
             >
               <MdCheckCircle className="sidebar-icon" size={24} />
-              <span>Resolved</span>
+              <span>{t('resolved')}</span>
             </li>
 
             <li
@@ -56,7 +58,7 @@ const Sidebar = ({ role = "user" }) => {
               onClick={() => navigate("/telecom")}
             >
               <MdPhone className="sidebar-icon" size={24} />
-              <span>Telecom</span>
+              <span>{t('telecom')}</span>
             </li>
 
             <li
@@ -64,7 +66,7 @@ const Sidebar = ({ role = "user" }) => {
               onClick={() => navigate("/community")}
             >
               <MdPeople className="sidebar-icon" size={24} />
-              <span>Community</span>
+              <span>{t('community')}</span>
             </li>
           </>
         )}
@@ -77,7 +79,7 @@ const Sidebar = ({ role = "user" }) => {
               onClick={() => navigate("/admin/complaints")}
             >
               <MdReportProblem className="sidebar-icon" size={24} />
-              <span>All Complaints</span>
+              <span>{t('allComplaints')}</span>
             </li>
 
             <li
@@ -85,7 +87,7 @@ const Sidebar = ({ role = "user" }) => {
               onClick={() => navigate("/admin/polls")}
             >
               <MdPeople className="sidebar-icon" size={24} />
-              <span>Community Polls</span>
+              <span>{t('communityPolls')}</span>
             </li>
 
             <li
@@ -93,7 +95,7 @@ const Sidebar = ({ role = "user" }) => {
               onClick={() => navigate("/admin/users")}
             >
               <MdPerson className="sidebar-icon" size={24} />
-              <span>Logged Users</span>
+              <span>{t('loggedUsers')}</span>
             </li>
           </>
         )}
@@ -106,7 +108,7 @@ const Sidebar = ({ role = "user" }) => {
           }
         >
           <MdSettings className="sidebar-icon" size={24} />
-          <span>Settings</span>
+          <span>{t('settings')}</span>
         </li>
 
       </ul>

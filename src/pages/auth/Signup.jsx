@@ -5,9 +5,11 @@ import { auth, db } from "../../firebase";
 import { TextField } from '@mui/material';
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const Signup = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
@@ -59,13 +61,13 @@ const Signup = () => {
                     {/*logo*/}
                     <div className="auth-logo">
                         <img src={logo} alt="Civic Platform" />
-                        <h2>Get started</h2>
+                        <h2>{t('getStarted')}</h2>
                     </div>
 
                     {/*Name*/}
                     <div className="form-group">
                         <TextField
-                            label="Full Name"
+                            label={t('fullName')}
                             variant="outlined"
                             fullWidth
                             size="small"
@@ -78,7 +80,7 @@ const Signup = () => {
                     {/*Email*/}
                     <div className="form-group">
                         <TextField
-                            label="Email Address"
+                            label={t('emailAddress')}
                             type="email"
                             variant="outlined"
                             fullWidth
@@ -92,7 +94,7 @@ const Signup = () => {
                     {/*Phone*/}
                     <div className="form-group">
                         <TextField
-                            label="Phone Number"
+                            label={t('phoneNumber')}
                             variant="outlined"
                             fullWidth
                             size="small"
@@ -105,12 +107,12 @@ const Signup = () => {
                     {/*Password*/}
                     <div className="form-group">
                         <TextField
-                            label="Password"
+                            label={t('passwordLabel')}
                             type="password"
                             variant="outlined"
                             fullWidth
                             size="small"
-                            placeholder="Create a password"
+                            placeholder={t('createPassword')}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
@@ -118,12 +120,12 @@ const Signup = () => {
 
                     {/* Signup Button */}
                     <button className="auth-btn" onClick={handleSignup} disabled={loading}>
-                        {loading ? "Creating account..." : "Create account"}
+                        {loading ? t('creatingAccount') : t('createAccountBtn')}
                     </button>
 
                     {/*Links*/}
                     <div className="auth-links">
-                        <p>Already have an account? <Link to="/">Sign in</Link></p>
+                        <p>{t('alreadyHaveAccount')} <Link to="/">{t('signInButton')}</Link></p>
                     </div>
                 </div>
             </div>

@@ -5,36 +5,30 @@
 .settings-page {
   width: 100%;
   max-width: 900px;
-  /* Increased from 800px */
   margin: 0 auto;
-  padding: 3rem;
-  /* Increased from 2rem */
+  padding: 2rem;
 }
 
 .settings-page h1 {
-  font-size: 2rem;
-  /* Increased size */
-  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
   color: var(--text-main);
   font-weight: 700;
 }
 
 .settings-subtitle {
   color: var(--text-muted);
-  margin-bottom: 2.5rem;
-  /* Increased spacing */
-  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
 }
 
 .settings-card {
   background: var(--bg-card);
   border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  /* Increased from 1.5rem */
+  padding: 2rem;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border);
-  margin-bottom: 2rem;
-  /* Increased margin */
+  margin-bottom: 1.5rem;
   transition: var(--transition);
 }
 
@@ -44,34 +38,46 @@
 
 .settings-card h2 {
   font-size: 1.25rem;
-  /* Larger */
   margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.75rem;
   border-bottom: 1px solid var(--border);
   color: var(--text-main);
   font-weight: 600;
 }
 
-.settings-card label {
-  display: block;
-  font-size: 0.95rem;
-  /* Larger */
-  font-weight: 500;
-  color: var(--text-main);
-  margin-bottom: 0.75rem;
-  margin-top: 1.5rem;
+/* Floating Label Inputs */
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
 }
 
-.settings-card label:first-of-type {
-  margin-top: 0;
+.input-group label {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  background: white;
+  padding: 0 0.25rem;
+  color: #666;
+  font-size: 0.95rem;
+  transition: all 0.2s ease-out;
+  pointer-events: none;
+}
+
+.input-group input:focus+label,
+.input-group input:not(:placeholder-shown)+label {
+  top: 0;
+  font-size: 0.75rem;
+  color: var(--primary);
+  font-weight: 600;
 }
 
 .settings-card input[type="text"],
 .settings-card input[type="email"],
-.settings-card input[type="password"] {
+.settings-card input[type="password"],
+.form-control {
   width: 100%;
-  padding: 0.75rem 1rem;
-  /* Larger inputs */
+  padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border);
   background: var(--bg-main);
@@ -80,32 +86,26 @@
   transition: var(--transition);
 }
 
-.settings-card input:focus {
+.settings-card input:focus,
+.form-control:focus {
   outline: none;
   border-color: var(--primary);
-  background: var(--bg-card);
+  background: white;
   box-shadow: 0 0 0 3px var(--primary-light);
-}
-
-.settings-card input:disabled {
-  background-color: var(--bg-main);
-  cursor: not-allowed;
-  color: var(--text-muted);
-  opacity: 0.6;
 }
 
 /* ===============================
    BUTTONS
 ================================ */
 .primary-btn {
-  padding: 0.75rem 1.5rem;
-  /* Standardized larger padding */
+  padding: 0.6rem 1.5rem;
   background: var(--primary);
   color: white;
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   font-weight: 600;
-  font-size: 1rem;
-  margin-top: 2rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   cursor: pointer;
   transition: var(--transition);
   border: 1px solid transparent;
@@ -116,18 +116,19 @@
 
 .primary-btn:hover {
   background: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 .secondary-btn {
-  padding: 0.75rem 1.5rem;
-  background: var(--bg-card);
+  padding: 0.6rem 1.5rem;
+  background: white;
   border: 1px solid var(--border);
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   font-weight: 600;
   color: var(--text-main);
-  font-size: 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
   cursor: pointer;
   transition: var(--transition);
   display: inline-flex;
@@ -136,20 +137,19 @@
 }
 
 .secondary-btn:hover {
-  background: var(--bg-main);
-  border-color: var(--text-muted);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  background: #f8f9fa;
+  transform: translateY(-1px);
 }
 
 .danger-btn {
-  padding: 0.75rem 1.5rem;
-  background: var(--bg-card);
+  padding: 0.6rem 1.5rem;
+  background: white;
   color: var(--danger);
   border: 1px solid var(--danger);
-  border-radius: var(--radius-md);
+  border-radius: 4px;
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem;
+  text-transform: uppercase;
   cursor: pointer;
   transition: var(--transition);
   display: inline-flex;
@@ -160,13 +160,12 @@
 .danger-btn:hover {
   background: var(--danger);
   color: white;
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
 }
 
 .security-actions {
   display: flex;
-  gap: 1.25rem;
+  gap: 1rem;
   flex-wrap: wrap;
   align-items: center;
   margin-top: 1rem;
@@ -174,17 +173,10 @@
 
 @media (max-width: 640px) {
   .settings-card {
-    padding: 1.5rem;
+    padding: 1rem;
   }
 
   .settings-page {
-    padding: 1.5rem;
-  }
-
-  .primary-btn,
-  .secondary-btn,
-  .danger-btn {
-    width: 100%;
-    text-align: center;
+    padding: 1rem;
   }
 }

@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import "../../styles/layout/sidebar.css";
+import { useTranslation } from "react-i18next";
 
 import {
   MdDashboard,
@@ -12,6 +13,7 @@ import {
 const AdminSidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const isActive = (path) => location.pathname.startsWith(path);
 
@@ -24,7 +26,7 @@ const AdminSidebar = () => {
           onClick={() => navigate("/admin/dashboard")}
         >
           <MdDashboard className="sidebar-icon" size={24} />
-          <span>Dashboard</span>
+          <span>{t('dashboard')}</span>
         </li>
 
         <li
@@ -32,7 +34,7 @@ const AdminSidebar = () => {
           onClick={() => navigate("/admin/complaints")}
         >
           <MdReportProblem className="sidebar-icon" size={24} />
-          <span>All Complaints</span>
+          <span>{t('allComplaints')}</span>
         </li>
 
         <li
@@ -40,7 +42,7 @@ const AdminSidebar = () => {
           onClick={() => navigate("/admin/polls")}
         >
           <MdPeople className="sidebar-icon" size={24} />
-          <span>Community Polls</span>
+          <span>{t('communityPolls')}</span>
         </li>
 
         <li
@@ -48,7 +50,7 @@ const AdminSidebar = () => {
           onClick={() => navigate("/admin/users")}
         >
           <MdPerson className="sidebar-icon" size={24} />
-          <span>Logged Users</span>
+          <span>{t('loggedUsers')}</span>
         </li>
 
         <li
@@ -56,7 +58,7 @@ const AdminSidebar = () => {
           onClick={() => navigate("/admin/settings")}
         >
           <MdSettings className="sidebar-icon" size={24} />
-          <span>Settings</span>
+          <span>{t('settings')}</span>
         </li>
 
       </ul>

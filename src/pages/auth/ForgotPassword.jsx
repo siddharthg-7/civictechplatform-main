@@ -4,9 +4,11 @@ import logo from "../../assets/images/logo/civic-logo.png";
 import { TextField } from '@mui/material';
 import { auth } from "../../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
+import { useTranslation } from "react-i18next";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -36,17 +38,17 @@ const ForgotPassword = () => {
           {/* Logo */}
           <div className="auth-logo">
             <img src={logo} alt="Civic Platform" />
-            <h2>Reset your password</h2>
+            <h2>{t('resetYourPassword')}</h2>
           </div>
 
           <p style={{ textAlign: 'center', color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1rem' }}>
-            Enter your email address and we'll send you a link to reset your password.
+            {t('forgotPasswordInstructions')}
           </p>
 
           {/* Email */}
           <div className="form-group">
             <TextField
-              label="Email Address"
+              label={t('emailAddress')}
               type="email"
               variant="outlined"
               fullWidth
@@ -59,12 +61,12 @@ const ForgotPassword = () => {
 
           {/* Submit Button */}
           <button className="auth-btn" onClick={handleReset} disabled={loading}>
-            {loading ? "Sending link..." : "Send reset link"}
+            {loading ? t('sendingLink') : t('sendResetLink')}
           </button>
 
           {/* Back Link */}
           <div className="auth-links">
-            <Link to="/">&larr; Back to Sign in</Link>
+            <Link to="/">&larr; {t('backToSignIn')}</Link>
           </div>
         </div>
       </div>

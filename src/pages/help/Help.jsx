@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import emailjs from "@emailjs/browser";
+import { useTranslation } from "react-i18next";
 import {
     MdHelp,
     MdEmail,
@@ -16,6 +17,7 @@ import "../../styles/pages/help.css";
 
 const Help = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const formRef = useRef();
     const [formData, setFormData] = useState({
         name: "",
@@ -62,81 +64,62 @@ const Help = () => {
                     <div className="help-header">
                         <div className="help-title">
                             <MdHelp size={32} />
-                            <h1>Help & Support</h1>
+                            <h1>{t('helpSupport')}</h1>
                         </div>
                         <p className="help-subtitle">
-                            Get assistance with your queries and concerns
+                            {t('helpSubtitle')}
                         </p>
                     </div>
 
-                    {/* Quick Info Section */}
+                    {/* Quick Info - Now Compact Layout */}
                     <section className="help-info">
                         <div className="info-card">
-                            <MdQuestionAnswer size={32} className="info-icon" />
-                            <h3>Frequently Asked Questions</h3>
-                            <p>Find quick answers to common questions about our civic platform.</p>
+                            <MdQuestionAnswer className="info-icon" />
+                            <h3>FAQ</h3>
+                            <p>Find quick answers.</p>
                         </div>
-
                         <div className="info-card">
-                            <MdEmail size={32} className="info-icon" />
-                            <h3>Email Support</h3>
-                            <p>Send us your queries and we'll respond within 24-48 hours.</p>
+                            <MdEmail className="info-icon" />
+                            <h3>Email Us</h3>
+                            <p>Response in 24h.</p>
                         </div>
-
                         <div className="info-card">
-                            <MdPhone size={32} className="info-icon" />
-                            <h3>Phone Support</h3>
-                            <p>Call our helpline for immediate assistance during business hours.</p>
+                            <MdPhone className="info-icon" />
+                            <h3>Call Us</h3>
+                            <p>Mon-Fri, 9am-6pm.</p>
                         </div>
                     </section>
 
-                    {/* FAQs */}
-                    <section className="help-section">
-                        <h2>Frequently Asked Questions</h2>
-                        <div className="faq-list">
-                            <div className="faq-item">
-                                <h4>How do I raise a complaint?</h4>
-                                <p>Navigate to "Raise New" from the sidebar or navbar, fill in the complaint details including category, location, and description, then submit. You'll receive a tracking ID to monitor your complaint status.</p>
+                    {/* Main Content Grid: FAQ vs Contact */}
+                    <div className="help-main-grid">
+                        {/* Left Column: FAQs */}
+                        <section className="help-section">
+                            <h2>{t('frequentlyAskedQuestions')}</h2>
+                            <div className="faq-list">
+                                <div className="faq-item">
+                                    <h4>How do I raise a complaint?</h4>
+                                    <p>Navigate to "{t('raiseNew')}", fill details, and submit. You'll get a tracking ID.</p>
+                                </div>
+                                <div className="faq-item">
+                                    <h4>Resolution time?</h4>
+                                    <p>Typically 3-7 business days depending on severity.</p>
+                                </div>
+                                <div className="faq-item">
+                                    <h4>Track status?</h4>
+                                    <p>Go to "{t('myComplaints')}" to view real-time updates.</p>
+                                </div>
+                                <div className="faq-item">
+                                    <h4>Update profile?</h4>
+                                    <p>Go to {t('settings')}, update details, and save.</p>
+                                </div>
                             </div>
+                        </section>
 
-                            <div className="faq-item">
-                                <h4>How long does it take to resolve a complaint?</h4>
-                                <p>Resolution time varies based on the complaint category and severity. Typically, complaints are resolved within 3-7 business days. You can track the status in real-time from your dashboard.</p>
-                            </div>
-
-                            <div className="faq-item">
-                                <h4>Can I track my complaint status?</h4>
-                                <p>Yes! Go to "My Complaints" to view all your submitted complaints with their current status (Pending, In Progress, or Resolved). Click on any complaint to see detailed tracking information.</p>
-                            </div>
-
-                            <div className="faq-item">
-                                <h4>What types of complaints can I file?</h4>
-                                <p>You can file complaints related to infrastructure, utilities, sanitation, public safety, transportation, and other civic issues. Select the appropriate category when raising your complaint.</p>
-                            </div>
-
-                            <div className="faq-item">
-                                <h4>How do I update my profile information?</h4>
-                                <p>Go to Settings from the sidebar, update your name, email, or mobile number, and click "Save Changes". For security reasons, email changes may require verification.</p>
-                            </div>
-
-                            <div className="faq-item">
-                                <h4>What is the Community section?</h4>
-                                <p>The Community section allows citizens to participate in civic polls, propose projects, and view decision logs. It's a platform for democratic participation in local governance.</p>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Contact Form */}
-                    <section className="help-section contact-section">
-                        <h2>Contact Us</h2>
-                        <p className="section-description">
-                            Can't find what you're looking for? Send us a message and our support team will get back to you.
-                        </p>
-
-                        <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
-                            <div className="form-row">
-                                <div className="form-group">
-                                    <label htmlFor="name">Full Name *</label>
+                        {/* Right Column: Contact Form */}
+                        <section className="help-section contact-section">
+                            <h2>{t('contactSupport')}</h2>
+                            <form ref={formRef} onSubmit={handleSubmit} className="contact-form">
+                                <div className="input-group">
                                     <input
                                         type="text"
                                         id="name"
@@ -144,12 +127,12 @@ const Help = () => {
                                         value={formData.name}
                                         onChange={handleChange}
                                         required
-                                        placeholder="Enter your full name"
+                                        placeholder=" "
                                     />
+                                    <label htmlFor="name">{t('fullName')}</label>
                                 </div>
 
-                                <div className="form-group">
-                                    <label htmlFor="email">Email Address *</label>
+                                <div className="input-group">
                                     <input
                                         type="email"
                                         id="email"
@@ -157,105 +140,97 @@ const Help = () => {
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
-                                        placeholder="your.email@example.com"
+                                        placeholder=" "
                                     />
+                                    <label htmlFor="email">{t('emailAddress')}</label>
+                                </div>
+
+                                <div className="input-group">
+                                    <input
+                                        type="text"
+                                        id="subject"
+                                        name="subject"
+                                        value={formData.subject}
+                                        onChange={handleChange}
+                                        required
+                                        placeholder=" "
+                                    />
+                                    <label htmlFor="subject">{t('subject')}</label>
+                                </div>
+
+                                <div className="input-group">
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
+                                        required
+                                        rows="4" /* Reduced rows */
+                                        placeholder=" "
+                                    ></textarea>
+                                    <label htmlFor="message">{t('message')}</label>
+                                </div>
+
+                                <button type="submit" className="submit-btn" disabled={sending}>
+                                    <MdSend size={16} />
+                                    {sending ? t('sending') : t('sendMessage')}
+                                </button>
+                            </form>
+                        </section>
+                    </div>
+
+                    {/* Bottom Grid: Contact Info & Social */}
+                    <div className="bottom-grid">
+                        <section className="help-section contact-info">
+                            <h2>{t('reachUsDirectly')}</h2>
+                            <div className="contact-methods">
+                                <div className="contact-method">
+                                    <MdEmail />
+                                    <div>
+                                        <h4>Email</h4>
+                                        <p>support@civic.gov.in</p>
+                                    </div>
+                                </div>
+                                <div className="contact-method">
+                                    <MdPhone />
+                                    <div>
+                                        <h4>Phone</h4>
+                                        <p>1800-123-4567</p>
+                                    </div>
+                                </div>
+                                <div className="contact-method">
+                                    <FaWhatsapp />
+                                    <div>
+                                        <h4>WhatsApp</h4>
+                                        <p>+91-98765-43210</p>
+                                    </div>
+                                </div>
+                                <div className="contact-method">
+                                    <MdLocationOn />
+                                    <div>
+                                        <h4>Address</h4>
+                                        <p>New Delhi, India</p>
+                                    </div>
                                 </div>
                             </div>
+                        </section>
 
-                            <div className="form-group">
-                                <label htmlFor="subject">Subject *</label>
-                                <input
-                                    type="text"
-                                    id="subject"
-                                    name="subject"
-                                    value={formData.subject}
-                                    onChange={handleChange}
-                                    required
-                                    placeholder="Brief subject of your query"
-                                />
-                            </div>
-
-                            <div className="form-group">
-                                <label htmlFor="message">Message *</label>
-                                <textarea
-                                    id="message"
-                                    name="message"
-                                    value={formData.message}
-                                    onChange={handleChange}
-                                    required
-                                    rows="6"
-                                    placeholder="Describe your query or issue in detail..."
-                                ></textarea>
-                            </div>
-
-                            <button type="submit" className="submit-btn" disabled={sending}>
-                                <MdSend size={20} />
-                                {sending ? "Sending..." : "Send Message"}
-                            </button>
-                        </form>
-                    </section>
-
-                    {/* Contact Information */}
-                    <section className="help-section contact-info">
-                        <h2>Other Ways to Reach Us</h2>
-
-                        <div className="contact-methods">
-                            <div className="contact-method">
-                                <MdEmail size={24} />
-                                <div>
-                                    <h4>Email</h4>
-                                    <p>support@civicplatform.gov.in</p>
+                        <section className="help-section resources">
+                            <h2>{t('connectResources')}</h2>
+                            <div className="social-links">
+                                <div className="social-icons">
+                                    <a href="#" aria-label="Facebook"><FaFacebook size={24} /></a>
+                                    <a href="#" aria-label="Twitter"><FaTwitter size={24} /></a>
+                                    <a href="#" aria-label="WhatsApp"><FaWhatsapp size={24} /></a>
                                 </div>
                             </div>
-
-                            <div className="contact-method">
-                                <MdPhone size={24} />
-                                <div>
-                                    <h4>Phone</h4>
-                                    <p>1800-XXX-XXXX (Toll Free)</p>
-                                    <p className="timing">Mon-Fri: 9:00 AM - 6:00 PM IST</p>
-                                </div>
+                            <div className="resource-links">
+                                <a href="#" className="resource-link">{t('userManual')}</a>
+                                <a href="#" className="resource-link">{t('policies')}</a>
+                                <a href="#" className="resource-link">{t('terms')}</a>
                             </div>
-
-                            <div className="contact-method">
-                                <FaWhatsapp size={24} />
-                                <div>
-                                    <h4>WhatsApp</h4>
-                                    <p>+91-XXXXX-XXXXX</p>
-                                </div>
-                            </div>
-
-                            <div className="contact-method">
-                                <MdLocationOn size={24} />
-                                <div>
-                                    <h4>Office Address</h4>
-                                    <p>Civic Platform Division</p>
-                                    <p>Government of India</p>
-                                    <p>New Delhi - 110001</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="social-links">
-                            <h4>Follow Us</h4>
-                            <div className="social-icons">
-                                <a href="#" aria-label="Facebook"><FaFacebook size={28} /></a>
-                                <a href="#" aria-label="Twitter"><FaTwitter size={28} /></a>
-                                <a href="#" aria-label="WhatsApp"><FaWhatsapp size={28} /></a>
-                            </div>
-                        </div>
-                    </section>
-
-                    {/* Additional Resources */}
-                    <section className="help-section resources">
-                        <h2>Additional Resources</h2>
-                        <div className="resource-links">
-                            <a href="#" className="resource-link">User Guide (PDF)</a>
-                            <a href="#" className="resource-link">Video Tutorials</a>
-                            <a href="#" className="resource-link">Terms of Service</a>
-                            <a href="#" className="resource-link">Privacy Policy</a>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
                 </main>
             </div>
         </div>

@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/layout/footer.css";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const [year] = useState(new Date().getFullYear());
 
   return (
     <footer className="footer">
       <div className="footer-content">
-        <p>© {year} Civic Platform. All rights reserved.</p>
-        <p>Equal rights,Equality to all</p>
+        <p>© {year} {t('civicPlatform')}. {t('allRightsReserved')}</p>
+        <p>{t('footerQuote')}</p>
         <p className="footer-sub">
-          Citizen Grievance & Transparency System
+          {t('footerSystemName')}
         </p>
       </div>
     </footer>

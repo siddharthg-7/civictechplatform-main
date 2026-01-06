@@ -2,6 +2,7 @@ import "../../styles/pages/auth.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { TextField } from '@mui/material';
 
 import { auth } from "../../firebase";
@@ -15,6 +16,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const { t } = useTranslation();
 
   const handleLogin = async () => {
     if (!username || !password) {
@@ -55,14 +58,14 @@ const Login = () => {
         {/* Logo */}
         <div className="auth-logo">
           <img src={logo} alt="Civic Platform" />
-          <h2>{isAdmin ? "Admin Portal" : "Sign in to your account"}</h2>
+          <h2>{isAdmin ? t('adminPortal') : t('signInTitle')}</h2>
         </div>
 
         <div className="auth-form">
           {/* Username */}
           <div className="form-group">
             <TextField
-              label="Email address"
+              label={t('emailLabel')}
               type="email"
               variant="outlined"
               fullWidth
@@ -76,7 +79,7 @@ const Login = () => {
           {/* Password */}
           <div className="form-group">
             <TextField
-              label="Password"
+              label={t('passwordLabel')}
               type="password"
               variant="outlined"
               fullWidth
@@ -89,7 +92,7 @@ const Login = () => {
 
           {/* Login Button */}
           <button className="auth-btn" onClick={handleLogin} disabled={loading}>
-            {loading ? "Signing in..." : "Sign in"}
+            {loading ? t('signingIn') : t('signInButton')}
           </button>
 
           {/* Links */}
@@ -97,10 +100,10 @@ const Login = () => {
             {!isAdmin ? (
               <>
                 <p>
-                  New here? <Link to="/signup">Create an account</Link>
+                  {t('newHere')} <Link to="/signup">{t('createAccount')}</Link>
                 </p>
                 <div style={{ marginTop: '0.5rem' }}>
-                  <Link to="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Forgot password?</Link>
+                  <Link to="/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>{t('forgotPassword')}</Link>
                 </div>
 
                 <div className="auth-divider"></div>
@@ -110,14 +113,14 @@ const Login = () => {
                     style={{ cursor: "pointer", color: "var(--text-muted)", fontSize: "0.85rem" }}
                     onClick={() => setIsAdmin(true)}
                   >
-                    Log in as Administrator
+                    {t('loginAsAdmin')}
                   </span>
                 </p>
               </>
             ) : (
               <>
                 <Link to="/admin/forgot-password" style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>
-                  Forgot password?
+                  {t('forgotPassword')}
                 </Link>
 
                 <div className="auth-divider"></div>
@@ -127,7 +130,7 @@ const Login = () => {
                     style={{ cursor: "pointer", color: "var(--primary)" }}
                     onClick={() => setIsAdmin(false)}
                   >
-                    &larr; Back to User Login
+                    &larr; {t('backToUserLogin')}
                   </span>
                 </p>
               </>

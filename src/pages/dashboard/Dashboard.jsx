@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "../../styles/pages/dashboard.css";
+import { useTranslation } from "react-i18next";
 
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
@@ -16,6 +17,7 @@ const ads = [ad1, ad2, ad3, ad4];
 
 const Dashboard = () => {
   const [currentAd, setCurrentAd] = useState(0);
+  const { t } = useTranslation();
   const [stats, setStats] = useState({ total: 0, resolved: 0, pending: 0 });
 
   useEffect(() => {
@@ -61,21 +63,21 @@ const Dashboard = () => {
             </div>
 
             <section className="dashboard-section">
-              <h2>Welcome to Civic Dashboard</h2>
-              <p>Raise, track, and resolve complaints efficiently.</p>
+              <h2>{t('welcomeToDashboard')}</h2>
+              <p>{t('dashboardDescription')}</p>
 
               <div className="dashboard-cards">
                 <div className="dashboard-card">
                   <h3>{stats.total}</h3>
-                  <p>Total Complaints</p>
+                  <p>{t('totalComplaints')}</p>
                 </div>
                 <div className="dashboard-card">
                   <h3>{stats.resolved}</h3>
-                  <p>Resolved Complaints</p>
+                  <p>{t('resolvedComplaints')}</p>
                 </div>
                 <div className="dashboard-card">
                   <h3>{stats.pending}</h3>
-                  <p>Pending Complaints</p>
+                  <p>{t('pendingComplaints')}</p>
                 </div>
               </div>
             </section>

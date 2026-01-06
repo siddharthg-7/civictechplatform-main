@@ -6,9 +6,11 @@ import { auth, db } from "../../firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { MdAssessment, MdTrendingUp, MdCheckCircle, MdPending, MdLocationOn } from "react-icons/md";
 import "../../styles/pages/reports.css";
+import { useTranslation } from "react-i18next";
 
 const Reports = () => {
     const navigate = useNavigate();
+    const { t } = useTranslation();
     const [loading, setLoading] = useState(true);
     const [reportData, setReportData] = useState({
         totalComplaints: 0,
@@ -103,10 +105,10 @@ const Reports = () => {
                     <div className="reports-header">
                         <div className="reports-title">
                             <MdAssessment size={32} />
-                            <h1>Complaint Reports & Analytics</h1>
+                            <h1>{t('complaintReportsTitle')}</h1>
                         </div>
                         <p className="reports-subtitle">
-                            Comprehensive overview of your complaint history and statistics (Read-Only)
+                            {t('reportsSubtitle')} (Read-Only)
                         </p>
                     </div>
 
@@ -124,7 +126,7 @@ const Reports = () => {
                                     </div>
                                     <div className="card-content">
                                         <h3>{reportData.totalComplaints}</h3>
-                                        <p>Total Complaints</p>
+                                        <p>{t('totalComplaints')}</p>
                                     </div>
                                 </div>
 
@@ -134,7 +136,7 @@ const Reports = () => {
                                     </div>
                                     <div className="card-content">
                                         <h3>{reportData.resolvedComplaints}</h3>
-                                        <p>Resolved</p>
+                                        <p>{t('resolved')}</p>
                                     </div>
                                 </div>
 
@@ -144,7 +146,7 @@ const Reports = () => {
                                     </div>
                                     <div className="card-content">
                                         <h3>{reportData.pendingComplaints}</h3>
-                                        <p>Pending</p>
+                                        <p>{t('pending')}</p>
                                     </div>
                                 </div>
 
@@ -154,94 +156,94 @@ const Reports = () => {
                                     </div>
                                     <div className="card-content">
                                         <h3>{reportData.resolutionRate}%</h3>
-                                        <p>Resolution Rate</p>
+                                        <p>{t('successRate')}</p>
                                     </div>
                                 </div>
                             </section>
 
-                            {/* Detailed Reports */}
-                            <div className="report-details">
-                                {/* By Category */}
-                                <section className="report-card">
-                                    <h2>Complaints by Category</h2>
-                                    <div className="report-list">
-                                        {Object.keys(reportData.complaintsByCategory).length > 0 ? (
-                                            Object.entries(reportData.complaintsByCategory).map(([category, count]) => (
-                                                <div key={category} className="report-item">
-                                                    <span className="item-label">{category}</span>
-                                                    <span className="item-value">{count}</span>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <p className="no-data">No complaints filed yet</p>
-                                        )}
-                                    </div>
-                                </section>
+                            {/* Main Grid Layout */}
+                            <div className="reports-main-grid">
 
-                                {/* By Location */}
-                                <section className="report-card">
-                                    <h2>Complaints by Location</h2>
-                                    <div className="report-list">
-                                        {Object.keys(reportData.complaintsByLocation).length > 0 ? (
-                                            Object.entries(reportData.complaintsByLocation).map(([location, count]) => (
-                                                <div key={location} className="report-item">
-                                                    <MdLocationOn size={18} />
-                                                    <span className="item-label">{location}</span>
-                                                    <span className="item-value">{count}</span>
-                                                </div>
-                                            ))
-                                        ) : (
-                                            <p className="no-data">No location data available</p>
-                                        )}
-                                    </div>
-                                </section>
-                            </div>
+                                {/* Left Column: Stats & Breakdown */}
+                                <div className="reports-col-left">
+                                    <section className="report-card">
+                                        <h2>{t('complaintsByCategory')}</h2>
+                                        <div className="report-list">
+                                            {Object.keys(reportData.complaintsByCategory).length > 0 ? (
+                                                Object.entries(reportData.complaintsByCategory).map(([category, count]) => (
+                                                    <div key={category} className="report-item">
+                                                        <span className="item-label">{category}</span>
+                                                        <span className="item-value">{count}</span>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p className="no-data">{t('noData')}</p>
+                                            )}
+                                        </div>
+                                    </section>
 
-                            {/* Recent Activity */}
-                            <section className="report-card recent-activity">
-                                <h2>Recent Activity</h2>
-                                <div className="activity-list">
-                                    {reportData.recentActivity.length > 0 ? (
-                                        reportData.recentActivity.map((complaint) => (
-                                            <div key={complaint.id} className="activity-item">
-                                                <div className="activity-info">
-                                                    <h4>{complaint.title || "Untitled Complaint"}</h4>
-                                                    <p>{complaint.description?.substring(0, 80)}...</p>
-                                                </div>
-                                                <div className="activity-meta">
-                                                    <span className={`status-badge ${complaint.status?.toLowerCase().replace(" ", "-")}`}>
-                                                        {complaint.status || "Pending"}
-                                                    </span>
-                                                    <span className="activity-date">
-                                                        {complaint.createdAt?.toDate?.().toLocaleDateString() || "N/A"}
-                                                    </span>
-                                                </div>
+                                    <section className="report-card">
+                                        <h2>{t('complaintsByLocation')}</h2>
+                                        <div className="report-list">
+                                            {Object.keys(reportData.complaintsByLocation).length > 0 ? (
+                                                Object.entries(reportData.complaintsByLocation).map(([location, count]) => (
+                                                    <div key={location} className="report-item">
+                                                        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                                                            <MdLocationOn size={16} color="#666" />
+                                                            <span className="item-label">{location}</span>
+                                                        </div>
+                                                        <span className="item-value">{count}</span>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p className="no-data">{t('noData')}</p>
+                                            )}
+                                        </div>
+                                    </section>
+                                </div>
+
+                                {/* Right Column: Activity & Metrics */}
+                                <div className="reports-col-right">
+                                    <section className="report-card recent-activity">
+                                        <h2>{t('recentUpdates')}</h2>
+                                        <div className="activity-list">
+                                            {reportData.recentActivity.length > 0 ? (
+                                                reportData.recentActivity.map((complaint) => (
+                                                    <div key={complaint.id} className="activity-item">
+                                                        <div className="activity-info">
+                                                            <h4>{complaint.title || "Untitled"}</h4>
+                                                            <p>
+                                                                <span className={`status-badge ${complaint.status?.toLowerCase().replace(" ", "-")}`}>
+                                                                    {t(complaint.status?.toLowerCase().replace(" ", "") || 'pending')}
+                                                                </span>
+                                                            </p>
+                                                            <span className="activity-date">
+                                                                {complaint.createdAt?.toDate?.().toLocaleDateString() || "N/A"}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p className="no-data">{t('noRecentActivity')}</p>
+                                            )}
+                                        </div>
+                                    </section>
+
+                                    <section className="report-card metrics">
+                                        <h2>{t('performance')}</h2>
+                                        <div className="metrics-grid">
+                                            <div className="metric-item">
+                                                <span className="metric-label">{t('avgResolution')}</span>
+                                                <div className="metric-value">{reportData.avgResolutionTime}</div>
                                             </div>
-                                        ))
-                                    ) : (
-                                        <p className="no-data">No recent activity</p>
-                                    )}
+                                            <div className="metric-item">
+                                                <span className="metric-label">{t('successRate')}</span>
+                                                <div className="metric-value">{reportData.resolutionRate}%</div>
+                                            </div>
+                                        </div>
+                                    </section>
                                 </div>
-                            </section>
-
-                            {/* Performance Metrics */}
-                            <section className="report-card metrics">
-                                <h2>Performance Metrics</h2>
-                                <div className="metrics-grid">
-                                    <div className="metric-item">
-                                        <span className="metric-label">Average Resolution Time</span>
-                                        <span className="metric-value">{reportData.avgResolutionTime}</span>
-                                    </div>
-                                    <div className="metric-item">
-                                        <span className="metric-label">In Progress</span>
-                                        <span className="metric-value">{reportData.inProgressComplaints}</span>
-                                    </div>
-                                    <div className="metric-item">
-                                        <span className="metric-label">Success Rate</span>
-                                        <span className="metric-value">{reportData.resolutionRate}%</span>
-                                    </div>
-                                </div>
-                            </section>
+                            </div>
                         </>
                     )}
                 </main>

@@ -5,10 +5,12 @@ import Sidebar from "../../components/Sidebar";
 import "../../styles/pages/complaints.css";
 import { auth, db } from "../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useTranslation } from "react-i18next";
 
 const RaiseComplaint = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   const { state, district, municipality } = location.state || {};
 
@@ -78,13 +80,13 @@ const RaiseComplaint = () => {
         <main className="dashboard-content">
           <div className="complaints-container">
 
-            <h2 className="complaints-title">Raise Complaint</h2>
+            <h2 className="complaints-title">{t('raiseComplaintTitle')}</h2>
 
             <div className="complaint-box">
 
               {/* LOCATION INFO */}
               <p className="complaint-location">
-                <strong>Location:</strong>{" "}
+                <strong>{t('location')}:</strong>{" "}
                 {state}, {district}, {municipality}
               </p>
 
@@ -94,20 +96,20 @@ const RaiseComplaint = () => {
                   value={problemType}
                   onChange={(e) => setProblemType(e.target.value)}
                 >
-                  <option value="">Select Problem Type</option>
-                  <option value="Road Issue">Road Issue</option>
-                  <option value="Water Supply">Water Supply</option>
-                  <option value="Drainage">Drainage</option>
-                  <option value="Garbage">Garbage</option>
-                  <option value="Street Light">Street Light</option>
-                  <option value="Other">Other</option>
+                  <option value="">{t('selectProblemType')}</option>
+                  <option value="Road Issue">{t('roadIssue')}</option>
+                  <option value="Water Supply">{t('waterSupply')}</option>
+                  <option value="Drainage">{t('drainage')}</option>
+                  <option value="Garbage">{t('garbage')}</option>
+                  <option value="Street Light">{t('streetLight')}</option>
+                  <option value="Other">{t('other')}</option>
                 </select>
 
                 <select
                   value={days}
                   onChange={(e) => setDays(e.target.value)}
                 >
-                  <option value="">Problem Since</option>
+                  <option value="">{t('problemSince')}</option>
                   <option value="1-3 days">1–3 days</option>
                   <option value="4-7 days">4–7 days</option>
                   <option value="More than 7 days">
@@ -118,7 +120,7 @@ const RaiseComplaint = () => {
 
               {/* DESCRIPTION */}
               <textarea
-                placeholder="Describe the problem clearly (max 1000 characters)"
+                placeholder={t('describeProblem')}
                 value={description}
                 maxLength={1000}
                 onChange={(e) => setDescription(e.target.value)}
@@ -126,13 +128,13 @@ const RaiseComplaint = () => {
 
               {/* SUBMIT */}
               <button onClick={handleSubmit} disabled={loading}>
-                {loading ? "Submitting..." : "Submit Complaint"}
+                {loading ? t('submitting') : t('submitComplaint')}
               </button>
 
               {/* SUCCESS MESSAGE */}
               {submitted && (
                 <p className="success-text">
-                  ✅ Complaint published successfully
+                  ✅ {t('complaintSuccess')}
                 </p>
               )}
             </div>

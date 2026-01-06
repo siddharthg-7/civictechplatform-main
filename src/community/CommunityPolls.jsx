@@ -5,6 +5,7 @@ import { auth, db } from "../firebase";
 import { collection, onSnapshot, doc, updateDoc, arrayUnion, query, orderBy, deleteDoc, getDoc } from "firebase/firestore";
 import "../styles/pages/community.css";
 import DiscussionChat from "../components/DiscussionChat";
+import { useTranslation } from "react-i18next";
 
 /* ---------- DEVICE ID ---------- */
 const getDeviceId = () => {
@@ -20,6 +21,7 @@ const CommunityPolls = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
+  const { t } = useTranslation();
 
   // Check if current user is admin
   useEffect(() => {
@@ -123,16 +125,16 @@ const CommunityPolls = () => {
         <main className="dashboard-content">
           <div className="community-container">
             <header className="page-header">
-              <h2 className="page-title">Community Polls</h2>
+              <h2 className="page-title">{t('communityPolls')}</h2>
               <p className="page-subtitle">
-                Your voice matters. Vote on development projects and shape the future of our community.
+                {t('communityPollsSubtitle')}
               </p>
             </header>
 
             {loading ? (
-              <p className="empty-text">Loading active polls...</p>
+              <p className="empty-text">{t('loadingPolls')}</p>
             ) : sortedProjects.length === 0 ? (
-              <p className="empty-text">No community polls available right now.</p>
+              <p className="empty-text">{t('noPollsAvailable')}</p>
             ) : (
               <div className="polls-grid">
                 {sortedProjects.map((p) => {
@@ -169,10 +171,10 @@ const CommunityPolls = () => {
                       />
 
                       {isVoted && (
-                        <p className="voted-text">✔ You've cast your vote</p>
+                        <p className="voted-text">✔ {t('votedText')}</p>
                       )}
                       {!auth.currentUser && (
-                        <p className="empty-text" style={{ fontSize: '0.8rem', padding: '0.5rem' }}>Login to participate</p>
+                        <p className="empty-text" style={{ fontSize: '0.8rem', padding: '0.5rem' }}>{t('loginToParticipate')}</p>
                       )}
 
                       {/* DELETE BUTTON (ADMIN OR OWNER) */}
@@ -192,7 +194,7 @@ const CommunityPolls = () => {
                             fontSize: '0.9rem'
                           }}
                         >
-                          🗑️ Delete Poll
+                          🗑️ {t('deletePoll')}
                         </button>
                       )}
                     </div>

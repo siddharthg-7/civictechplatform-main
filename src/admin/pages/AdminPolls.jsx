@@ -6,9 +6,11 @@ import { auth, db } from "../../firebase";
 import { collection, onSnapshot, query, orderBy, deleteDoc, doc, getDoc } from "firebase/firestore";
 import "../../styles/pages/community.css";
 import DiscussionChat from "../../components/DiscussionChat";
+import { useTranslation } from "react-i18next";
 
 const AdminPolls = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -75,7 +77,7 @@ const AdminPolls = () => {
   if (!isAdmin) {
     return (
       <div className="empty-text">
-        Verifying admin access...
+        {t('verifyingAccess')}
       </div>
     );
   }
@@ -90,16 +92,16 @@ const AdminPolls = () => {
         <main className="dashboard-content">
           <div className="community-container">
             <header className="page-header">
-              <h2 className="page-title">Community Polls</h2>
+              <h2 className="page-title">{t('communityPolls')}</h2>
               <p className="page-subtitle">
-                Manage ongoing community polls and monitor feedback results.
+                {t('managePollsSubtitle')}
               </p>
             </header>
 
             {loading ? (
-              <p className="empty-text">Loading polls...</p>
+              <p className="empty-text">{t('loadingPolls')}</p>
             ) : polls.length === 0 ? (
-              <p className="empty-text">No community polls available.</p>
+              <p className="empty-text">{t('noPollsAvailable')}</p>
             ) : (
               <div className="polls-grid">
                 {polls.map((poll) => (
@@ -110,13 +112,13 @@ const AdminPolls = () => {
 
                     <div className="poll-stats" style={{ marginTop: '1rem', borderTop: '1px solid var(--border)', paddingTop: '1rem' }}>
                       <p style={{ margin: '0.5rem 0', fontSize: '0.875rem' }}>
-                        Likes: <strong>{poll.likes || 0}</strong>
+                        {t('likes')}: <strong>{poll.likes || 0}</strong>
                       </p>
                       <p style={{ margin: '0.5rem 0', fontSize: '0.875rem' }}>
-                        Dislikes: <strong>{poll.dislikes || 0}</strong>
+                        {t('dislikes')}: <strong>{poll.dislikes || 0}</strong>
                       </p>
                       <p style={{ margin: '0.5rem 0', fontSize: '0.875rem' }}>
-                        Total Votes: <strong>{(poll.voters?.length || 0)}</strong>
+                        {t('totalVotes')}: <strong>{(poll.voters?.length || 0)}</strong>
                       </p>
                     </div>
 
@@ -130,7 +132,7 @@ const AdminPolls = () => {
                       className="danger-btn"
                       onClick={() => deletePoll(poll.id)}
                     >
-                      Delete Poll
+                      {t('deletePoll')}
                     </button>
                   </div>
                 ))}
