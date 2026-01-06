@@ -5,6 +5,7 @@ import loginIcon from "../../assets/images/icons/login.png";
 import userIcon from "../../assets/images/icons/user.png";
 import passwordIcon from "../../assets/images/icons/password.png";
 import { useState } from "react";
+import { TextField } from '@mui/material';
 
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -63,10 +64,12 @@ const Login = () => {
         <div className="auth-form">
           {/* Username */}
           <div className="form-group">
-            <label className="form-label">Email address</label>
-            <input
+            <TextField
+              label="Email address"
               type="email"
-              className="form-input"
+              variant="outlined"
+              fullWidth
+              size="small"
               placeholder="name@company.com"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -75,10 +78,12 @@ const Login = () => {
 
           {/* Password */}
           <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
+            <TextField
+              label="Password"
               type="password"
-              className="form-input"
+              variant="outlined"
+              fullWidth
+              size="small"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

@@ -6,6 +6,7 @@ import "../styles/pages/community.css";
 
 import { auth, db } from "../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { TextField } from '@mui/material';
 
 const ProposeProject = () => {
   const [title, setTitle] = useState("");
@@ -70,8 +71,11 @@ const ProposeProject = () => {
 
             <div className="community-form">
               <div className="form-group">
-                <label>Project Title</label>
-                <input
+                <TextField
+                  label="Project Title"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   placeholder="e.g. New Street Lights in Ward 5"
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}
@@ -79,23 +83,33 @@ const ProposeProject = () => {
               </div>
 
               <div className="form-group">
-                <label>Category</label>
-                <select
+                <TextField
+                  label="Category"
+                  select
+                  SelectProps={{ native: true }}
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                 >
                   <option value="">Select a category</option>
-                  <option>Zebra Crossing</option>
-                  <option>Park / Playground</option>
-                  <option>Street Lights</option>
-                  <option>Footpath</option>
-                  <option>Drainage</option>
-                </select>
+                  <option value="Zebra Crossing">Zebra Crossing</option>
+                  <option value="Park / Playground">Park / Playground</option>
+                  <option value="Street Lights">Street Lights</option>
+                  <option value="Footpath">Footpath</option>
+                  <option value="Drainage">Drainage</option>
+                </TextField>
               </div>
 
               <div className="form-group">
-                <label>Project Description</label>
-                <textarea
+                <TextField
+                  label="Project Description"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   placeholder="Describe the project and how it will benefit the local residents..."
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}

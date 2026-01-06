@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../../styles/components/forms.css"; // shared form styles
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
+import { TextField } from '@mui/material';
 
 import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -61,31 +62,33 @@ const AdminSignup = () => {
             <h2>Create Admin Account</h2>
           </div>
           <div className="form-group">
-            <label className="form-label">Full Name</label>
-            <input
-              type="text"
-              className="form-input"
-              placeholder="John Doe"
+            <TextField
+              label="Full Name"
+              variant="outlined"
+              fullWidth
+              size="small"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <input
+            <TextField
+              label="Email Address"
               type="email"
-              className="form-input"
-              placeholder="admin@civic.com"
+              variant="outlined"
+              fullWidth
+              size="small"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
+            <TextField
+              label="Password"
               type="password"
-              className="form-input"
-              placeholder="Create a strong password"
+              variant="outlined"
+              fullWidth
+              size="small"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

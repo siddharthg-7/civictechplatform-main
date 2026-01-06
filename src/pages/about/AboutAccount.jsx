@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { TextField } from '@mui/material';
 import "../../styles/components/forms.css";
 
 const AboutAccount = () => {
@@ -94,30 +95,37 @@ const AboutAccount = () => {
               <h3 className="settings-card-title">Profile Information</h3>
 
               <div className="settings-group">
-                <label>Full Name</label>
-                <input
-                  type="text"
+                <TextField
+                  label="Full Name"
                   name="name"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   value={user.name}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="settings-group">
-                <label>Email Address</label>
-                <input
-                  type="email"
+                <TextField
+                  label="Email Address"
                   name="email"
+                  type="email"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   value={user.email}
                   onChange={handleChange}
                 />
               </div>
 
               <div className="settings-group">
-                <label>Mobile Number</label>
-                <input
-                  type="text"
+                <TextField
+                  label="Mobile Number"
                   name="mobile"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   value={user.mobile}
                   onChange={handleChange}
                 />

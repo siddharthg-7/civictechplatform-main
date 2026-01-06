@@ -4,6 +4,7 @@ import logo from "../../assets/images/logo/civic-logo.png";
 import userIcon from "../../assets/images/icons/user.png";
 import passwordIcon from "../../assets/images/icons/password.png";
 import loginIcon from "../../assets/images/icons/login.png";
+import { TextField } from '@mui/material';
 import { useState } from "react";
 import { auth, db } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -73,22 +74,24 @@ const AdminLogin = () => {
           </div>
 
           <div className="form-group">
-            <label className="form-label">Email Address</label>
-            <input
+            <TextField
+              label="Email Address"
               type="email"
-              className="form-input"
-              placeholder="admin@civic.com"
+              variant="outlined"
+              fullWidth
+              size="small"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
           <div className="form-group">
-            <label className="form-label">Password</label>
-            <input
+            <TextField
+              label="Password"
               type="password"
-              className="form-input"
-              placeholder="••••••••"
+              variant="outlined"
+              fullWidth
+              size="small"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />

@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { TextField } from '@mui/material';
 
 import "../../styles/components/forms.css";
 
@@ -117,26 +118,33 @@ const Settings = () => {
               <section className="settings-card">
                 <h2>Profile Information</h2>
 
-                <label>Full Name</label>
-                <input
-                  type="text"
+                <TextField
+                  label="Full Name"
                   name="name"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   value={profile.name}
                   onChange={handleChange}
                 />
 
-                <label>Email Address</label>
-                <input
-                  type="email"
+                <TextField
+                  label="Email Address"
                   name="email"
+                  type="email"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   value={profile.email}
                   onChange={handleChange}
                 />
 
-                <label>Mobile Number</label>
-                <input
-                  type="text"
+                <TextField
+                  label="Mobile Number"
                   name="mobile"
+                  variant="outlined"
+                  fullWidth
+                  size="small"
                   value={profile.mobile}
                   onChange={handleChange}
                 />

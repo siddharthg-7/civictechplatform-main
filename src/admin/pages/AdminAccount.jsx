@@ -4,6 +4,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import AdminSidebar from "../components/AdminSidebar";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { TextField } from '@mui/material';
 import "../../styles/components/forms.css";
 
 const AdminAccount = () => {
@@ -102,24 +103,29 @@ const AdminAccount = () => {
                             <h3 className="settings-card-title">Admin Profile Information</h3>
 
                             <div className="settings-group">
-                                <label>Full Name</label>
-                                <input
-                                    type="text"
+                                <TextField
+                                    label="Full Name"
                                     name="name"
+                                    variant="outlined"
+                                    fullWidth
+                                    size="small"
                                     value={admin.name}
                                     onChange={handleChange}
                                 />
                             </div>
 
                             <div className="settings-group">
-                                <label>Email Address</label>
-                                <input
-                                    type="email"
+                                <TextField
+                                    label="Email Address"
                                     name="email"
+                                    type="email"
+                                    variant="outlined"
+                                    fullWidth
+                                    size="small"
                                     value={admin.email}
-                                    onChange={handleChange}
                                     disabled
-                                    style={{ backgroundColor: "#f5f5f5", cursor: "not-allowed" }}
+                                    InputProps={{ readOnly: true }}
+                                    sx={{ mt: 1 }}
                                 />
                                 <small style={{ color: "#666", fontSize: "0.85rem" }}>
                                     Email cannot be changed
@@ -127,10 +133,12 @@ const AdminAccount = () => {
                             </div>
 
                             <div className="settings-group">
-                                <label>Mobile Number</label>
-                                <input
-                                    type="text"
+                                <TextField
+                                    label="Mobile Number"
                                     name="mobile"
+                                    variant="outlined"
+                                    fullWidth
+                                    size="small"
                                     value={admin.mobile}
                                     onChange={handleChange}
                                 />
