@@ -4,8 +4,7 @@ import AdminSidebar from "../components/AdminSidebar";
 
 import "../styles/admin.css";
 
-import locationIcon from "../../assets/images/icons/location.png";
-import userIcon from "../../assets/images/icons/user.png";
+import { MdLocationOn, MdPerson } from "react-icons/md";
 import { TextField } from '@mui/material';
 
 import { auth, db } from "../../firebase";
@@ -122,7 +121,7 @@ const AdminComplaints = () => {
                     <div className="admin-complaint-body">
                       {/* LOCATION */}
                       <div className="admin-row">
-                        <img src={locationIcon} alt="loc" className="admin-location-icon" />
+                        <MdLocationOn size={20} className="admin-location-icon" color="#666" />
                         <span>
                           <strong>Location:</strong> {c.state}, {c.district}, {c.municipality}
                         </span>
@@ -130,7 +129,7 @@ const AdminComplaints = () => {
 
                       {/* USER */}
                       <div className="admin-row">
-                        <img src={userIcon} alt="user" className="admin-user-icon" />
+                        <MdPerson size={20} className="admin-user-icon" color="#666" />
                         <span>
                           <strong>User:</strong> {c.userName}
                         </span>

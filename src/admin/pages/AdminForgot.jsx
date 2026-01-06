@@ -2,7 +2,6 @@ import "../../styles/pages/auth.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
-import userIcon from "../../assets/images/icons/user.png";
 import { TextField } from '@mui/material';
 
 import { auth } from "../../firebase";

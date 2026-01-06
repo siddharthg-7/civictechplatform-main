@@ -4,7 +4,7 @@ import "../styles/admin.css";
 import AdminNavbar from "../components/AdminNavbar";
 import AdminSidebar from "../components/AdminSidebar";
 
-import userIcon from "../../assets/images/icons/user.png";
+import { MdPerson } from "react-icons/md";
 
 import { db } from "../../firebase";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
@@ -46,9 +46,9 @@ const AdminUsers = () => {
               {users.map((user) => (
                 <div className="admin-card" key={user.id}>
                   <div className="admin-row" style={{ borderBottom: '1px solid var(--border)', paddingBottom: '0.75rem', marginBottom: '1rem' }}>
-                    <img
-                      src={userIcon}
-                      alt="user"
+                    <MdPerson
+                      size={24}
+                      color="#666"
                       className="admin-user-icon"
                     />
                     <strong>{user.name}</strong>

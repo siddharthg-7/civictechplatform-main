@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
-import userIcon from "../../assets/images/icons/user.png";
-import emailIcon from "../../assets/images/icons/email.png";
-import phoneIcon from "../../assets/images/icons/phone.png";
-import passwordIcon from "../../assets/images/icons/password.png";
-import signupIcon from "../../assets/images/icons/signup.png";
 import { auth, db } from "../../firebase";
 import { TextField } from '@mui/material';
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";

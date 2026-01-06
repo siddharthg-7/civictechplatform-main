@@ -1,9 +1,6 @@
 import "../../styles/pages/auth.css";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
-import loginIcon from "../../assets/images/icons/login.png";
-import userIcon from "../../assets/images/icons/user.png";
-import passwordIcon from "../../assets/images/icons/password.png";
 import { useState } from "react";
 import { TextField } from '@mui/material';
 
