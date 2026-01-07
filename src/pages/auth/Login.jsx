@@ -45,7 +45,7 @@ const Login = () => {
       }
     } catch (error) {
       console.error("Login error details:", error);
-      alert(`Invalid credentials or server error.`);
+      alert(`Login failed: ${error.message}`);
     } finally {
       setLoading(false);
     }
