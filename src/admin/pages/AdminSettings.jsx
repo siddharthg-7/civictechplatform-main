@@ -122,45 +122,49 @@ const AdminSettings = () => {
                         </div>
                     ) : (
                         <>
-                            {/* PROFILE */}
                             <section className="settings-card">
                                 <h2>Profile Information</h2>
 
-                                <TextField
-                                    label="Full Name"
-                                    name="name"
-                                    variant="outlined"
-                                    fullWidth
-                                    size="small"
-                                    value={profile.name}
-                                    onChange={handleChange}
-                                />
+                                <div className="settings-group">
+                                    <TextField
+                                        label="Full Name"
+                                        name="name"
+                                        variant="outlined"
+                                        fullWidth
+                                        size="small"
+                                        value={profile.name}
+                                        onChange={handleChange}
+                                    />
+                                </div>
 
-                                <TextField
-                                    label="Email Address"
-                                    name="email"
-                                    type="email"
-                                    variant="outlined"
-                                    fullWidth
-                                    size="small"
-                                    value={profile.email}
-                                    disabled
-                                    InputProps={{ readOnly: true }}
-                                    sx={{ mt: 1 }}
-                                />
-                                <small style={{ color: "#666", fontSize: "0.85rem", display: "block", marginTop: "-10px", marginBottom: "15px" }}>
-                                    Email cannot be changed
-                                </small>
+                                <div className="settings-group">
+                                    <TextField
+                                        label="Email Address"
+                                        name="email"
+                                        type="email"
+                                        variant="outlined"
+                                        fullWidth
+                                        size="small"
+                                        value={profile.email}
+                                        disabled
+                                        InputProps={{ readOnly: true }}
+                                    />
+                                    <small style={{ color: "#666", fontSize: "0.85rem", display: "block", marginTop: "5px" }}>
+                                        Email cannot be changed
+                                    </small>
+                                </div>
 
-                                <TextField
-                                    label="Mobile Number"
-                                    name="mobile"
-                                    variant="outlined"
-                                    fullWidth
-                                    size="small"
-                                    value={profile.mobile}
-                                    onChange={handleChange}
-                                />
+                                <div className="settings-group">
+                                    <TextField
+                                        label="Mobile Number"
+                                        name="mobile"
+                                        variant="outlined"
+                                        fullWidth
+                                        size="small"
+                                        value={profile.mobile}
+                                        onChange={handleChange}
+                                    />
+                                </div>
 
                                 <button className="primary-btn" onClick={handleSave}>
                                     Save Changes

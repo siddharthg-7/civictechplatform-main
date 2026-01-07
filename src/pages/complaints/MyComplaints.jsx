@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
-import ComplaintTracker from "../../components/ComplaintTracker";
+
 import ComplaintChat from "../../components/ComplaintChat";
 
 import { locations } from "../../data/locations";
@@ -130,6 +130,22 @@ const MyComplaints = () => {
               </button>
             </div>
 
+            {/* STATS */}
+            <div className="complaint-stats">
+              <div className="stat-card">
+                <h3>{myComplaints.length}</h3>
+                <p>{t('totalComplaints') || 'Total Complaints'}</p>
+              </div>
+              <div className="stat-card resolved">
+                <h3>{myComplaints.filter(c => c.status === 'Resolved').length}</h3>
+                <p>{t('resolved') || 'Resolved'}</p>
+              </div>
+              <div className="stat-card pending">
+                <h3>{myComplaints.length - myComplaints.filter(c => c.status === 'Resolved').length}</h3>
+                <p>{t('pending') || 'Pending'}</p>
+              </div>
+            </div>
+
             {/* MY RECENT COMPLAINTS */}
             <div className="my-complaints-section" style={{ marginTop: '3rem' }}>
               <h2 className="complaints-title">{t('trackComplaintStatus')}</h2>
@@ -144,7 +160,15 @@ const MyComplaints = () => {
                         <span style={{ fontSize: '0.9rem', color: '#666' }}>{new Date(c.createdAt).toLocaleDateString()}</span>
                       </div>
                       <p style={{ marginBottom: '1rem' }}>{c.description}</p>
-                      <ComplaintTracker complaint={c} role="user" />
+                      <div style={{ marginTop: '0.5rem', marginBottom: '1rem' }}>
+                        <strong>Status: </strong>
+                        <span style={{
+                          color: c.status === 'Resolved' ? 'var(--success)' : c.status === 'Rejected' ? 'var(--danger)' : 'var(--primary)',
+                          fontWeight: 'bold'
+                        }}>
+                          {c.status || 'Submitted'}
+                        </span>
+                      </div>
                       <ComplaintChat complaintId={c.id} role="user" />
                     </div>
                   ))

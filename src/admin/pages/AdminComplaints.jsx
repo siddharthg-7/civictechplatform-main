@@ -9,7 +9,7 @@ import { TextField } from '@mui/material';
 
 import { auth, db } from "../../firebase";
 import { collection, onSnapshot, doc, updateDoc, orderBy, query, getDoc } from "firebase/firestore";
-import ComplaintTracker from "../../components/ComplaintTracker";
+import { COMPLAINT_STEPS } from "../../constants/complaintStatus";
 import ComplaintChat from "../../components/ComplaintChat";
 
 const AdminComplaints = () => {
@@ -137,11 +137,33 @@ const AdminComplaints = () => {
 
                       {/* STATUS TRACKER */}
                       <div className="admin-tracker-row">
-                        <ComplaintTracker
-                          complaint={c}
-                          onStatusChange={(newStatus) => updateStatus(c.id, newStatus)}
-                          role={adminRole}
-                        />
+                        <div className="status-select-container">
+                          <strong>Status: </strong>
+                          <select
+                            value={c.status || 'Submitted'}
+                            onChange={(e) => updateStatus(c.id, e.target.value)}
+                            className="admin-status-select"
+                            style={{
+                              padding: '5px 10px',
+                              borderRadius: '4px',
+                              border: '1px solid #ccc',
+                              marginLeft: '10px'
+                            }}
+                          >
+                            {COMPLAINT_STEPS.map((step) => (
+                              <option
+                                key={step.id}
+                                value={step.id}
+                                disabled={
+                                  (adminRole === 'admin' && step.role === 'gov_admin') ||
+                                  (adminRole === 'gov_admin' && step.role !== 'gov_admin')
+                                }
+                              >
+                                {step.label}
+                              </option>
+                            ))}
+                          </select>
+                        </div>
 
                         <ComplaintChat complaintId={c.id} role={adminRole} />
                       </div>

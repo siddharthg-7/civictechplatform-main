@@ -85,14 +85,14 @@ const AboutAccount = () => {
       <Navbar />
       <div className="dashboard-body">
         <Sidebar />
-        <main className="dashboard-content">
+        <main className="dashboard-content settings-page">
           {loading ? (
             <div style={{ textAlign: "center", padding: "2rem" }}>
               Loading user data...
             </div>
           ) : (
             <div className="settings-card">
-              <h3 className="settings-card-title">Profile Information</h3>
+              <h2>Profile Information</h2>
 
               <div className="settings-group">
                 <TextField
@@ -131,7 +131,7 @@ const AboutAccount = () => {
                 />
               </div>
 
-              <button className="settings-primary" onClick={handleSave}>
+              <button className="primary-btn" onClick={handleSave}>
                 Save Changes
               </button>
             </div>
