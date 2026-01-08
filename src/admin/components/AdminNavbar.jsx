@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "../../styles/layout/navbar.css";
 import { useTranslation } from "react-i18next";
+import { auth } from "../../firebase";
 
 import logo from "../../assets/images/logo/civic-logo.png";
 import { FaUserCircle } from "react-icons/fa";
@@ -11,9 +12,14 @@ const AdminNavbar = () => {
   const { theme, toggleTheme, increaseFont, decreaseFont, resetFont } = useTheme();
   const { t } = useTranslation();
 
-  const handleLogout = () => {
-    // Ideally clear auth state here too if needed, but navigate ensures redirect
-    navigate("/admin/login");
+  const handleLogout = async () => {
+    try {
+      await auth.signOut();
+      navigate("/admin/login");
+    } catch (error) {
+      console.error("Error signing out:", error);
+      navigate("/admin/login");
+    }
   };
 
   return (

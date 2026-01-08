@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "../../styles/pages/auth.css";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
