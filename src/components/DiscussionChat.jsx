@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { db, auth } from "../firebase";
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp } from "firebase/firestore";
-import { TextField } from '@mui/material';
+
 import "../styles/components/chat.css";
 
 const DiscussionChat = ({ contextId, collectionName = "complaints", role }) => {
@@ -90,15 +90,17 @@ const DiscussionChat = ({ contextId, collectionName = "complaints", role }) => {
 
             {canChat ? (
                 <div className="chat-input-area">
-                    <TextField
-                        label="Type a message..."
-                        variant="outlined"
-                        size="small"
-                        fullWidth
-                        value={newMessage}
-                        onChange={(e) => setNewMessage(e.target.value)}
-                        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                    />
+                    <div className="input-group" style={{ marginBottom: 0, flex: 1 }}>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder=" "
+                            value={newMessage}
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                        />
+                        <label>Type a message...</label>
+                    </div>
                     <button onClick={handleSend}>Send</button>
                 </div>
             ) : (

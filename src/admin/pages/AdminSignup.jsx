@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../styles/components/forms.css"; // shared form styles
 import { useNavigate, Link, useSearchParams } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
-import { TextField } from '@mui/material';
+
 
 import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -61,37 +61,35 @@ const AdminSignup = () => {
             <img src={logo} alt="Civic Platform" />
             <h2>Create Admin Account</h2>
           </div>
-          <div className="form-group">
-            <TextField
-              label="Full Name"
-              variant="outlined"
-              fullWidth
-              size="small"
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder=" "
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+            <label>Full Name</label>
           </div>
-          <div className="form-group">
-            <TextField
-              label="Email Address"
+          <div className="input-group">
+            <input
               type="email"
-              variant="outlined"
-              fullWidth
-              size="small"
+              className="form-control"
+              placeholder=" "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <label>Email Address</label>
           </div>
-          <div className="form-group">
-            <TextField
-              label="Password"
+          <div className="input-group">
+            <input
               type="password"
-              variant="outlined"
-              fullWidth
-              size="small"
+              className="form-control"
+              placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <label>Password</label>
           </div>
           <button className="primary-btn" onClick={handleSignup} disabled={loading}>
             {loading ? "Creating Account..." : "Create Account"}

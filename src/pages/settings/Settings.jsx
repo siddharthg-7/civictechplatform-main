@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { TextField } from '@mui/material';
+
 
 import "../../styles/components/forms.css";
 
@@ -118,36 +118,41 @@ const Settings = () => {
               <section className="settings-card">
                 <h2>Profile Information</h2>
 
-                <TextField
-                  label="Full Name"
-                  name="name"
-                  variant="outlined"
-                  fullWidth
-                  size="small"
-                  value={profile.name}
-                  onChange={handleChange}
-                />
+                <div className="input-group">
+                  <input
+                    type="text"
+                    name="name"
+                    className="form-control"
+                    placeholder=" "
+                    value={profile.name}
+                    onChange={handleChange}
+                  />
+                  <label>Full Name</label>
+                </div>
 
-                <TextField
-                  label="Email Address"
-                  name="email"
-                  type="email"
-                  variant="outlined"
-                  fullWidth
-                  size="small"
-                  value={profile.email}
-                  onChange={handleChange}
-                />
+                <div className="input-group">
+                  <input
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    placeholder=" "
+                    value={profile.email}
+                    onChange={handleChange}
+                  />
+                  <label>Email Address</label>
+                </div>
 
-                <TextField
-                  label="Mobile Number"
-                  name="mobile"
-                  variant="outlined"
-                  fullWidth
-                  size="small"
-                  value={profile.mobile}
-                  onChange={handleChange}
-                />
+                <div className="input-group">
+                  <input
+                    type="text"
+                    name="mobile"
+                    className="form-control"
+                    placeholder=" "
+                    value={profile.mobile}
+                    onChange={handleChange}
+                  />
+                  <label>Mobile Number</label>
+                </div>
 
                 <button className="primary-btn" onClick={handleSave}>
                   Save Changes

@@ -4,7 +4,7 @@ import Navbar from "../../components/Navbar";
 import Sidebar from "../../components/Sidebar";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { TextField } from '@mui/material';
+
 import "../../styles/components/forms.css";
 
 const AboutAccount = () => {
@@ -94,41 +94,40 @@ const AboutAccount = () => {
             <div className="settings-card">
               <h2>Profile Information</h2>
 
-              <div className="settings-group">
-                <TextField
-                  label="Full Name"
+              <div className="input-group">
+                <input
+                  type="text"
                   name="name"
-                  variant="outlined"
-                  fullWidth
-                  size="small"
+                  className="form-control"
+                  placeholder=" "
                   value={user.name}
                   onChange={handleChange}
                 />
+                <label>Full Name</label>
               </div>
 
-              <div className="settings-group">
-                <TextField
-                  label="Email Address"
-                  name="email"
+              <div className="input-group">
+                <input
                   type="email"
-                  variant="outlined"
-                  fullWidth
-                  size="small"
+                  name="email"
+                  className="form-control"
+                  placeholder=" "
                   value={user.email}
                   onChange={handleChange}
                 />
+                <label>Email Address</label>
               </div>
 
-              <div className="settings-group">
-                <TextField
-                  label="Mobile Number"
+              <div className="input-group">
+                <input
+                  type="text"
                   name="mobile"
-                  variant="outlined"
-                  fullWidth
-                  size="small"
+                  className="form-control"
+                  placeholder=" "
                   value={user.mobile}
                   onChange={handleChange}
                 />
+                <label>Mobile Number</label>
               </div>
 
               <button className="primary-btn" onClick={handleSave}>

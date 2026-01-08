@@ -65,12 +65,17 @@
   padding: 0 0.25rem;
   color: #666;
   font-size: 0.95rem;
-  transition: all 0.2s ease-out;
+  transition: all 0.3s ease;
   pointer-events: none;
 }
 
 .input-group input:focus+label,
-.input-group input:not(:placeholder-shown)+label {
+.input-group input:not(:placeholder-shown)+label,
+.input-group textarea:focus+label,
+.input-group textarea:not(:placeholder-shown)+label,
+.input-group select:focus+label,
+.input-group select:not(:placeholder-shown)+label,
+.input-group .has-content+label {
   top: 0;
   font-size: 0.75rem;
   color: var(--primary);
@@ -80,7 +85,12 @@
 .settings-card input[type="text"],
 .settings-card input[type="email"],
 .settings-card input[type="password"],
-.form-control {
+.settings-card input[type="text"],
+.settings-card input[type="email"],
+.settings-card input[type="password"],
+.form-control,
+.input-group textarea,
+.input-group select {
   width: 100%;
   padding: 0.85rem 1rem;
   border-radius: var(--radius-md);

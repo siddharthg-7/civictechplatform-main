@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from "../../assets/images/logo/civic-logo.png";
-import { TextField } from '@mui/material';
+
 import { auth } from "../../firebase";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { useTranslation } from "react-i18next";
@@ -46,17 +46,15 @@ const ForgotPassword = () => {
           </p>
 
           {/* Email */}
-          <div className="form-group">
-            <TextField
-              label={t('emailAddress')}
+          <div className="input-group">
+            <input
               type="email"
-              variant="outlined"
-              fullWidth
-              size="small"
-              placeholder="name@company.com"
+              className="form-control"
+              placeholder=" "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <label>{t('emailAddress')}</label>
           </div>
 
           {/* Submit Button */}

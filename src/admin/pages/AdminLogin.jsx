@@ -1,8 +1,7 @@
 import "../../styles/pages/auth.css";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
-import { TextField } from '@mui/material';
-import { useState } from "react";
+
 import { auth, db } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
@@ -70,28 +69,26 @@ const AdminLogin = () => {
             <h2>Admin Portal</h2>
           </div>
 
-          <div className="form-group">
-            <TextField
-              label="Email Address"
+          <div className="input-group">
+            <input
               type="email"
-              variant="outlined"
-              fullWidth
-              size="small"
+              className="form-control"
+              placeholder=" "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <label>Email Address</label>
           </div>
 
-          <div className="form-group">
-            <TextField
-              label="Password"
+          <div className="input-group">
+            <input
               type="password"
-              variant="outlined"
-              fullWidth
-              size="small"
+              className="form-control"
+              placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <label>Password</label>
           </div>
 
           <button className="auth-btn" onClick={handleLogin} disabled={loading}>

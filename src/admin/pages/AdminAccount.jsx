@@ -4,7 +4,7 @@ import AdminNavbar from "../components/AdminNavbar";
 import AdminSidebar from "../components/AdminSidebar";
 import { auth, db } from "../../firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { TextField } from '@mui/material';
+
 import "../../styles/components/forms.css";
 
 const AdminAccount = () => {
@@ -102,46 +102,44 @@ const AdminAccount = () => {
                         <div className="settings-card">
                             <h3 className="settings-card-title">Admin Profile Information</h3>
 
-                            <div className="settings-group">
-                                <TextField
-                                    label="Full Name"
+                            <div className="input-group">
+                                <input
+                                    type="text"
                                     name="name"
-                                    variant="outlined"
-                                    fullWidth
-                                    size="small"
+                                    className="form-control"
+                                    placeholder=" "
                                     value={admin.name}
                                     onChange={handleChange}
                                 />
+                                <label>Full Name</label>
                             </div>
 
-                            <div className="settings-group">
-                                <TextField
-                                    label="Email Address"
-                                    name="email"
+                            <div className="input-group">
+                                <input
                                     type="email"
-                                    variant="outlined"
-                                    fullWidth
-                                    size="small"
+                                    name="email"
+                                    className="form-control"
+                                    placeholder=" "
                                     value={admin.email}
+                                    readOnly
                                     disabled
-                                    InputProps={{ readOnly: true }}
-                                    sx={{ mt: 1 }}
                                 />
-                                <small style={{ color: "#666", fontSize: "0.85rem" }}>
+                                <label>Email Address</label>
+                                <small style={{ color: "#666", fontSize: "0.85rem", marginTop: "5px", display: "block" }}>
                                     Email cannot be changed
                                 </small>
                             </div>
 
-                            <div className="settings-group">
-                                <TextField
-                                    label="Mobile Number"
+                            <div className="input-group">
+                                <input
+                                    type="text"
                                     name="mobile"
-                                    variant="outlined"
-                                    fullWidth
-                                    size="small"
+                                    className="form-control"
+                                    placeholder=" "
                                     value={admin.mobile}
                                     onChange={handleChange}
                                 />
+                                <label>Mobile Number</label>
                             </div>
 
                             <button className="settings-primary" onClick={handleSave}>

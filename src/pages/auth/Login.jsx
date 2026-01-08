@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TextField } from '@mui/material';
+
+
 
 import { auth } from "../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -63,31 +64,27 @@ const Login = () => {
 
         <div className="auth-form">
           {/* Username */}
-          <div className="form-group">
-            <TextField
-              label={t('emailLabel')}
+          <div className="input-group">
+            <input
               type="email"
-              variant="outlined"
-              fullWidth
-              size="small"
-              placeholder="name@company.com"
+              className="form-control"
+              placeholder=" "
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
+            <label>{t('emailLabel')}</label>
           </div>
 
           {/* Password */}
-          <div className="form-group">
-            <TextField
-              label={t('passwordLabel')}
+          <div className="input-group">
+            <input
               type="password"
-              variant="outlined"
-              fullWidth
-              size="small"
-              placeholder="••••••••"
+              className="form-control"
+              placeholder=" "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
+            <label>{t('passwordLabel')}</label>
           </div>
 
           {/* Login Button */}

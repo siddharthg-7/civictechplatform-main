@@ -7,6 +7,7 @@ import "./i18n";
 
 import "./index.css";
 import "./styles/base/global.css";
+import "./styles/components/forms.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>

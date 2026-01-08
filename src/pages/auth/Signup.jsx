@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/logo/civic-logo.png";
 import { auth, db } from "../../firebase";
-import { TextField } from '@mui/material';
+
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
@@ -65,57 +65,51 @@ const Signup = () => {
                     </div>
 
                     {/*Name*/}
-                    <div className="form-group">
-                        <TextField
-                            label={t('fullName')}
-                            variant="outlined"
-                            fullWidth
-                            size="small"
-                            placeholder="John Doe"
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder=" "
                             value={name}
                             onChange={(e) => setName(e.target.value)}
                         />
+                        <label>{t('fullName')}</label>
                     </div>
 
                     {/*Email*/}
-                    <div className="form-group">
-                        <TextField
-                            label={t('emailAddress')}
+                    <div className="input-group">
+                        <input
                             type="email"
-                            variant="outlined"
-                            fullWidth
-                            size="small"
-                            placeholder="john@example.com"
+                            className="form-control"
+                            placeholder=" "
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        <label>{t('emailAddress')}</label>
                     </div>
 
                     {/*Phone*/}
-                    <div className="form-group">
-                        <TextField
-                            label={t('phoneNumber')}
-                            variant="outlined"
-                            fullWidth
-                            size="small"
-                            placeholder="+1 (555) 000-0000"
+                    <div className="input-group">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder=" "
                             value={phone}
                             onChange={(e) => setPhone(e.target.value)}
                         />
+                        <label>{t('phoneNumber')}</label>
                     </div>
 
                     {/*Password*/}
-                    <div className="form-group">
-                        <TextField
-                            label={t('passwordLabel')}
+                    <div className="input-group">
+                        <input
                             type="password"
-                            variant="outlined"
-                            fullWidth
-                            size="small"
-                            placeholder={t('createPassword')}
+                            className="form-control"
+                            placeholder=" "
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
+                        <label>{t('passwordLabel')}</label>
                     </div>
 
                     {/* Signup Button */}

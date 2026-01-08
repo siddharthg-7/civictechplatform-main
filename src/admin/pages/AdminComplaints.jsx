@@ -5,7 +5,7 @@ import AdminSidebar from "../components/AdminSidebar";
 import "../styles/admin.css";
 
 import { MdLocationOn, MdPerson } from "react-icons/md";
-import { TextField } from '@mui/material';
+
 
 import { auth, db } from "../../firebase";
 import { collection, onSnapshot, doc, updateDoc, orderBy, query, getDoc } from "firebase/firestore";
@@ -94,15 +94,17 @@ const AdminComplaints = () => {
             <h2 className="admin-title">Manage Complaints</h2>
 
             {/* SEARCH */}
-            <TextField
-              label="Search by area or complaint title..."
-              variant="outlined"
-              size="small"
-              fullWidth
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              sx={{ mb: 2 }}
-            />
+            {/* SEARCH */}
+            <div className="input-group" style={{ marginBottom: '1.5rem' }}>
+              <input
+                type="text"
+                className="form-control"
+                placeholder=" "
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <label>Search by area or complaint title...</label>
+            </div>
 
             {/* COMPLAINT LIST */}
             <div className="admin-complaints-grid">

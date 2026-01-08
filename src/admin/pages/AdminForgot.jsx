@@ -46,17 +46,15 @@ const AdminForgot = () => {
           </p>
 
           {/* Email */}
-          <div className="form-group">
-            <TextField
-              label="Admin Email"
+          <div className="input-group">
+            <input
               type="email"
-              variant="outlined"
-              fullWidth
-              size="small"
-              placeholder="admin@civic.com"
+              className="form-control"
+              placeholder=" "
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <label>Admin Email</label>
           </div>
 
           {/* Button */}
