@@ -1,14 +1,14 @@
 :root {
   /* Official Color Palette - National Portal of India Style */
-  --primary: #0055A4;
+  --primary: #052963;
   /* Brand Blue */
-  --primary-hover: #004483;
+  --primary-hover: #031a42;
   --primary-light: #E6F0F8;
   /* Light blue tint for backgrounds */
 
-  --secondary: #006599;
-  /* Secondary Blue */
-  --secondary-hover: #00527a;
+  --secondary: #004d73;
+  /* Secondary Blue - Adjusted for compatibility */
+  --secondary-hover: #003a57;
 
   --accent-saffron: #FF9933;
   --accent-green: #128807;
@@ -24,7 +24,7 @@
   --bg-section: #F5F5F5;
   --bg-section-alt: #E5E5E5;
   --bg-card: #FFFFFF;
-  --nav-bg: #0055A4;
+  --nav-bg: #052963;
 
   /* Text */
   --text-main: #333333;
