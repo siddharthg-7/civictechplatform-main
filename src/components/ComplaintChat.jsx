@@ -33,7 +33,7 @@ const ComplaintChat = ({ complaintId, role }) => {
             await addDoc(collection(db, "complaints", complaintId, "messages"), {
                 text: newMessage,
                 senderId: auth.currentUser.uid,
-                senderName: auth.currentUser.displayName || (role === 'admin' ? 'Admin' : 'User'),
+                senderName: auth.currentUser.displayName || (role === 'admin' || role === 'gov_admin' ? 'Admin' : 'User'),
                 senderRole: role,
                 createdAt: serverTimestamp()
             });

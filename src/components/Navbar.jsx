@@ -50,7 +50,7 @@ const Navbar = ({ role = "user" }) => {
 
   const handleLogout = (e) => {
     e.stopPropagation();
-    if (role === "admin") navigate("/admin/login");
+    if (role === "admin" || role === "gov_admin") navigate("/admin/login");
     else navigate("/");
   };
 
@@ -88,12 +88,12 @@ const Navbar = ({ role = "user" }) => {
       {/* 2. Main Header */}
       <div className="gov-main-header">
         <div className="gov-header-content">
-          <div className="gov-branding" onClick={() => navigate(role === 'admin' ? '/admin/dashboard' : '/dashboard')} style={{ cursor: 'pointer' }}>
+          <div className="gov-branding" onClick={() => navigate((role === 'admin' || role === 'gov_admin') ? '/admin/dashboard' : '/dashboard')} style={{ cursor: 'pointer' }}>
             <div className="emblem-placeholder">
               <img src={logo} alt="Emblem" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </div>
             <div className="site-titles">
-              <h1>{role === 'admin' ? t('adminPortal') : t('civicPlatform')}</h1>
+              <h1>{(role === 'admin' || role === 'gov_admin') ? t('adminPortal') : t('civicPlatform')}</h1>
               <span>{t('govOfIndia')}</span>
             </div>
           </div>
@@ -122,17 +122,17 @@ const Navbar = ({ role = "user" }) => {
       <div className="gov-nav-bar">
         <div className="gov-nav-content">
           <div className="nav-links">
-            <span onClick={() => navigate(role === 'admin' ? '/admin/dashboard' : '/dashboard')}>{t('dashboard')}</span>
+            <span onClick={() => navigate((role === 'admin' || role === 'gov_admin') ? '/admin/dashboard' : '/dashboard')}>{t('dashboard')}</span>
             <span onClick={() => navigate('/complaints')}>{t('complaints')}</span>
             {role === 'user' && <span onClick={() => navigate('/raise-complaint')}>{t('raiseNew')}</span>}
-            {role === 'admin' && <span onClick={() => navigate('/admin/users')}>{t('users')}</span>}
+            {(role === 'admin' || role === 'gov_admin') && <span onClick={() => navigate('/admin/users')}>{t('users')}</span>}
             <span onClick={() => navigate('/reports')}>{t('reports')}</span>
             <span onClick={() => navigate('/help')}>{t('help')}</span>
           </div>
 
-          <div className="user-profile" onClick={() => navigate(role === 'admin' ? '/admin/account' : '/about/account')}>
+          <div className="user-profile" onClick={() => navigate((role === 'admin' || role === 'gov_admin') ? '/admin/account' : '/about/account')}>
             <FaUserCircle size={24} />
-            <span>{role === 'admin' ? t('adminPortal') : t('myAccount')}</span>
+            <span>{(role === 'admin' || role === 'gov_admin') ? t('adminPortal') : t('myAccount')}</span>
             <span className="logout-btn" onClick={handleLogout}>{t('logout')}</span>
           </div>
         </div>

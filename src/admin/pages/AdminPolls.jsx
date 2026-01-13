@@ -26,8 +26,14 @@ const AdminPolls = () => {
 
       try {
         const userDoc = await getDoc(doc(db, "users", user.uid));
-        if (userDoc.exists() && userDoc.data().role === "admin") {
-          setIsAdmin(true);
+        if (userDoc.exists()) {
+          const userRole = userDoc.data().role;
+          if (userRole === "admin" || userRole === "gov_admin") {
+            setIsAdmin(true);
+          } else {
+            alert("Access denied. Admin privileges required.");
+            navigate("/");
+          }
         } else {
           alert("Access denied. Admin privileges required.");
           navigate("/");

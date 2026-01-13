@@ -60,6 +60,8 @@
 
 ##  Configuration (Firebase Setup)
 
+### Quick Setup
+
 To use your own Firebase project, update `src/firebase.js` with your configuration:
 
 1.  Enable **Email/Password Authentication** in the Firebase Console.
@@ -75,6 +77,28 @@ To use your own Firebase project, update `src/firebase.js` with your configurati
       appId: "YOUR_APP_ID"
     };
     ```
+
+### 📚 Detailed Setup Guides
+
+**Migrating to a new Firebase database?** See our comprehensive guides:
+
+- **[Firebase Migration Guide](FIREBASE_MIGRATION_GUIDE.md)** - Complete step-by-step migration instructions
+- **[Firebase Setup Checklist](FIREBASE_SETUP_CHECKLIST.md)** - Verification checklist for your setup
+- **[Admin Sign-In Reference](ADMIN_SIGNIN_REFERENCE.md)** - Admin credentials and permissions guide
+
+### 👤 Admin Access
+
+The platform includes three types of admin accounts:
+
+1. **Regular Admins**: `codecrusaders62@gmail.com`, `siddharthexam21@gmail.com`
+2. **Government Admin**: `government@gmail.com` (special role with enhanced permissions)
+
+**Quick Government Login:**
+- Navigate to `/admin/login`
+- Click "Government Authority Login" button
+- Default credentials: `government@gmail.com` / `gdgc@123`
+
+For more details, see [ADMIN_SIGNIN_REFERENCE.md](ADMIN_SIGNIN_REFERENCE.md).
 
 ---
 

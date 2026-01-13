@@ -30,7 +30,8 @@ const CommunityPolls = () => {
         try {
           const userDoc = await getDoc(doc(db, "users", auth.currentUser.uid));
           if (userDoc.exists()) {
-            setIsAdmin(userDoc.data().role === "admin");
+            const userRole = userDoc.data().role;
+            setIsAdmin(userRole === "admin" || userRole === "gov_admin");
           }
         } catch (error) {
           console.error("Error checking admin status:", error);

@@ -25,9 +25,9 @@ const Sidebar = ({ role = "user" }) => {
 
         {/* ===== DASHBOARD ===== */}
         <li
-          className={isActive(role === "admin" ? "/admin/dashboard" : "/dashboard") ? "active" : ""}
+          className={isActive((role === "admin" || role === "gov_admin") ? "/admin/dashboard" : "/dashboard") ? "active" : ""}
           onClick={() =>
-            navigate(role === "admin" ? "/admin/dashboard" : "/dashboard")
+            navigate((role === "admin" || role === "gov_admin") ? "/admin/dashboard" : "/dashboard")
           }
         >
           <MdDashboard className="sidebar-icon" size={24} />
@@ -72,7 +72,7 @@ const Sidebar = ({ role = "user" }) => {
         )}
 
         {/* ===== ADMIN ONLY ===== */}
-        {role === "admin" && (
+        {(role === "admin" || role === "gov_admin") && (
           <>
             <li
               className={isActive("/admin/complaints") ? "active" : ""}
@@ -104,7 +104,7 @@ const Sidebar = ({ role = "user" }) => {
         <li
           className={isActive("/settings") ? "active" : ""}
           onClick={() =>
-            navigate(role === "admin" ? "/admin/settings" : "/settings")
+            navigate((role === "admin" || role === "gov_admin") ? "/admin/settings" : "/settings")
           }
         >
           <MdSettings className="sidebar-icon" size={24} />
