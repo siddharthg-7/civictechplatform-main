@@ -8,6 +8,7 @@ import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { ADMIN_EMAILS } from "../../constants/adminEmails";
+import { getAuthErrorMessage } from "../../utils/authErrors";
 
 const AdminSignup = () => {
   const navigate = useNavigate();
@@ -47,7 +48,8 @@ const AdminSignup = () => {
       navigate("/admin/dashboard");
     } catch (error) {
       console.error("Signup error:", error);
-      alert(`Signup failed: ${error.message}`);
+      const message = getAuthErrorMessage(error);
+      alert(`Signup failed: ${message}`);
     } finally {
       setLoading(false);
     }

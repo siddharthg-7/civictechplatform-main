@@ -6,6 +6,7 @@ import { auth, db } from "../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { useTranslation } from "react-i18next";
+import { getAuthErrorMessage } from "../../utils/authErrors";
 
 const Signup = () => {
     const navigate = useNavigate();
@@ -48,7 +49,8 @@ const Signup = () => {
             navigate("/dashboard");
         } catch (error) {
             console.error("Signup error details:", error);
-            alert(`Signup failed: ${error.message}`);
+            const message = getAuthErrorMessage(error);
+            alert(`Signup failed: ${message}`);
         } finally {
             setLoading(false);
         }
