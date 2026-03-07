@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
@@ -28,6 +28,9 @@ import AdminSettings from "./admin/pages/AdminSettings";
 import Footer from "./components/Footer";
 
 function App() {
+  const location = useLocation();
+  const isAuthPage = ["/", "/signup", "/forgot-password"].includes(location.pathname);
+
   return (
     <div className="app-layout">
       <Routes>
@@ -59,7 +62,7 @@ function App() {
 
       </Routes>
 
-      <Footer />
+      {!isAuthPage && <Footer />}
     </div>
   );
 }
