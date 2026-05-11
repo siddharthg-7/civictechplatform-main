@@ -8,6 +8,7 @@ import "./i18n";
 import "./index.css";
 import "./styles/base/global.css";
 import "./styles/components/forms.css";
+import "./styles/tailwind.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
