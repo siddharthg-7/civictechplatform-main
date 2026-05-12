@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/layout/sidebar.css";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
 import { auth } from "../firebase";
 
 import {
@@ -19,6 +21,32 @@ const Sidebar = ({ role = "user" }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
+
+  useEffect(() => {
+    gsap.from(".sidebar-brand", {
+      opacity: 0,
+      scale: 0.9,
+      duration: 0.5,
+      ease: "power3.out",
+    });
+
+    gsap.from(".sidebar-menu li", {
+      opacity: 0,
+      y: 20,
+      stagger: 0.03,
+      duration: 0.4,
+      ease: "back.out(1.7)",
+      delay: 0.2,
+    });
+
+    gsap.from(".sidebar-support-card", {
+      opacity: 0,
+      scale: 0.95,
+      duration: 0.5,
+      ease: "power3.out",
+      delay: 0.4,
+    });
+  }, []);
 
   const isActive = (path) => location.pathname.startsWith(path);
 

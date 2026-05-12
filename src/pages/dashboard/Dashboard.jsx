@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/pages/dashboard.css";
 import "../../styles/layout/sidebar.css";
 import { useTranslation } from "react-i18next";
+import gsap from "gsap";
 
 import Sidebar from "../../components/Sidebar";
 
@@ -62,6 +63,33 @@ const Dashboard = () => {
       });
     });
     return () => unsub();
+  }, []);
+
+  useEffect(() => {
+    gsap.from(".stat-card", {
+      opacity: 0,
+      y: 50,
+      stagger: 0.2,
+      duration: 0.8,
+      ease: "power3.out",
+    });
+
+    gsap.from(".dash-hero", {
+      opacity: 0,
+      x: -50,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.5,
+    });
+
+    gsap.from(".announce-item", {
+      opacity: 0,
+      y: 30,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: "power3.out",
+      delay: 1,
+    });
   }, []);
 
   const user = auth.currentUser;

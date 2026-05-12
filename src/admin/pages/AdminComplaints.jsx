@@ -247,7 +247,7 @@ const AdminComplaints = () => {
                   </div>
 
                   {/* Body */}
-                  <div style={{ padding: "1rem" }}>
+                  <div style={{ padding: "1rem", display: "flex", flexDirection: "column", flex: 1 }}>
                     <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0f172a", marginBottom: "0.25rem" }}>
                       {c.problemType}
                     </h3>
@@ -270,7 +270,7 @@ const AdminComplaints = () => {
                     </div>
 
                     {/* Status select + chat */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.75rem", marginTop: "auto" }}>
                       <select
                         value={c.status || "Submitted"}
                         onChange={(e) => updateStatus(c.id, e.target.value)}
