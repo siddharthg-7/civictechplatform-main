@@ -36,7 +36,7 @@ const AdminAccount = () => {
                     // Verify this is an admin account
                     if (userData.role !== "admin") {
                         alert("Access denied. Admin privileges required.");
-                        navigate("/");
+                        navigate("/login");
                         return;
                     }
 

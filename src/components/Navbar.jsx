@@ -51,7 +51,7 @@ const Navbar = ({ role = "user" }) => {
   const handleLogout = (e) => {
     e.stopPropagation();
     if (role === "admin" || role === "gov_admin") navigate("/admin/login");
-    else navigate("/");
+    else navigate("/login");
   };
 
   return (

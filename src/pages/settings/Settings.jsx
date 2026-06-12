@@ -26,7 +26,7 @@ const Settings = () => {
         const currentUser = auth.currentUser;
         if (!currentUser) {
           alert("Please login first");
-          navigate("/");
+          navigate("/login");
           return;
         }
 
@@ -91,7 +91,7 @@ const Settings = () => {
     );
     if (confirmLogout) {
       localStorage.clear();
-      navigate("/");
+      navigate("/login");
     }
   };
 

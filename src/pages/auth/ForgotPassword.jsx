@@ -22,7 +22,7 @@ const ForgotPassword = () => {
     try {
       await sendPasswordResetEmail(auth, email);
       alert("A password reset link has been sent to your email.");
-      navigate("/");
+      navigate("/login");
     } catch (error) {
       console.error("Reset password error:", error);
       alert(`Failed to send reset email: ${error.message}`);
@@ -64,7 +64,7 @@ const ForgotPassword = () => {
 
           {/* Back Link */}
           <div className="auth-links">
-            <Link to="/">&larr; {t('backToSignIn')}</Link>
+            <Link to="/login">&larr; {t('backToSignIn')}</Link>
           </div>
         </div>
       </div>

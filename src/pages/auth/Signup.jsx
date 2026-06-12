@@ -105,7 +105,7 @@ const Signup = () => {
                         <a href="#">About</a>
                         <a href="#">Support</a>
                     </nav>
-                    <Link to="/" className="auth-navbar-login-btn">
+                    <Link to="/login" className="auth-navbar-login-btn">
                         Login
                     </Link>
                 </div>
@@ -254,7 +254,7 @@ const Signup = () => {
                             <div className="auth-divider-section" style={{ marginBottom: 0 }}>
                                 <p className="auth-alt-link">
                                     Already have an account?{" "}
-                                    <Link to="/">Log in here</Link>
+                                    <Link to="/login">Log in here</Link>
                                 </p>
                             </div>
                         </div>

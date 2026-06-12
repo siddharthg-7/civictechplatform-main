@@ -54,7 +54,7 @@ const Sidebar = ({ role = "user" }) => {
     try {
       await auth.signOut();
     } catch (_) { }
-    navigate("/");
+    navigate("/login");
   };
 
   const dashPath = role === "user" ? "/dashboard" : "/admin/dashboard";

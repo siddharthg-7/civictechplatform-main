@@ -103,7 +103,7 @@ const AdminLogin = () => {
 
             <p style={{ marginBottom: '1.5rem' }}>
               <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>Not an admin? </span>
-              <Link to="/">User Login</Link>
+              <Link to="/login">User Login</Link>
             </p>
 
             {/* Feature 1.1: Government Login Shortcut */}

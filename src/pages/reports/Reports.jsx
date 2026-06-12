@@ -30,7 +30,7 @@ const Reports = () => {
                 const currentUser = auth.currentUser;
                 if (!currentUser) {
                     alert("Please login first");
-                    navigate("/");
+                    navigate("/login");
                     return;
                 }
 

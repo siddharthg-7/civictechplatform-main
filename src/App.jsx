@@ -1,5 +1,6 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 
+import StoryContainer from "./components/StoryContainer";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import ForgotPassword from "./pages/auth/ForgotPassword";
@@ -29,12 +30,14 @@ import Footer from "./components/Footer";
 
 function App() {
   const location = useLocation();
-  const isAuthPage = ["/", "/signup", "/forgot-password"].includes(location.pathname);
+  const isAuthPage = ["/", "/login", "/signup", "/forgot-password"].includes(location.pathname);
+  const isLanding = location.pathname === "/";
 
   return (
     <div className="app-layout">
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<StoryContainer />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
@@ -62,7 +65,7 @@ function App() {
 
       </Routes>
 
-      {!isAuthPage && <Footer />}
+      {!isAuthPage && !isLanding && <Footer />}
     </div>
   );
 }

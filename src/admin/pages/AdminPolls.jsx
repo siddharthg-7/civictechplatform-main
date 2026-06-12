@@ -32,11 +32,11 @@ const AdminPolls = () => {
             setIsAdmin(true);
           } else {
             alert("Access denied. Admin privileges required.");
-            navigate("/");
+            navigate("/login");
           }
         } else {
           alert("Access denied. Admin privileges required.");
-          navigate("/");
+          navigate("/login");
         }
       } catch (error) {
         console.error("Error checking admin status:", error);
