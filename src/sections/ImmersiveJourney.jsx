@@ -7,6 +7,7 @@ import {
   CheckCircle2, BarChart3, Sparkles, ArrowRight,
   Users, ChevronDown, Radio, Activity
 } from "lucide-react";
+import SceneCard from "../components/SceneCard";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -154,7 +155,7 @@ const SceneContent = React.forwardRef(({ scene, navigate }, ref) => {
       className="absolute inset-0 z-20 flex items-center justify-start pointer-events-none"
       style={{ willChange: "opacity, transform" }}
     >
-      <div className="w-full max-w-[680px] ml-[6vw] xl:ml-[9vw] px-4 flex flex-col gap-6 pointer-events-auto select-none">
+      <div className="w-full max-w-[40%] ml-[6vw] px-4 flex flex-col gap-6 pointer-events-auto select-none">
 
         {/* Scene label pill */}
         <div
@@ -177,7 +178,9 @@ const SceneContent = React.forwardRef(({ scene, navigate }, ref) => {
               key={i}
               className="block font-black text-white"
               style={{
-                fontSize: "clamp(3rem, 7.5vw, 7rem)",
+                fontSize: "clamp(72px, 8vw, 140px)",
+                lineHeight: "0.9",
+                maxWidth: "650px",
                 textShadow: "0 4px 40px rgba(0,0,0,0.8)",
               }}
             >
@@ -190,8 +193,8 @@ const SceneContent = React.forwardRef(({ scene, navigate }, ref) => {
 
         {/* Sub copy */}
         <p
-          className="text-white/70 font-medium leading-relaxed max-w-[420px]"
-          style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.15rem)" }}
+          className="text-white/70 font-medium leading-relaxed"
+          style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.15rem)", maxWidth: "520px" }}
         >
           {scene.sub}
         </p>
@@ -226,65 +229,29 @@ const SceneContent = React.forwardRef(({ scene, navigate }, ref) => {
         )}
       </div>
 
-      {/* Right side data card */}
-      <div className="hidden lg:flex flex-col gap-4 mr-[6vw] xl:mr-[9vw] ml-auto">
-        <RightCard scene={scene} accentRgb={accentRgb} />
+      {/* RIGHT_COLUMN: anchor: right_middle */}
+      <div className="hidden lg:flex flex-col gap-4 absolute right-[12%] top-1/2 -translate-y-1/2">
+        <div
+          className="w-[280px] xl:w-[320px] p-6 flex flex-col gap-5"
+          style={{
+            borderRadius: "32px",
+            background: "rgba(10,10,15,0.35)",
+            border: "1px solid rgba(255,255,255,0.08)",
+            backdropFilter: "blur(24px) saturate(160%)",
+            WebkitBackdropFilter: "blur(24px) saturate(160%)",
+            boxShadow: accentRgb
+              ? `0 30px 120px rgba(0,0,0,0.4), inset 0 1px 1px rgba(255,255,255,0.1), inset 0 0 40px rgba(${accentRgb},0.1)`
+              : "0 30px 120px rgba(0,0,0,0.4)",
+          }}
+        >
+          <SceneCard n={scene.id} color={scene.accent} />
+        </div>
       </div>
     </div>
   );
 });
 
 // ─── Right floating glass data card ───────────────────────────────────────
-const RightCard = ({ scene, accentRgb }) => {
-  const Icon = scene.icon;
-  return (
-    <div
-      className="w-[280px] xl:w-[320px] rounded-[1.75rem] border border-white/10 p-6 flex flex-col gap-5"
-      style={{
-        background: "rgba(0,0,0,0.55)",
-        backdropFilter: "blur(28px) saturate(160%)",
-        WebkitBackdropFilter: "blur(28px) saturate(160%)",
-        boxShadow: accentRgb
-          ? `0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(${accentRgb},0.15), inset 0 1px 0 rgba(255,255,255,0.07)`
-          : "0 20px 60px rgba(0,0,0,0.7)",
-      }}
-    >
-      <div className="flex items-center justify-between">
-        <div
-          className="w-10 h-10 rounded-xl flex items-center justify-center"
-          style={{ background: `rgba(${accentRgb || "255,255,255"},0.1)` }}
-        >
-          <Icon size={18} style={{ color: scene.accent }} />
-        </div>
-        <span
-          className="text-[9px] font-black tracking-[0.2em] uppercase px-3 py-1 rounded-full border"
-          style={{ color: scene.accent, borderColor: `${scene.accent}33`, background: `${scene.accent}11` }}
-        >
-          {scene.tag}
-        </span>
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <span className="text-white/40 text-[9px] font-bold uppercase tracking-widest">Live Metrics</span>
-        <div className="h-px bg-white/5 w-full" />
-      </div>
-
-      {scene.stats.map((s, i) => (
-        <div key={i} className="flex items-center justify-between">
-          <span className="text-white/50 text-xs font-medium">{s.l}</span>
-          <span className="font-black text-sm" style={{ color: scene.accent }}>{s.v}</span>
-        </div>
-      ))}
-
-      {/* Pulse indicator */}
-      <div className="flex items-center gap-2 mt-1">
-        <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: scene.accent }} />
-        <span className="text-white/30 text-[10px] font-bold tracking-widest uppercase">System Active</span>
-      </div>
-    </div>
-  );
-};
-
 function hexToRgb(hex) {
   if (!hex) return null;
   const r = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -436,11 +403,11 @@ const ImmersiveJourney = () => {
     // ── Set all panels/contents to a known hidden start state ──
     panels.forEach((el, i) => {
       if (!el) return;
-      gsap.set(el, { opacity: i === 0 ? 1 : 0 });
+      gsap.set(el, { opacity: i === 0 ? 1 : 0, filter: i === 0 ? "blur(0px)" : "blur(12px)" });
     });
     contents.forEach((el) => {
       if (!el) return;
-      gsap.set(el, { opacity: 0, y: 40 });
+      gsap.set(el, { opacity: 0, y: 120, scale: 0.92 });
     });
 
     // ── Single master scrubbed timeline ──
@@ -454,16 +421,16 @@ const ImmersiveJourney = () => {
       const xfadeStart = sceneStart + SCENE_HOLD;
 
       // Scene content: fade in at sceneStart, hold, fade out at xfadeStart
-      tl.to(contents[i], { opacity: 1, y: 0, duration: 0.3, ease: "power2.out" }, sceneStart);
-      tl.to(contents[i], { opacity: 0, y: -30, duration: SCENE_XFADE * 0.5, ease: "power2.in" }, xfadeStart);
+      tl.to(contents[i], { opacity: 1, y: 0, scale: 1, duration: 0.3, ease: "power2.out" }, sceneStart);
+      tl.to(contents[i], { opacity: 0, y: -120, scale: 0.92, duration: SCENE_XFADE * 0.5, ease: "power2.in" }, xfadeStart);
 
       if (i < SCENES.length - 1) {
         const nextStart = xfadeStart;
         // Video cross-fade: current out, next in
-        tl.to(panels[i], { opacity: 0, duration: SCENE_XFADE, ease: "power1.inOut" }, nextStart);
+        tl.to(panels[i], { opacity: 0, filter: "blur(12px)", duration: SCENE_XFADE, ease: "power1.inOut" }, nextStart);
         tl.fromTo(panels[i + 1],
-          { opacity: 0 },
-          { opacity: 1, duration: SCENE_XFADE, ease: "power1.inOut" },
+          { opacity: 0, filter: "blur(12px)" },
+          { opacity: 1, filter: "blur(0px)", duration: SCENE_XFADE, ease: "power1.inOut" },
           nextStart
         );
         // Black flash peaks mid-xfade
@@ -477,7 +444,7 @@ const ImmersiveJourney = () => {
         );
       } else {
         // Last scene: just fade content in and hold
-        tl.to(contents[i], { opacity: 1, y: 0, duration: 0.3 }, sceneStart);
+        tl.to(contents[i], { opacity: 1, y: 0, scale: 1, duration: 0.3 }, sceneStart);
       }
     });
 

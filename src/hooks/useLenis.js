@@ -16,7 +16,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  *   lenis.raf() called from gsap.ticker so everything is frame-locked
  *   lagSmoothing(0) prevents GSAP skipping frames on lag spikes
  */
-const useLenis = () => {
+const useLenis = (options = { lerp: 0.08, wheelMultiplier: 1, touchMultiplier: 1.2 }) => {
   const lenisRef = useRef(null);
 
   useEffect(() => {

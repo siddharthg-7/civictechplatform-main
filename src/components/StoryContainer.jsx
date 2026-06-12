@@ -1,101 +1,63 @@
-import React, { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useLenis from "../hooks/useLenis";
+import { SCENES_META } from "../constants/scenes";
 import TopBar from "./TopBar";
 import NavDots from "./NavDots";
-import IntroSection from "../sections/IntroSection";
 import SceneBlock from "./SceneBlock";
+import IntroSection from "../sections/IntroSection";
 import CTASection from "../sections/CTASection";
 
+// Step 7 — register ScrollTrigger globally once
 gsap.registerPlugin(ScrollTrigger);
-
-// ─── Single source of truth for all 7 scenes ──────────────────────────────
-export const SCENES_META = [
-  {
-    n: 1, color: "#f43f5e", tag: "01 — Discovery",
-    headline: ["Every City", "Has Unseen", "Fractures"],
-    sub: "Potholes. Broken lights. Silent suffering. Issues that erode urban life one block at a time.",
-    video: "/Landingpage/scene1.mp4",
-    stats: [{ v: "2.4M", l: "Citizens Affected" }, { v: "847", l: "Open Issues" }],
-  },
-  {
-    n: 2, color: "#3b82f6", tag: "02 — Reporting",
-    headline: ["Your Voice,", "Geotagged &", "Amplified"],
-    sub: "One tap. Photo. Location. A complaint transforms into a live civic signal in seconds.",
-    video: "/Landingpage/scene2.mp4",
-    stats: [{ v: "98%", l: "Submit Rate" }, { v: "1.2s", l: "Avg Response" }],
-  },
-  {
-    n: 3, color: "#a855f7", tag: "03 — Analysis",
-    headline: ["AI Reads", "The City's", "Pulse"],
-    sub: "Machine learning clusters complaints, scores urgency, and reveals systemic failure patterns.",
-    video: "/Landingpage/scene3.mp4",
-    stats: [{ v: "99.2%", l: "AI Accuracy" }, { v: "< 3s", l: "Processing" }],
-  },
-  {
-    n: 4, color: "#06b6d4", tag: "04 — Routing",
-    headline: ["Every Issue", "Finds Its", "Authority"],
-    sub: "Smart routing assigns complaints to the precise department, ward officer, or contractor.",
-    video: "/Landingpage/scene4.mp4",
-    stats: [{ v: "34", l: "Departments" }, { v: "< 2hr", l: "Assignment" }],
-  },
-  {
-    n: 5, color: "#10b981", tag: "05 — Resolution",
-    headline: ["Problems", "Solved. Lives", "Restored."],
-    sub: "Field teams receive tasks, upload proof, and close the loop. Citizens see it in real time.",
-    video: "/Landingpage/scene5.mp4",
-    stats: [{ v: "94%", l: "Resolution Rate" }, { v: "48hr", l: "Avg Fix Time" }],
-  },
-  {
-    n: 6, color: "#f59e0b", tag: "06 — Impact",
-    headline: ["Trust Built", "Block By", "Block"],
-    sub: "Transparent metrics. Public accountability. A city that earns faith through visible results.",
-    video: "/Landingpage/scene6.mp4",
-    stats: [{ v: "24.5K", l: "Issues Resolved" }, { v: "4.8★", l: "Citizen Rating" }],
-  },
-  {
-    n: 7, color: "#ffffff", tag: "07 — Future",
-    headline: ["The Smart", "City Starts", "With You"],
-    sub: "Join thousands of citizens building tomorrow's urban infrastructure — one report at a time.",
-    video: "/Landingpage/scene7.mp4",
-    stats: [{ v: "∞", l: "Possibilities" }, { v: "Now", l: "Begin" }],
-    isFinal: true,
-  },
-];
+ScrollTrigger.config({ invalidateOnRefresh: true });
 
 const EASING = (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 const StoryContainer = () => {
   const navigate    = useNavigate();
-  const lenisRef    = useLenis();
-  const [activeScene, setActiveScene] = useState(-1);
+  const lenisRef    = useLenis();                        // Step 5 — Lenis
+  const [activeScene, setActiveScene] = useState(-1);   // -1 = intro
   const [progress,    setProgress]    = useState(0);
 
-  // Cinematic scroll via Lenis — falls back to native if Lenis not ready
-  const lenisScrollTo = (top) => {
+  // Step 6 — preload next scene video when a scene becomes active
+  useEffect(() => {
+    if (activeScene < 0) return;
+    const next = SCENES_META[activeScene + 1];
+    if (!next) return;
+    const link = document.createElement("link");
+    link.rel  = "preload";
+    link.as   = "video";
+    link.href = next.video;
+    document.head.appendChild(link);
+    return () => { try { document.head.removeChild(link); } catch (_) {} };
+  }, [activeScene]);
+
+  // Step 6 — Lenis scrollTo with cinematic easing
+  const lenisScrollTo = useCallback((top) => {
     if (lenisRef.current) {
       lenisRef.current.scrollTo(top, { duration: 1.6, easing: EASING });
     } else {
       window.scrollTo({ top, behavior: "smooth" });
     }
-  };
+  }, [lenisRef]);
 
-  const scrollToScene = (i) => {
+  // Scroll position helpers (100vh intro + 300vh per scene)
+  const scrollToScene = useCallback((i) => {
     lenisScrollTo((100 + i * 300) * window.innerHeight / 100 + 10);
-  };
+  }, [lenisScrollTo]);
 
-  const scrollToCTA = () => {
+  const scrollToCTA = useCallback(() => {
     lenisScrollTo((100 + 7 * 300) * window.innerHeight / 100);
-  };
+  }, [lenisScrollTo]);
 
-  const accent = activeScene >= 0 && activeScene < SCENES_META.length
-    ? SCENES_META[activeScene].color
-    : "#3b82f6";
+  const accent = SCENES_META[activeScene]?.color ?? "#3b82f6";
 
   return (
     <div className="w-full bg-black text-white">
+
       {/* ── Fixed chrome ── */}
       <TopBar accent={accent} progress={progress} onEnter={() => navigate("/login")} />
       <NavDots
@@ -105,10 +67,12 @@ const StoryContainer = () => {
         onCTA={scrollToCTA}
       />
 
-      {/* ── 1. Intro — 100vh ── */}
+      {/* Step 3 — WEBSITE FLOW ───────────────────────────────────── */}
+
+      {/* 1. Intro — 100vh, GSAP scroll-out */}
       <IntroSection />
 
-      {/* ── 2–8. Seven pinned scenes — each 300vh ── */}
+      {/* 2–8. Seven × 300vh pinned scenes */}
       {SCENES_META.map((scene, i) => (
         <SceneBlock
           key={scene.n}
@@ -120,7 +84,7 @@ const StoryContainer = () => {
         />
       ))}
 
-      {/* ── 9. Final CTA ── */}
+      {/* 9. Final CTA */}
       <CTASection onEnter={() => navigate("/login")} onSignup={() => navigate("/signup")} />
     </div>
   );

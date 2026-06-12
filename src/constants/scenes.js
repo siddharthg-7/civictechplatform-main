@@ -1,0 +1,52 @@
+export const SCENES_META = [
+  {
+    n: 1, color: "#f43f5e", tag: "01 — Discovery",
+    headline: ["Every City", "Has", "Challenges"],
+    sub: "Small issues affect thousands of citizens.",
+    video: "/Landingpage/scene1.mp4",
+    stats: [{ v: "2.4M", l: "Citizens Affected" }, { v: "847", l: "Open Issues" }],
+  },
+  {
+    n: 2, color: "#3b82f6", tag: "02 — Reporting",
+    headline: ["Report", "Issues", "Instantly"],
+    sub: "Citizens become active participants.",
+    video: "/Landingpage/scene2.mp4",
+    stats: [{ v: "98%", l: "Submit Rate" }, { v: "1.2s", l: "Avg Response" }],
+  },
+  {
+    n: 3, color: "#a855f7", tag: "03 — Analysis",
+    headline: ["AI-Powered", "Analysis"],
+    sub: "Every complaint is classified automatically.",
+    video: "/Landingpage/scene3.mp4",
+    stats: [{ v: "99.2%", l: "AI Accuracy" }, { v: "< 3s", l: "Processing" }],
+  },
+  {
+    n: 4, color: "#06b6d4", tag: "04 — Routing",
+    headline: ["Smart", "Department", "Routing"],
+    sub: "Issues reach the right team instantly.",
+    video: "/Landingpage/scene4.mp4",
+    stats: [{ v: "34", l: "Departments" }, { v: "< 2hr", l: "Assignment" }],
+  },
+  {
+    n: 5, color: "#10b981", tag: "05 — Resolution",
+    headline: ["Rapid", "Resolution"],
+    sub: "Field teams respond efficiently.",
+    video: "/Landingpage/scene5.mp4",
+    stats: [{ v: "94%", l: "Resolution Rate" }, { v: "48hr", l: "Avg Fix Time" }],
+  },
+  {
+    n: 6, color: "#f59e0b", tag: "06 — Impact",
+    headline: ["Community", "Impact"],
+    sub: "Visible improvements create stronger cities.",
+    video: "/Landingpage/scene6.mp4",
+    stats: [{ v: "24.5K", l: "Issues Resolved" }, { v: "4.8★", l: "Citizen Rating" }],
+  },
+  {
+    n: 7, color: "#ffffff", tag: "07 — Future",
+    headline: ["The Future of", "Smart", "Governance"],
+    sub: "Powered by citizens. Driven by action.",
+    video: "/Landingpage/scene7.mp4",
+    stats: [{ v: "∞", l: "Possibilities" }, { v: "Now", l: "Begin" }],
+    isFinal: true,
+  },
+];
