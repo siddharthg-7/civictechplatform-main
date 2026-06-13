@@ -1,8 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ArrowRight, Shield, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { GetStartedButton } from "@/components/ui/get-started-button";
 
 const IntroSection = () => {
+  const navigate = useNavigate();
   const sectionRef = useRef(null);
   const badgeRef = useRef(null);
   const titleRef = useRef(null);
@@ -196,28 +199,28 @@ const IntroSection = () => {
           <div className="relative group inline-block">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#2563EB] rounded-full blur-2xl opacity-40 group-hover:opacity-60 transition duration-500 pointer-events-none"></div>
 
-            <button className="relative flex items-center justify-center gap-2 px-10 h-[58px] rounded-[14px] transition-all duration-300 transform group-hover:scale-[1.02] focus:outline-none"
+            <GetStartedButton 
+              onClick={() => navigate("/login")}
+              className="relative px-10 h-[58px] rounded-[14px] text-white"
               style={{
                 background: "linear-gradient(180deg, rgba(59, 130, 246, 0.9) 0%, rgba(37, 99, 235, 1) 100%)",
                 boxShadow: "inset 0 1px 0 rgba(255,255,255,0.25), 0 0 35px rgba(59,130,246,0.35)",
                 border: "1px solid rgba(255,255,255,0.16)",
+                fontFamily: "Geist, sans-serif", fontWeight: 600, fontSize: "16px"
               }}
             >
-              <span className="text-white" style={{ fontFamily: "Geist, sans-serif", fontWeight: 600, fontSize: "16px" }}>Enter Platform</span>
-              <ArrowRight size={16} className="text-white opacity-90 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
-            </button>
+              Enter Platform
+            </GetStartedButton>
           </div>
 
           {/* Secondary CTA */}
-          <button className="relative group px-10 h-[58px] flex items-center justify-center transition-all duration-300 rounded-[14px] focus:outline-none hover:bg-white/[0.04]"
-            style={{
-              background: "transparent",
-              border: "1px solid rgba(255, 255, 255, 0.12)"
-            }}
+          <GetStartedButton 
+            variant="secondary"
+            className="px-10 h-[58px] rounded-[14px] !bg-transparent text-[#A1A1AA] hover:text-white border border-white/12 hover:bg-white/[0.04]"
+            style={{ fontFamily: "Geist, sans-serif", fontWeight: 500, fontSize: "16px" }}
           >
-            <span className="text-[#A1A1AA] transition-colors duration-300 group-hover:text-white" style={{ fontFamily: "Geist, sans-serif", fontWeight: 500, fontSize: "16px" }}>Transparency Report</span>
-          </button>
-
+            Transparency Report
+          </GetStartedButton>
         </div>
       </div>
     </section>

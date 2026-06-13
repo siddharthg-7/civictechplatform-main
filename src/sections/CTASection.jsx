@@ -3,7 +3,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Users, Sparkles } from "lucide-react";
-
+import { GetStartedButton } from "@/components/ui/get-started-button";
 gsap.registerPlugin(ScrollTrigger);
 
 /**
@@ -83,22 +83,14 @@ const CTASection = ({ onEnter, onSignup }) => {
         {/* Buttons */}
         <div className="flex items-center gap-4 flex-wrap justify-center mt-1">
           {/* Request Demo — primary */}
-          <button
-            onClick={onEnter ?? (() => navigate("/login"))}
-            className="flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-black text-sm uppercase tracking-widest cursor-pointer transition-all duration-300 hover:scale-[1.04] active:scale-[0.97]"
-            style={{ background: "white", boxShadow: "0 0 50px rgba(255,255,255,0.14)" }}>
-            <span>Request Demo</span>
-            <ArrowRight size={14} />
-          </button>
+          <GetStartedButton onClick={onEnter ?? (() => navigate("/login"))} className="font-black tracking-widest uppercase shadow-[0_0_50px_rgba(255,255,255,0.14)]">
+            Request Demo
+          </GetStartedButton>
 
           {/* Create Account — secondary */}
-          <button
-            onClick={onSignup ?? (() => navigate("/signup"))}
-            className="flex items-center gap-2.5 px-8 py-4 rounded-2xl font-black text-white text-sm uppercase tracking-widest cursor-pointer border border-white/10 backdrop-blur-xl transition-all duration-300 hover:bg-white/5 hover:border-white/25"
-            style={{ background: "rgba(0,0,0,0.4)" }}>
-            <span>Create Account</span>
-            <Users size={14} />
-          </button>
+          <GetStartedButton onClick={onSignup ?? (() => navigate("/signup"))} variant="secondary" className="font-black tracking-widest uppercase border border-white/10 backdrop-blur-xl transition-all duration-300 hover:bg-white/5 hover:border-white/25 !bg-black/40 text-white">
+            Create Account
+          </GetStartedButton>
         </div>
       </div>
 

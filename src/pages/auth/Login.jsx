@@ -6,8 +6,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { ADMIN_EMAILS } from '../../constants/adminEmails';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Lock, Shield, User, ArrowRight, HelpCircle, AlertCircle } from 'lucide-react';
-
+import { Mail, Lock, Shield, User, ArrowRight, HelpCircle, AlertCircle, ChevronLeft } from 'lucide-react';
+import { GetStartedButton } from '@/components/ui/get-started-button';
 const Login = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -58,12 +58,23 @@ const Login = () => {
         {/* Background Gradients */}
         <div style={{ position: 'absolute', top: 0, left: '-25%', width: '50%', height: '50%', background: isAdmin ? 'rgba(245, 158, 11, 0.1)' : 'rgba(37, 99, 235, 0.2)', borderRadius: '9999px', filter: 'blur(60px)' }}></div>
         
-        {/* Top: Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', zIndex: 10 }}>
-          <div style={{ width: '2.5rem', height: '2.5rem', background: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(10px)', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
-            <Shield size={20} style={{ color: 'white' }} />
+        {/* Top: Logo & Back Button */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', zIndex: 10 }}>
+          <GetStartedButton 
+            icon={ChevronLeft} 
+            onClick={() => navigate("/")} 
+            variant="secondary" 
+            className="w-fit !bg-white/10 text-white border border-white/20 hover:!bg-white/20"
+          >
+            Back to Home
+          </GetStartedButton>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ width: '2.5rem', height: '2.5rem', background: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(10px)', borderRadius: '0.5rem', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid rgba(255, 255, 255, 0.2)' }}>
+              <Shield size={20} style={{ color: 'white' }} />
+            </div>
+            <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'white' }}>Civic Platform</span>
           </div>
-          <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'white' }}>Civic Platform</span>
         </div>
 
         {/* Main Content */}
@@ -251,16 +262,14 @@ const Login = () => {
                 </div>
 
                 {/* Submit Button */}
-                <button
+                <GetStartedButton
                   type="submit"
                   disabled={loading}
-                  style={{ width: '100%', paddingTop: '0.75rem', paddingBottom: '0.75rem', background: primaryColor, color: 'white', fontWeight: '600', borderRadius: '0.5rem', border: 'none', cursor: 'pointer', transition: 'all 0.2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', opacity: loading ? 0.7 : 1, fontSize: '0.875rem' }}
-                  onMouseOver={(e) => e.target.style.background = primaryHover}
-                  onMouseOut={(e) => e.target.style.background = primaryColor}
+                  className="w-full text-white"
+                  style={{ background: primaryColor }}
                 >
-                  <span>{loading ? 'Signing in...' : (isAdmin ? 'Access Admin Dashboard' : 'Login to Dashboard')}</span>
-                  {!loading && <ArrowRight size={16} />}
-                </button>
+                  {loading ? 'Signing in...' : (isAdmin ? 'Access Admin Dashboard' : 'Login to Dashboard')}
+                </GetStartedButton>
               </form>
 
               {/* Admin Info Box */}
